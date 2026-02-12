@@ -82,14 +82,14 @@ module tb_WRAPPER_TOP;
 
     // Main
     initial begin
-        output_csv_path = "out/sim_out/inference_results_stream.csv";
+        output_csv_path = "inference_results_stream.csv";
         csv_file = $fopen(output_csv_path, "w");
         if (csv_file == 0) begin
             $display("[ERROR] Cannot open CSV."); $finish;
         end
         $fwrite(csv_file, "sample_id,hex_out,float_out,label,prediction,correct,latency_cycles,latency_us\n");
 
-        $readmemh("data/testhex_stream/labels.hex", labels);
+        $readmemh("testhex_stream/labels.hex", labels);
 
         rst_n = 0; start = 0; input_valid = 0; output_ready = 1;
         input_data = 64'h0;
@@ -120,7 +120,7 @@ module tb_WRAPPER_TOP;
         reg [1023:0] filename;
         begin
             for (s_id = START_SAMPLE_ID; s_id < START_SAMPLE_ID + NUM_SAMPLES; s_id = s_id + 1) begin
-                $sformat(filename, "data/testhex_stream/test_input_sample%0d.hex", s_id);
+                $sformat(filename, "testhex_stream/test_input_sample%0d.hex", s_id);
                 $readmemh(filename, current_sample_packed);
 
                 if (current_sample_packed[0] === 64'bx) begin
