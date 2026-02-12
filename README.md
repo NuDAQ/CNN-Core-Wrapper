@@ -3,6 +3,7 @@ A CNN Core Wrapper for ARIANNA Trigger System.
 
 ## Dependency
 ```
+python -m venv .venv
 pip install -r requirements.txt
 ```
 
