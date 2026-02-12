@@ -12,5 +12,8 @@ pip install -r requirements.txt
 bender update
 ```
 
+## Notice
+- Open Vivado from this directory, not from root or project repository.
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
