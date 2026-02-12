@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xcku5p-ffvb676-2-e" LaunchTime="1770862405">
+  <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
+  <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS" Name="WRAPPER_TOP_postroute_physopted.rqs"/>
+  <File Type="ROUTE-RQS" Name="WRAPPER_TOP_routed.rqs"/>
+  <File Type="PA-TCL" Name="WRAPPER_TOP.tcl"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="WRAPPER_TOP_bus_skew_routed.pb"/>
+  <File Type="REPORTS-TCL" Name="WRAPPER_TOP_reports.tcl"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="WRAPPER_TOP_bus_skew_routed.rpx"/>
+  <File Type="INIT-TIMING" Name="WRAPPER_TOP_timing_summary_init.rpt"/>
+  <File Type="OPT-DCP" Name="WRAPPER_TOP_opt.dcp"/>
+  <File Type="OPT-DRC" Name="WRAPPER_TOP_drc_opted.rpt"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="WRAPPER_TOP_methodology_drc_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="WRAPPER_TOP.hwdef"/>
+  <File Type="OPT-TIMING" Name="WRAPPER_TOP_timing_summary_opted.rpt"/>
+  <File Type="OPT-RQA-PB" Name="WRAPPER_TOP_rqa_opted.pb"/>
+  <File Type="PWROPT-DCP" Name="WRAPPER_TOP_pwropt.dcp"/>
+  <File Type="PWROPT-DRC" Name="WRAPPER_TOP_drc_pwropted.rpt"/>
+  <File Type="PWROPT-TIMING" Name="WRAPPER_TOP_timing_summary_pwropted.rpt"/>
+  <File Type="PLACE-DCP" Name="WRAPPER_TOP_placed.dcp"/>
+  <File Type="PLACE-IO" Name="WRAPPER_TOP_io_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="WRAPPER_TOP_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="WRAPPER_TOP_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="WRAPPER_TOP_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="WRAPPER_TOP_control_sets_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="WRAPPER_TOP_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="WRAPPER_TOP_incremental_reuse_pre_placed.rpt"/>
+  <File Type="PLACE-TIMING" Name="WRAPPER_TOP_timing_summary_placed.rpt"/>
+  <File Type="PLACE-RQA-PB" Name="WRAPPER_TOP_rqa_placed.pb"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="WRAPPER_TOP_postplace_pwropt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="WRAPPER_TOP_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="WRAPPER_TOP_physopt.dcp"/>
+  <File Type="PHYSOPT-DRC" Name="WRAPPER_TOP_drc_physopted.rpt"/>
+  <File Type="PHYSOPT-TIMING" Name="WRAPPER_TOP_timing_summary_physopted.rpt"/>
+  <File Type="ROUTE-ERROR-DCP" Name="WRAPPER_TOP_routed_error.dcp"/>
+  <File Type="ROUTE-DCP" Name="WRAPPER_TOP_routed.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="WRAPPER_TOP_routed_bb.dcp"/>
+  <File Type="ROUTE-DRC" Name="WRAPPER_TOP_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="WRAPPER_TOP_drc_routed.pb"/>
+  <File Type="ROUTE-DRC-RPX" Name="WRAPPER_TOP_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="WRAPPER_TOP_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="WRAPPER_TOP_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="WRAPPER_TOP_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-PWR" Name="WRAPPER_TOP_power_routed.rpt"/>
+  <File Type="ROUTE-PWR-SUM" Name="WRAPPER_TOP_power_summary_routed.pb"/>
+  <File Type="ROUTE-PWR-RPX" Name="WRAPPER_TOP_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="WRAPPER_TOP_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="WRAPPER_TOP_route_status.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="WRAPPER_TOP_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="WRAPPER_TOP_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="WRAPPER_TOP_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-SIMILARITY" Name="WRAPPER_TOP_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="WRAPPER_TOP_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW" Name="WRAPPER_TOP_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-RQS-PB" Name="WRAPPER_TOP_rqs_routed.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="WRAPPER_TOP_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="WRAPPER_TOP_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="WRAPPER_TOP_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="WRAPPER_TOP_timing_summary_postroute_physopted.pb"/>
+  <File Type="RDI-RDI" Name="WRAPPER_TOP.vdi"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="WRAPPER_TOP_timing_summary_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="WRAPPER_TOP_bus_skew_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="WRAPPER_TOP_bus_skew_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="WRAPPER_TOP_bus_skew_postroute_physopted.rpx"/>
+  <File Type="BG-BIT" Name="WRAPPER_TOP.bit"/>
+  <File Type="PDI-FILE" Name="WRAPPER_TOP.pdi"/>
+  <File Type="BG-BIN" Name="WRAPPER_TOP.bin"/>
+  <File Type="CFI_FILE" Name="WRAPPER_TOP.cfi"/>
+  <File Type="BITSTR-MSK" Name="WRAPPER_TOP.msk"/>
+  <File Type="RNPI_FILE" Name="WRAPPER_TOP.rnpi"/>
+  <File Type="BITSTR-RBT" Name="WRAPPER_TOP.rbt"/>
+  <File Type="NPI_FILE" Name="WRAPPER_TOP.npi"/>
+  <File Type="BITSTR-NKY" Name="WRAPPER_TOP.nky"/>
+  <File Type="RBD_FILE" Name="WRAPPER_TOP.rbd"/>
+  <File Type="BITSTR-BMM" Name="WRAPPER_TOP_bd.bmm"/>
+  <File Type="BITSTR-MMI" Name="WRAPPER_TOP.mmi"/>
+  <File Type="BOOT-PDI-FILE" Name="WRAPPER_TOP_boot.pdi"/>
+  <File Type="PL-PDI-FILE" Name="WRAPPER_TOP_pld.pdi"/>
+  <File Type="RCFI_FILE" Name="WRAPPER_TOP.rcfi"/>
+  <File Type="BG-BGN" Name="WRAPPER_TOP.bgn"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="WRAPPER_TOP.ltx"/>
+  <File Type="BITSTR-SYSDEF" Name="WRAPPER_TOP.sysdef"/>
+  <File Type="BG-DRC" Name="WRAPPER_TOP.drc"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/cnn_core_wrapper_top.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="WRAPPER_TOP"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/imports/new/01_clocks.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/01_clocks.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/02_io_delays.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/02_io_delays.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/03_clock_groups.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/03_clock_groups.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/04_uncertainty.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/04_uncertainty.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/05_multicycle_falsepaths.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/05_multicycle_falsepaths.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/10_io_standards.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/10_io_standards.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/20_pins.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/20_pins.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/21_diff_pairs.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/21_diff_pairs.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/22_interface_adc.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/22_interface_adc.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/23_interface_spi.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/23_interface_spi.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/24_interface_axi.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/24_interface_axi.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/30_timing_extras.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/30_timing_extras.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/40_debug_ila.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/40_debug_ila.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/50_power_thermal.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/50_power_thermal.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/99_local_override.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/99_local_override.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2023"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="cnn_core_0"/>
+</GenRun>

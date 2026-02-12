@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="synth_1" LaunchPart="xcku5p-ffvb676-2-e" LaunchTime="1770862200">
+  <File Type="VDS-TIMING-PB" Name="WRAPPER_TOP_timing_summary_synth.pb"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="WRAPPER_TOP_timing_summary_synth.rpt"/>
+  <File Type="PA-TCL" Name="WRAPPER_TOP.tcl"/>
+  <File Type="RDS-DCP" Name="WRAPPER_TOP.dcp"/>
+  <File Type="REPORTS-TCL" Name="WRAPPER_TOP_reports.tcl"/>
+  <File Type="RDS-RDS" Name="WRAPPER_TOP.vds"/>
+  <File Type="RDS-PROPCONSTRS" Name="WRAPPER_TOP_drc_synth.rpt"/>
+  <File Type="RDS-UTIL" Name="WRAPPER_TOP_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="WRAPPER_TOP_utilization_synth.pb"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/cnn_core_wrapper_top.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="WRAPPER_TOP"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/imports/new/01_clocks.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/01_clocks.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/02_io_delays.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/02_io_delays.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/03_clock_groups.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/03_clock_groups.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/04_uncertainty.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/04_uncertainty.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/05_multicycle_falsepaths.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/05_multicycle_falsepaths.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/10_io_standards.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/10_io_standards.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/20_pins.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/20_pins.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/21_diff_pairs.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/21_diff_pairs.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/22_interface_adc.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/22_interface_adc.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/23_interface_spi.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/23_interface_spi.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/24_interface_axi.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/24_interface_axi.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/30_timing_extras.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/30_timing_extras.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/40_debug_ila.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/40_debug_ila.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/50_power_thermal.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/50_power_thermal.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/constrs_1/imports/new/99_local_override.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../CNN4HW/CNN_iCube_FPGA_b1/CNN_iCube_FPGA_b1.srcs/constrs_2/imports/new/99_local_override.xdc"/>
+        <Attr Name="ImportTime" Val="1769821774"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2023"/>
+    <Step Id="synth_design"/>
+  </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="cnn_core_0"/>
+</GenRun>
