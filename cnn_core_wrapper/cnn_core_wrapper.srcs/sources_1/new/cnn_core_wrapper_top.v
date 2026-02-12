@@ -21,7 +21,7 @@
 
 module WRAPPER_TOP #(
     parameter INPUT_WIDTH = 64,
-    parameter OUTPUT_WIDTH = 16,
+    parameter OUTPUT_WIDTH = 32,
     parameter NUM_TIMESTEPS = 256,
     parameter NUM_CHANNELS = 4
 )(
