@@ -10,7 +10,7 @@ package:
   # Other packages this package depends on. Optional.
 dependencies:
   # Path dependency.
-  cnn-core: { git: "git@github.com:NuDAQ/CNN-Core-Generator.git", version: "1.0.2" }
+  cnn-core: { git: "git@github.com:NuDAQ/CNN-Core-Generator.git", version: "^1.0.3" }
 
 
 
