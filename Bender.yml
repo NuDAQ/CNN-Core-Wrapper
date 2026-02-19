@@ -9,9 +9,32 @@ package:
 
   # Other packages this package depends on. Optional.
 dependencies:
-  # Path dependency.
   cnn-core: { git: "git@github.com:NuDAQ/CNN-Core-Generator.git", version: "1.0.4" }
 
+sources:
+  # RTL sources
+  - hw/rtl/cnn_core_wrapper_top.v
 
+  # Simulation / testbench
+  - target: simulation
+    files:
+      - hw/sim/tb_stream.sv
 
-
+  # FPGA timing and pin constraints
+  - target: all(fpga, synthesis)
+    files:
+      - hw/xdc/01_clocks.xdc
+      - hw/xdc/02_io_delays.xdc
+      - hw/xdc/03_clock_groups.xdc
+      - hw/xdc/04_uncertainty.xdc
+      - hw/xdc/05_multicycle_falsepaths.xdc
+      - hw/xdc/10_io_standards.xdc
+      - hw/xdc/20_pins.xdc
+      - hw/xdc/21_diff_pairs.xdc
+      - hw/xdc/22_interface_adc.xdc
+      - hw/xdc/23_interface_spi.xdc
+      - hw/xdc/24_interface_axi.xdc
+      - hw/xdc/30_timing_extras.xdc
+      - hw/xdc/40_debug_ila.xdc
+      - hw/xdc/50_power_thermal.xdc
+      - hw/xdc/99_local_override.xdc
