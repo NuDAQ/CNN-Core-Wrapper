@@ -1,12 +1,12 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
-| Date         : Wed Feb 11 18:16:31 2026
+| Date         : Thu Feb 19 15:34:31 2026
 | Host         : AlbertsUbuntu running 64-bit Ubuntu 22.04.5 LTS
 | Command      : report_utilization -file WRAPPER_TOP_utilization_placed.rpt -pb WRAPPER_TOP_utilization_placed.pb
 | Design       : WRAPPER_TOP
-| Device       : xcku5p-ffvb676-2-e
-| Speed File   : -2
+| Device       : xcku5p-ffva676-3-e
+| Speed File   : -3
 | Design State : Fully Placed
 ---------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -33,8 +33,8 @@ Table of Contents
 +----------------------------+-------+-------+------------+-----------+-------+
 |          Site Type         |  Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+-------+-------+------------+-----------+-------+
-| CLB LUTs                   | 36143 |     0 |          0 |    216960 | 16.66 |
-|   LUT as Logic             | 33619 |     0 |          0 |    216960 | 15.50 |
+| CLB LUTs                   | 35704 |     0 |          0 |    216960 | 16.46 |
+|   LUT as Logic             | 33180 |     0 |          0 |    216960 | 15.29 |
 |   LUT as Memory            |  2524 |     0 |          0 |     99840 |  2.53 |
 |     LUT as Distributed RAM |  2524 |     0 |            |           |       |
 |     LUT as Shift Register  |     0 |     0 |            |           |       |
@@ -74,13 +74,13 @@ Table of Contents
 +--------------------------------------------+-------+-------+------------+-----------+-------+
 |                  Site Type                 |  Used | Fixed | Prohibited | Available | Util% |
 +--------------------------------------------+-------+-------+------------+-----------+-------+
-| CLB                                        |  8121 |     0 |          0 |     27120 | 29.94 |
-|   CLBL                                     |  4429 |     0 |            |           |       |
-|   CLBM                                     |  3692 |     0 |            |           |       |
-| LUT as Logic                               | 33619 |     0 |          0 |    216960 | 15.50 |
-|   using O5 output only                     |   126 |       |            |           |       |
-|   using O6 output only                     | 26766 |       |            |           |       |
-|   using O5 and O6                          |  6727 |       |            |           |       |
+| CLB                                        |  8022 |     0 |          0 |     27120 | 29.58 |
+|   CLBL                                     |  4436 |     0 |            |           |       |
+|   CLBM                                     |  3586 |     0 |            |           |       |
+| LUT as Logic                               | 33180 |     0 |          0 |    216960 | 15.29 |
+|   using O5 output only                     |   137 |       |            |           |       |
+|   using O6 output only                     | 25901 |       |            |           |       |
+|   using O5 and O6                          |  7142 |       |            |           |       |
 | LUT as Memory                              |  2524 |     0 |          0 |     99840 |  2.53 |
 |   LUT as Distributed RAM                   |  2524 |     0 |            |           |       |
 |     using O5 output only                   |     0 |       |            |           |       |
@@ -88,10 +88,10 @@ Table of Contents
 |     using O5 and O6                        |  2524 |       |            |           |       |
 |   LUT as Shift Register                    |     0 |     0 |            |           |       |
 | CLB Registers                              | 59769 |     0 |          0 |    433920 | 13.77 |
-|   Register driven from within the CLB      | 15695 |       |            |           |       |
-|   Register driven from outside the CLB     | 44074 |       |            |           |       |
-|     LUT in front of the register is unused | 35694 |       |            |           |       |
-|     LUT in front of the register is used   |  8380 |       |            |           |       |
+|   Register driven from within the CLB      | 15547 |       |            |           |       |
+|   Register driven from outside the CLB     | 44222 |       |            |           |       |
+|     LUT in front of the register is unused | 35608 |       |            |           |       |
+|     LUT in front of the register is used   |  8614 |       |            |           |       |
 | Unique Control Sets                        |   356 |       |          0 |     54240 |  0.66 |
 +--------------------------------------------+-------+-------+------------+-----------+-------+
 * * Note: Available Control Sets calculated as Slices * 2, Review the Control Sets Report for more information regarding control sets.
@@ -130,24 +130,27 @@ Table of Contents
 +------------------+------+-------+------------+-----------+-------+
 |     Site Type    | Used | Fixed | Prohibited | Available | Util% |
 +------------------+------+-------+------------+-----------+-------+
-| Bonded IOB       |   90 |    74 |          0 |       280 | 32.14 |
-| HPIOB_M          |   20 |    12 |          0 |        96 | 20.83 |
-|   INPUT          |   12 |       |            |           |       |
-|   OUTPUT         |    8 |       |            |           |       |
+| Bonded IOB       |   90 |    60 |          0 |       256 | 35.16 |
+| HPIOB_M          |   42 |    25 |          0 |        96 | 43.75 |
+|   INPUT          |   23 |       |            |           |       |
+|   OUTPUT         |   19 |       |            |           |       |
 |   BIDIR          |    0 |       |            |           |       |
-| HPIOB_S          |   20 |    12 |          0 |        96 | 20.83 |
-|   INPUT          |   12 |       |            |           |       |
-|   OUTPUT         |    8 |       |            |           |       |
+| HPIOB_S          |   37 |    24 |          0 |        96 | 38.54 |
+|   INPUT          |   19 |       |            |           |       |
+|   OUTPUT         |   18 |       |            |           |       |
 |   BIDIR          |    0 |       |            |           |       |
-| HDIOB_M          |   25 |    25 |          0 |        36 | 69.44 |
-|   INPUT          |   15 |       |            |           |       |
-|   OUTPUT         |   10 |       |            |           |       |
+| HDIOB_M          |    5 |     5 |          0 |        24 | 20.83 |
+|   INPUT          |    5 |       |            |           |       |
+|   OUTPUT         |    0 |       |            |           |       |
 |   BIDIR          |    0 |       |            |           |       |
-| HDIOB_S          |   25 |    25 |          0 |        36 | 69.44 |
-|   INPUT          |   14 |       |            |           |       |
-|   OUTPUT         |   11 |       |            |           |       |
+| HDIOB_S          |    3 |     3 |          0 |        24 | 12.50 |
+|   INPUT          |    3 |       |            |           |       |
+|   OUTPUT         |    0 |       |            |           |       |
 |   BIDIR          |    0 |       |            |           |       |
-| HPIOB_SNGL       |    0 |     0 |          0 |        16 |  0.00 |
+| HPIOB_SNGL       |    3 |     3 |          0 |        16 | 18.75 |
+|   INPUT          |    3 |       |            |           |       |
+|   OUTPUT         |    0 |       |            |           |       |
+|   BIDIR          |    0 |       |            |           |       |
 | HPIOBDIFFINBUF   |    0 |     0 |          0 |        96 |  0.00 |
 | HPIOBDIFFOUTBUF  |    0 |     0 |          0 |        96 |  0.00 |
 | HDIOBDIFFINBUF   |    0 |     0 |          0 |        48 |  0.00 |
@@ -214,10 +217,10 @@ Table of Contents
 | Ref Name |  Used | Functional Category |
 +----------+-------+---------------------+
 | FDRE     | 59735 |            Register |
-| LUT2     | 18983 |                 CLB |
-| LUT6     |  7139 |                 CLB |
-| LUT4     |  6002 |                 CLB |
-| LUT3     |  5066 |                 CLB |
+| LUT2     | 18984 |                 CLB |
+| LUT6     |  6697 |                 CLB |
+| LUT4     |  6444 |                 CLB |
+| LUT3     |  5041 |                 CLB |
 | RAMD32   |  4416 |                 CLB |
 | CARRY8   |  4053 |                 CLB |
 | LUT5     |  1604 |                 CLB |
@@ -246,10 +249,8 @@ Table of Contents
 11. Instantiated Netlists
 -------------------------
 
-+------------+------+
-|  Ref Name  | Used |
-+------------+------+
-| cnn_core_0 |    1 |
-+------------+------+
++----------+------+
+| Ref Name | Used |
++----------+------+
 
 
