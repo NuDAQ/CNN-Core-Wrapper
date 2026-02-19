@@ -10,7 +10,15 @@ pip install -r requirements.txt
 ## Bender
 ```
 bender update
+bender script vivado > add_sources.tcl
 ```
+
+Open Vivado
+```
+source /path/to/add_sources.tcl
+```
+
+`.xdc` files should be added manually.
 
 ## Notice
 - Open Vivado from this directory, not from root or project repository.

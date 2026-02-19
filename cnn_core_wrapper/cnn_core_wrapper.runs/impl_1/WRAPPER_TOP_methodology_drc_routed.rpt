@@ -1,12 +1,12 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
-| Date         : Wed Feb 11 18:18:30 2026
+| Date         : Thu Feb 19 15:36:18 2026
 | Host         : AlbertsUbuntu running 64-bit Ubuntu 22.04.5 LTS
 | Command      : report_methodology -file WRAPPER_TOP_methodology_drc_routed.rpt -pb WRAPPER_TOP_methodology_drc_routed.pb -rpx WRAPPER_TOP_methodology_drc_routed.rpx
 | Design       : WRAPPER_TOP
-| Device       : xcku5p-ffvb676-2-e
-| Speed File   : -2
+| Device       : xcku5p-ffva676-3-e
+| Speed File   : -3
 | Design State : Fully Routed
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -23,15 +23,436 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 74
+             Violations found: 158
 +-----------+----------+-------------------------------+------------+
 | Rule      | Severity | Description                   | Violations |
 +-----------+----------+-------------------------------+------------+
+| SYNTH-9   | Warning  | Small multiplier              | 84         |
 | TIMING-18 | Warning  | Missing input or output delay | 74         |
 +-----------+----------+-------------------------------+------------+
 
 2. REPORT DETAILS
 -----------------
+SYNTH-9#1 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3586/add_ln58_306_reg_1065291_reg[13]_i_21 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#2 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3586/add_ln58_306_reg_1065291_reg[13]_i_38 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#3 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3589/add_ln58_445_reg_1065536_reg[13]_i_20 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#4 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3600/add_ln58_336_reg_1065346_reg[13]_i_20 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#5 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3600/add_ln58_336_reg_1065346_reg[13]_i_37 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#6 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3616/add_ln58_380_reg_1065421_reg[13]_i_25 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#7 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3616/add_ln58_380_reg_1065421_reg[13]_i_40 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#8 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3620/add_ln58_455_reg_1065551_reg[13]_i_14 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#9 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3647/mult_35_reg_1064456_reg[11]_i_17 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#10 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3647/mult_35_reg_1064456_reg[12]_i_1 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#11 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3675/add_ln58_333_reg_1065336_reg[13]_i_23 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#12 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3675/add_ln58_333_reg_1065336_reg[13]_i_40 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#13 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3677/add_ln58_377_reg_1065411_reg[13]_i_28 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#14 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3677/add_ln58_377_reg_1065411_reg[13]_i_37 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#15 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3685/add_ln58_352_reg_1065371_reg[13]_i_28 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#16 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3721/add_ln58_298_reg_1065276_reg[13]_i_25 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#17 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3721/add_ln58_298_reg_1065276_reg[13]_i_40 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#18 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3728/mult_1061_reg_1064736_reg[11]_i_17 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#19 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3728/mult_1061_reg_1064736_reg[12]_i_1 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#20 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3743/add_ln58_335_reg_1065341_reg[13]_i_23 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#21 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3743/add_ln58_335_reg_1065341_reg[13]_i_40 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#22 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3759/add_ln58_388_reg_1065441_reg[13]_i_28 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#23 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3759/add_ln58_388_reg_1065441_reg[13]_i_37 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#24 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3761/add_ln58_371_reg_1065401_reg[13]_i_20 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#25 Warning
+Small multiplier  
+Detected multiplier at cnn_core_inst/dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0/grp_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s_fu_5853/mul_16s_5s_21_1_1_U3761/add_ln58_371_reg_1065401_reg[13]_i_37 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#26 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3586/add_ln58_306_reg_1065291_reg[13]_i_22 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#27 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3586/add_ln58_306_reg_1065291_reg[13]_i_39 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#28 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3586/add_ln58_306_reg_1065291_reg[7]_i_26 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#29 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3586/add_ln58_306_reg_1065291_reg[7]_i_42 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#30 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3589/add_ln58_445_reg_1065536_reg[13]_i_21 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#31 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3589/add_ln58_445_reg_1065536_reg[13]_i_37 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#32 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3589/add_ln58_445_reg_1065536_reg[13]_i_38 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#33 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3589/add_ln58_445_reg_1065536_reg[7]_i_20 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#34 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3589/add_ln58_445_reg_1065536_reg[7]_i_36 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#35 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3600/add_ln58_336_reg_1065346_reg[13]_i_21 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#36 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3600/add_ln58_336_reg_1065346_reg[13]_i_38 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#37 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3600/add_ln58_336_reg_1065346_reg[7]_i_20 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#38 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3600/add_ln58_336_reg_1065346_reg[7]_i_36 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#39 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3616/add_ln58_380_reg_1065421_reg[13]_i_3 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#40 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3616/add_ln58_380_reg_1065421_reg[13]_i_41 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#41 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3616/add_ln58_380_reg_1065421_reg[7]_i_2 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#42 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3616/add_ln58_380_reg_1065421_reg[7]_i_27 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#43 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3620/add_ln58_455_reg_1065551_reg[13]_i_15 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#44 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3620/add_ln58_455_reg_1065551_reg[13]_i_60 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#45 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3620/add_ln58_455_reg_1065551_reg[13]_i_61 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#46 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3620/add_ln58_455_reg_1065551_reg[7]_i_20 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#47 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3620/add_ln58_455_reg_1065551_reg[7]_i_60 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#48 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3647/mult_35_reg_1064456_reg[11]_i_1 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#49 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3647/mult_35_reg_1064456_reg[11]_i_18 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#50 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3647/mult_35_reg_1064456_reg[3]_i_1 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#51 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3647/mult_35_reg_1064456_reg[3]_i_17 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#52 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3675/add_ln58_333_reg_1065336_reg[13]_i_24 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#53 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3675/add_ln58_333_reg_1065336_reg[13]_i_41 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#54 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3675/add_ln58_333_reg_1065336_reg[7]_i_26 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#55 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3675/add_ln58_333_reg_1065336_reg[7]_i_42 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#56 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3677/add_ln58_377_reg_1065411_reg[13]_i_3 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#57 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3677/add_ln58_377_reg_1065411_reg[13]_i_38 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#58 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3677/add_ln58_377_reg_1065411_reg[7]_i_2 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#59 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3677/add_ln58_377_reg_1065411_reg[7]_i_27 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#60 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3685/add_ln58_352_reg_1065371_reg[13]_i_3 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#61 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3685/add_ln58_352_reg_1065371_reg[13]_i_37 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#62 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3685/add_ln58_352_reg_1065371_reg[13]_i_38 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#63 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3685/add_ln58_352_reg_1065371_reg[7]_i_2 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#64 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3685/add_ln58_352_reg_1065371_reg[7]_i_27 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#65 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3721/add_ln58_298_reg_1065276_reg[13]_i_3 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#66 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3721/add_ln58_298_reg_1065276_reg[13]_i_41 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#67 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3721/add_ln58_298_reg_1065276_reg[7]_i_2 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#68 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3721/add_ln58_298_reg_1065276_reg[7]_i_27 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#69 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3728/mult_1061_reg_1064736_reg[11]_i_1 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#70 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3728/mult_1061_reg_1064736_reg[11]_i_18 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#71 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3728/mult_1061_reg_1064736_reg[3]_i_1 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#72 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3728/mult_1061_reg_1064736_reg[3]_i_17 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#73 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3743/add_ln58_335_reg_1065341_reg[13]_i_24 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#74 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3743/add_ln58_335_reg_1065341_reg[13]_i_41 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#75 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3743/add_ln58_335_reg_1065341_reg[7]_i_26 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#76 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3743/add_ln58_335_reg_1065341_reg[7]_i_42 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#77 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3759/add_ln58_388_reg_1065441_reg[13]_i_3 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#78 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3759/add_ln58_388_reg_1065441_reg[13]_i_38 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#79 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3759/add_ln58_388_reg_1065441_reg[7]_i_2 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#80 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3759/add_ln58_388_reg_1065441_reg[7]_i_27 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#81 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3761/add_ln58_371_reg_1065401_reg[13]_i_21 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#82 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3761/add_ln58_371_reg_1065401_reg[13]_i_38 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#83 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3761/add_ln58_371_reg_1065401_reg[7]_i_20 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
+SYNTH-9#84 Warning
+Small multiplier  
+Detected multiplier at mul_16s_5s_21_1_1_U3761/add_ln58_371_reg_1065401_reg[7]_i_36 of size 16x5, it is implemented as LUTs due to its small size. To force the multiplier onto a DSP block, use the USE_DSP48 attribute.
+Related violations: <none>
+
 TIMING-18#1 Warning
 Missing input or output delay  
 An input delay is missing on input_data[0] relative to the rising and/or falling clock edge(s) of sys_clk.

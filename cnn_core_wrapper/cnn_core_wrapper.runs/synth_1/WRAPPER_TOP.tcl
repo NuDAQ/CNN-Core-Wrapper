@@ -70,28 +70,83 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_msg_config -id {Common 17-41} -limit 10000000
+set_param power.enableCarry8RouteBelPower 1
+set_param chipscope.maxJobs 8
+set_param power.BramSDPPropagationFix 1
+set_param power.enableUnconnectedCarry8PinPower 1
+set_param power.enableLutRouteBelPower 1
 OPTRACE "Creating in-memory project" START { }
-create_project -in_memory -part xcku5p-ffvb676-2-e
+create_project -in_memory -part xcku5p-ffva676-3-e
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
 set_property webtalk.parent_dir /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.cache/wt [current_project]
 set_property parent.project_path /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_repo_paths /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/ip [current_project]
-update_ip_catalog
 set_property ip_output_repo /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
+set_property verilog_define {TARGET_FPGA TARGET_SYNTHESIS TARGET_VIVADO TARGET_XILINX} [current_fileset]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_verilog -library xil_defaultlib /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/sources_1/new/cnn_core_wrapper_top.v
-read_ip -quiet /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/sources_1/ip/cnn_core_0/cnn_core_0.xci
-set_property used_in_implementation false [get_files -all /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.gen/sources_1/ip/cnn_core_0/constraints/cnn_core_ooc.xdc]
-
+read_verilog -library xil_defaultlib {
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_compute_output_buffer_1d_array_array_ap_fixed_17_9_5_3_0_7u_config4_s.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_conv_2d_cl_array_ap_fixed_1u_array_ap_fixed_17_9_5_3_0_7u_config4_s.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_s.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_dense_array_array_ap_fixed_17_9_5_3_0_1u_config10_Pipeline_DataPrepare.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_dense_latency_ap_fixed_12_6_5_3_0_ap_fixed_17_9_5_3_0_config4_mult_s.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_dense_latency_wrapper_ap_fixed_ap_fixed_17_9_5_3_0_config10_s.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_fifo_w112_d168_A.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_fifo_w112_d336_A.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_fifo_w119_d336_A.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_fifo_w12_d1024_A.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_fifo_w3072_d4_A.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_fifo_w672_d28_A.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_flow_control_loop_pipe.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_flow_control_loop_pipe_sequential_init.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_hls_deadlock_detection_unit.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_hls_deadlock_idx0_monitor.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_12s_6s_18_1_0.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_12s_7ns_19_1_0.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_12s_7s_19_1_0.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_12s_8ns_20_1_0.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_12s_8s_20_1_0.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_12s_9ns_20_1_0.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_12s_9s_20_1_0.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_16s_10ns_24_1_1.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_16s_5ns_21_1_1.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_16s_5s_21_1_1.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_16s_6ns_22_1_1.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_16s_6s_22_1_1.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_16s_7ns_23_1_1.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_16s_7s_23_1_1.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_16s_8ns_24_1_1.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_16s_8s_24_1_1.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_mul_16s_9ns_24_1_1.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_pooling2d_cl_array_ap_fixed_7u_array_ap_fixed_16_6_5_3_0_7u_config6_s.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_regslice_both.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_relu_array_ap_fixed_7u_array_ap_fixed_16_6_5_3_0_7u_relu_config5_s.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_repack_stream_array_ap_fixed_256u_array_ap_fixed_12_6_5_3_0_1u_1024_s.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_repack_stream_array_ap_fixed_256u_array_ap_fixed_12_6_5_3_0_1u_1024_s_in_databkb.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_repack_stream_array_ap_fixed_42u_array_ap_fixed_16_6_5_3_0_42u_1176_s.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_repack_stream_array_ap_fixed_7u_array_ap_fixed_16_6_5_3_0_42u_1176_s.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_repack_stream_array_array_ap_fixed_1u_1024_Pipeline_VITIS_LOOP_254_4.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_shift_line_buffer_array_ap_fixed_16_6_5_3_0_7u_config6_s.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_sparsemux_9_2_12_1_1.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_start_for_conv_2d_cl_array_ap_fixed_1u_array_ap_fixed_17_9_5_3_0_7u_config4_U0.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_start_for_dense_array_ap_fixed_42u_array_ap_fixed_17_9_5_3_0_1u_config10_U0.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_start_for_pooling2d_cl_array_ap_fixed_7u_array_ap_fixed_16_6_5_3_0_7u_config6dEe.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_start_for_relu_array_ap_fixed_7u_array_ap_fixed_16_6_5_3_0_7u_relu_config5_U0.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_start_for_repack_stream_array_ap_fixed_256u_array_ap_fixed_12_6_5_3_0_1u_1024cud.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_start_for_repack_stream_array_ap_fixed_42u_array_ap_fixed_16_6_5_3_0_42u_1176eOg.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_start_for_repack_stream_array_ap_fixed_7u_array_ap_fixed_16_6_5_3_0_42u_1176_U0.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_transpose_array_ap_fixed_4u_array_ap_fixed_12_6_5_3_0_256u_config2_s.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_transpose_array_array_ap_fixed_256u_config2_Pipeline_VITIS_LOOP_16_1.v
+  /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/verilog/cnn_core_transpose_array_array_ap_fixed_256u_config2_Pipeline_VITIS_LOOP_25_3.v
+  /home/work1/Works/CNN-Core-Wrapper/hw/rtl/cnn_core_wrapper_top.v
+}
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
@@ -101,56 +156,58 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/01_clocks.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/01_clocks.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/01_clocks.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/01_clocks.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/02_io_delays.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/02_io_delays.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/02_io_delays.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/02_io_delays.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/03_clock_groups.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/03_clock_groups.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/03_clock_groups.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/03_clock_groups.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/04_uncertainty.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/04_uncertainty.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/04_uncertainty.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/04_uncertainty.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/05_multicycle_falsepaths.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/05_multicycle_falsepaths.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/05_multicycle_falsepaths.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/05_multicycle_falsepaths.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/10_io_standards.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/10_io_standards.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/10_io_standards.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/10_io_standards.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/20_pins.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/20_pins.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/20_pins.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/20_pins.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/21_diff_pairs.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/21_diff_pairs.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/21_diff_pairs.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/21_diff_pairs.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/22_interface_adc.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/22_interface_adc.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/22_interface_adc.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/22_interface_adc.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/23_interface_spi.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/23_interface_spi.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/23_interface_spi.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/23_interface_spi.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/24_interface_axi.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/24_interface_axi.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/24_interface_axi.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/24_interface_axi.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/30_timing_extras.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/30_timing_extras.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/30_timing_extras.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/30_timing_extras.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/40_debug_ila.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/40_debug_ila.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/40_debug_ila.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/40_debug_ila.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/50_power_thermal.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/50_power_thermal.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/50_power_thermal.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/50_power_thermal.xdc]
 
-read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/99_local_override.xdc
-set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/99_local_override.xdc]
+read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/99_local_override.xdc
+set_property used_in_implementation false [get_files /home/work1/Works/CNN-Core-Wrapper/hw/xdc/99_local_override.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
+
+read_checkpoint -auto_incremental -incremental /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/utils_1/imports/synth_1/WRAPPER_TOP.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top WRAPPER_TOP -part xcku5p-ffvb676-2-e
+synth_design -top WRAPPER_TOP -part xcku5p-ffva676-3-e
 OPTRACE "synth_design" END { }
 if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
  send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"

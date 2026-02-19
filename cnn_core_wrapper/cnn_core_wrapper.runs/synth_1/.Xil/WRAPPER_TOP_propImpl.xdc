@@ -1,5 +1,5 @@
-set_property SRC_FILE_INFO {cfile:/home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/20_pins.xdc rfile:../../../cnn_core_wrapper.srcs/constrs_1/imports/new/20_pins.xdc id:1} [current_design]
-set_property SRC_FILE_INFO {cfile:/home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/50_power_thermal.xdc rfile:../../../cnn_core_wrapper.srcs/constrs_1/imports/new/50_power_thermal.xdc id:2} [current_design]
+set_property SRC_FILE_INFO {cfile:/home/work1/Works/CNN-Core-Wrapper/hw/xdc/20_pins.xdc rfile:../../../../hw/xdc/20_pins.xdc id:1} [current_design]
+set_property SRC_FILE_INFO {cfile:/home/work1/Works/CNN-Core-Wrapper/hw/xdc/50_power_thermal.xdc rfile:../../../../hw/xdc/50_power_thermal.xdc id:2} [current_design]
 set_property src_info {type:XDC file:1 line:12 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN E13 [get_ports clk]
 set_property src_info {type:XDC file:1 line:15 export:INPUT save:INPUT read:READ} [current_design]

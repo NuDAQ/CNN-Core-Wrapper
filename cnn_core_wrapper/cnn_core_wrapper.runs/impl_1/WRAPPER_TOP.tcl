@@ -115,9 +115,6 @@ proc step_failed { step } {
 OPTRACE "impl_1" END { }
 }
 
-set_msg_config -id {Common 17-41} -limit 10000000
-set_msg_config -id {Synth 8-256} -limit 10000
-set_msg_config -id {Synth 8-638} -limit 10000
 
 OPTRACE "impl_1" START { ROLLUP_1 }
 OPTRACE "Phase: Init Design" START { ROLLUP_AUTO }
@@ -126,51 +123,46 @@ set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
   set_param power.enableCarry8RouteBelPower 1
-  set_param checkpoint.writeSynthRtdsInDcp 1
   set_param chipscope.maxJobs 8
   set_param power.BramSDPPropagationFix 1
-  set_param synth.incrementalSynthesisCache ./.Xil/Vivado-75981-AlbertsUbuntu/incrSyn
   set_param power.enableUnconnectedCarry8PinPower 1
   set_param power.enableLutRouteBelPower 1
   set_param runs.launchOptions { -jobs 20  }
 OPTRACE "create in-memory project" START { }
-  create_project -in_memory -part xcku5p-ffvb676-2-e
+  create_project -in_memory -part xcku5p-ffva676-3-e
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
 OPTRACE "create in-memory project" END { }
 OPTRACE "set parameters" START { }
   set_property webtalk.parent_dir /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.cache/wt [current_project]
   set_property parent.project_path /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.xpr [current_project]
-  set_property ip_repo_paths /home/work1/Works/CNN-Core-Wrapper/.bender/git/checkouts/cnn-core-dc8e560574d139d9/cnn_core_project/cnn_core_prj/solution1/impl/ip [current_project]
-  update_ip_catalog
   set_property ip_output_repo /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.runs/synth_1/WRAPPER_TOP.dcp
-  read_ip -quiet /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/sources_1/ip/cnn_core_0/cnn_core_0.xci
 OPTRACE "read constraints: implementation" START { }
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/01_clocks.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/02_io_delays.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/03_clock_groups.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/04_uncertainty.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/05_multicycle_falsepaths.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/10_io_standards.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/20_pins.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/21_diff_pairs.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/22_interface_adc.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/23_interface_spi.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/24_interface_axi.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/30_timing_extras.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/40_debug_ila.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/50_power_thermal.xdc
-  read_xdc /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.srcs/constrs_1/imports/new/99_local_override.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/01_clocks.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/02_io_delays.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/03_clock_groups.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/04_uncertainty.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/05_multicycle_falsepaths.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/10_io_standards.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/20_pins.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/21_diff_pairs.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/22_interface_adc.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/23_interface_spi.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/24_interface_axi.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/30_timing_extras.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/40_debug_ila.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/50_power_thermal.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/99_local_override.xdc
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "read constraints: implementation_pre" START { }
 OPTRACE "read constraints: implementation_pre" END { }
 OPTRACE "add files" END { }
 OPTRACE "link_design" START { }
-  link_design -top WRAPPER_TOP -part xcku5p-ffvb676-2-e 
+  link_design -top WRAPPER_TOP -part xcku5p-ffva676-3-e 
 OPTRACE "link_design" END { }
 OPTRACE "gray box cells" START { }
 OPTRACE "gray box cells" END { }
