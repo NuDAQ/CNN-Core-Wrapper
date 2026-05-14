@@ -9,7 +9,7 @@ package:
 
   # Other packages this package depends on. Optional.
 dependencies:
-  cnn-core: { git: "git@github.com:NuDAQ/CNN-Core-Generator.git", version: "1.0.4" }
+  cnn-core: { git: "git@github.com:NuDAQ/CNN-Core-Generator.git", version: "^3.0.0" }
 
 sources:
   # RTL sources
