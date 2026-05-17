@@ -1,7 +1,7 @@
 packages:
   cnn-core:
-    revision: ee6ddf1e5df01e58c9e5c46cc963745b8a5c51ba
-    version: 3.0.0
+    revision: 4a5509ca23a9f4312bc6a93d66c15a3249cbc5cb
+    version: 3.0.1
     source:
       Git: git@github.com:NuDAQ/CNN-Core-Generator.git
     dependencies: []
