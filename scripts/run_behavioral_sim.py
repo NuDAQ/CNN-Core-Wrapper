@@ -1,0 +1,297 @@
+#!/usr/bin/env python3
+"""Run Vivado behavioral simulation and analyze the resulting CSV."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_XPR = REPO_ROOT / "cnn_core_wrapper" / "cnn_core_wrapper.xpr"
+DEFAULT_TESTHEX_DIR = (
+    REPO_ROOT
+    / "cnn_core_wrapper"
+    / "cnn_core_wrapper.sim"
+    / "sim_1"
+    / "behav"
+    / "xsim"
+    / "testhex_stream"
+)
+
+
+def tcl_quote(path: Path | str) -> str:
+    text = str(path)
+    text = text.replace("\\", "\\\\").replace("{", "\\{").replace("}", "\\}")
+    return "{" + text + "}"
+
+
+def parse_part_from_xpr(path: Path) -> str | None:
+    if not path.exists():
+        return None
+    text = path.read_text(errors="ignore")
+    match = re.search(r'Part="([^"]+)"', text)
+    return match.group(1) if match else None
+
+
+def run_command(command: list[str], cwd: Path, log_path: Path | None = None) -> subprocess.CompletedProcess[str]:
+    print("+ " + " ".join(command))
+    completed = subprocess.run(
+        command,
+        cwd=cwd,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    if log_path is not None:
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+        log_path.write_text(completed.stdout)
+    if completed.stdout:
+        print(completed.stdout)
+    return completed
+
+
+def sources_from_bender(repo_root: Path) -> tuple[list[Path], list[Path]]:
+    if shutil.which("bender") is None:
+        return [], []
+
+    completed = subprocess.run(
+        ["bender", "sources", "-f", "-t", "simulation"],
+        cwd=repo_root,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    if completed.returncode != 0:
+        return [], []
+
+    json_start = None
+    for index, line in enumerate(completed.stdout.splitlines()):
+        if line.strip() == "[":
+            json_start = sum(len(prev) + 1 for prev in completed.stdout.splitlines()[:index])
+            break
+    if json_start is None:
+        return [], []
+
+    try:
+        manifest = json.loads(completed.stdout[json_start:])
+    except json.JSONDecodeError:
+        return [], []
+
+    rtl_files: list[Path] = []
+    sim_files: list[Path] = []
+    for group in manifest:
+        target = str(group.get("target", ""))
+        for file_name in group.get("files", []):
+            path = Path(file_name)
+            if path.name == "tb_stream.sv" or "simulation" in target:
+                sim_files.append(path)
+            else:
+                rtl_files.append(path)
+
+    has_core = any(path.name == "cnn_core.v" for path in rtl_files)
+    if not has_core:
+        return [], []
+    return rtl_files, sim_files
+
+
+def sources_from_checkout(repo_root: Path) -> tuple[list[Path], list[Path]]:
+    core_dirs = sorted(
+        (repo_root / ".bender" / "git" / "checkouts").glob(
+            "cnn-core-*/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog"
+        )
+    )
+    if not core_dirs:
+        return [], []
+
+    core_files = sorted(core_dirs[-1].glob("*.v"))
+    rtl_files = core_files + [repo_root / "hw" / "rtl" / "cnn_core_wrapper_top.v"]
+    sim_files = [repo_root / "hw" / "sim" / "tb_stream.sv"]
+    return rtl_files, sim_files
+
+
+def resolve_sources(repo_root: Path) -> tuple[list[Path], list[Path]]:
+    rtl_files, sim_files = sources_from_bender(repo_root)
+    if rtl_files and sim_files:
+        return rtl_files, sim_files
+
+    rtl_files, sim_files = sources_from_checkout(repo_root)
+    if rtl_files and sim_files:
+        return rtl_files, sim_files
+
+    raise SystemExit(
+        "Could not resolve simulation sources. Run `bender checkout`, fix Bender.local, "
+        "or make sure .bender/git/checkouts/cnn-core-*/hls_streaming/.../impl/verilog exists."
+    )
+
+
+def find_testhex_dir(repo_root: Path, explicit: Path | None) -> Path:
+    if explicit is not None:
+        return explicit.resolve()
+
+    candidates = [
+        DEFAULT_TESTHEX_DIR,
+        repo_root / "testhex_stream",
+        repo_root / "data" / "testhex_stream",
+        repo_root / "out" / "testhex_stream",
+    ]
+    candidates.extend(sorted(repo_root.glob("**/testhex_stream")))
+
+    for candidate in candidates:
+        if (candidate / "labels.hex").exists() and (candidate / "test_input_sample0.hex").exists():
+            return candidate.resolve()
+
+    raise SystemExit(
+        "Could not find testhex_stream automatically. "
+        "Pass --testhex-dir /path/to/testhex_stream."
+    )
+
+
+def write_vivado_tcl(
+    path: Path,
+    project_dir: Path,
+    part: str,
+    rtl_files: list[Path],
+    sim_files: list[Path],
+    testhex_dir: Path,
+    out_csv: Path,
+    jobs: int,
+) -> None:
+    rtl_list = " \\\n  ".join(tcl_quote(file_name) for file_name in rtl_files)
+    sim_list = " \\\n  ".join(tcl_quote(file_name) for file_name in sim_files)
+
+    path.write_text(
+        f"""# Generated by scripts/run_behavioral_sim.py
+set_param general.maxThreads {jobs}
+create_project -force cnn_core_wrapper_behav {tcl_quote(project_dir)} -part {part}
+set_property target_language Verilog [current_project]
+
+add_files -norecurse -fileset sources_1 [list \\
+  {rtl_list} \\
+]
+add_files -norecurse -fileset sim_1 [list \\
+  {sim_list} \\
+]
+
+set_property top WRAPPER_TOP [get_filesets sources_1]
+set_property top tb_WRAPPER_TOP [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+set_property verilog_define [list TARGET_FPGA TARGET_SIMULATION TARGET_VIVADO TARGET_XILINX] [get_filesets sources_1]
+set_property verilog_define [list TARGET_FPGA TARGET_SIMULATION TARGET_VIVADO TARGET_XILINX] [get_filesets sim_1]
+
+set more_options [list --testplusarg "TESTHEX_DIR={testhex_dir}" --testplusarg "OUT_CSV={out_csv}"]
+set_property xsim.simulate.xsim.more_options $more_options [get_filesets sim_1]
+set_property xsim.simulate.runtime all [get_filesets sim_1]
+
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+launch_simulation -simset sim_1 -mode behavioral
+run all
+close_sim
+exit
+"""
+    )
+
+
+def run_analyzer(csv_path: Path, analysis_dir: Path, plots: str) -> int:
+    command = [
+        sys.executable,
+        str(REPO_ROOT / "scripts" / "analyze_inference_results.py"),
+        str(csv_path),
+        "--out-dir",
+        str(analysis_dir),
+    ]
+    if plots in ("matplotlib", "both"):
+        command.append("--plots")
+    if plots in ("root", "both"):
+        command.append("--root-plots")
+
+    completed = run_command(command, cwd=REPO_ROOT)
+    return completed.returncode
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--repo-root", type=Path, default=REPO_ROOT)
+    parser.add_argument("--work-dir", type=Path, default=REPO_ROOT / "out" / "behavioral_sim")
+    parser.add_argument("--testhex-dir", type=Path, default=None)
+    parser.add_argument("--out-csv", type=Path, default=None)
+    parser.add_argument("--analysis-dir", type=Path, default=None)
+    parser.add_argument("--vivado", default="vivado", help="Vivado executable")
+    parser.add_argument("--part", default=None, help="FPGA part; defaults to the part in cnn_core_wrapper.xpr")
+    parser.add_argument("--jobs", type=int, default=8)
+    parser.add_argument(
+        "--plots",
+        choices=("none", "matplotlib", "root", "both"),
+        default="root",
+        help="Plot backend to run after simulation",
+    )
+    parser.add_argument(
+        "--skip-vivado",
+        action="store_true",
+        help="Only analyze --out-csv; useful after a completed simulation",
+    )
+    args = parser.parse_args()
+
+    repo_root = args.repo_root.resolve()
+    work_dir = args.work_dir.resolve()
+    work_dir.mkdir(parents=True, exist_ok=True)
+
+    testhex_dir = find_testhex_dir(repo_root, args.testhex_dir)
+    out_csv = (args.out_csv or (work_dir / "inference_results_stream.csv")).resolve()
+    analysis_dir = (args.analysis_dir or (work_dir / "analysis")).resolve()
+    out_csv.parent.mkdir(parents=True, exist_ok=True)
+    analysis_dir.mkdir(parents=True, exist_ok=True)
+
+    if not args.skip_vivado:
+        vivado = shutil.which(args.vivado)
+        if vivado is None:
+            raise SystemExit(f"Could not find Vivado executable: {args.vivado}")
+
+        rtl_files, sim_files = resolve_sources(repo_root)
+        part = args.part or parse_part_from_xpr(repo_root / DEFAULT_XPR.relative_to(REPO_ROOT))
+        if part is None:
+            part = "xcku5p-ffva676-3-e"
+
+        tcl_path = work_dir / "run_behavioral_sim.tcl"
+        project_dir = work_dir / "vivado_project"
+        write_vivado_tcl(
+            tcl_path,
+            project_dir=project_dir,
+            part=part,
+            rtl_files=rtl_files,
+            sim_files=sim_files,
+            testhex_dir=testhex_dir,
+            out_csv=out_csv,
+            jobs=args.jobs,
+        )
+
+        vivado_log = work_dir / "vivado_behavioral.log"
+        completed = run_command(
+            [vivado, "-mode", "batch", "-source", str(tcl_path)],
+            cwd=repo_root,
+            log_path=vivado_log,
+        )
+        if completed.returncode != 0:
+            raise SystemExit(f"Vivado behavioral simulation failed. See {vivado_log}")
+
+    if not out_csv.exists() or out_csv.stat().st_size == 0:
+        raise SystemExit(f"Simulation CSV is missing or empty: {out_csv}")
+
+    analyzer_status = run_analyzer(out_csv, analysis_dir, args.plots)
+    if analyzer_status != 0:
+        raise SystemExit(analyzer_status)
+
+    print(f"Simulation CSV: {out_csv}")
+    print(f"Analysis output: {analysis_dir}")
+
+
+if __name__ == "__main__":
+    main()
