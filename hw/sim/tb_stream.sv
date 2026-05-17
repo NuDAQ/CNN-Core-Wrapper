@@ -42,7 +42,8 @@ module tb_WRAPPER_TOP;
     reg  output_ready;
 
     // Variables
-    reg [1023:0] output_csv_path;
+    string output_csv_path;
+    string testhex_dir;
     integer csv_file;
     reg [63:0] start_time_fifo [0:2047];
     integer fifo_head = 0, fifo_tail = 0;
@@ -82,14 +83,20 @@ module tb_WRAPPER_TOP;
 
     // Main
     initial begin
-        output_csv_path = "inference_results_stream.csv";
+        if (!$value$plusargs("OUT_CSV=%s", output_csv_path)) begin
+            output_csv_path = "inference_results_stream.csv";
+        end
+        if (!$value$plusargs("TESTHEX_DIR=%s", testhex_dir)) begin
+            testhex_dir = "testhex_stream";
+        end
+
         csv_file = $fopen(output_csv_path, "w");
         if (csv_file == 0) begin
             $display("[ERROR] Cannot open CSV."); $finish;
         end
         $fwrite(csv_file, "sample_id,hex_out,float_out,label,prediction,correct,latency_cycles,latency_us\n");
 
-        $readmemh("testhex_stream/labels.hex", labels);
+        $readmemh($sformatf("%s/labels.hex", testhex_dir), labels);
 
         rst_n = 0; start = 0; input_valid = 0; output_ready = 1;
         input_data = 64'h0;
@@ -100,6 +107,7 @@ module tb_WRAPPER_TOP;
         repeat(10) @(posedge clk);
         $display("[%0t] Starting Pipelined Test for vanilla_stream_prj...", $time);
         $display("[%0t] Input: %0d-bit, Output: %0d-bit", $time, INPUT_WIDTH, OUTPUT_WIDTH);
+        $display("[%0t] Test vectors: %s", $time, testhex_dir);
 
         sim_start_time = $time;
 
@@ -117,10 +125,10 @@ module tb_WRAPPER_TOP;
     // Input Task
     task input_driver_thread;
         integer s_id, t;
-        reg [1023:0] filename;
+        string filename;
         begin
             for (s_id = START_SAMPLE_ID; s_id < START_SAMPLE_ID + NUM_SAMPLES; s_id = s_id + 1) begin
-                $sformat(filename, "testhex_stream/test_input_sample%0d.hex", s_id);
+                filename = $sformatf("%s/test_input_sample%0d.hex", testhex_dir, s_id);
                 $readmemh(filename, current_sample_packed);
 
                 if (current_sample_packed[0] === 64'bx) begin
