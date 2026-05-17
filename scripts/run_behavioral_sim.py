@@ -186,8 +186,7 @@ set_property top_lib xil_defaultlib [get_filesets sim_1]
 set_property verilog_define [list TARGET_FPGA TARGET_SIMULATION TARGET_VIVADO TARGET_XILINX] [get_filesets sources_1]
 set_property verilog_define [list TARGET_FPGA TARGET_SIMULATION TARGET_VIVADO TARGET_XILINX] [get_filesets sim_1]
 
-set more_options [list --testplusarg "TESTHEX_DIR={testhex_dir}" --testplusarg "OUT_CSV={out_csv}"]
-set_property xsim.simulate.xsim.more_options $more_options [get_filesets sim_1]
+set_property -dict [list xsim.simulate.xsim.more_options {{--testplusarg TESTHEX_DIR={testhex_dir} --testplusarg OUT_CSV={out_csv}}}] [get_filesets sim_1]
 set_property xsim.simulate.runtime all [get_filesets sim_1]
 
 update_compile_order -fileset sources_1
