@@ -122,12 +122,8 @@ start_step init_design
 set ACTIVE_STEP init_design
 set rc [catch {
   create_msg_db init_design.pb
-  set_param power.enableCarry8RouteBelPower 1
   set_param chipscope.maxJobs 8
-  set_param power.BramSDPPropagationFix 1
-  set_param power.enableUnconnectedCarry8PinPower 1
-  set_param power.enableLutRouteBelPower 1
-  set_param runs.launchOptions { -jobs 20  }
+  set_param runs.launchOptions { -jobs 25  }
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xcku5p-ffva676-3-e
   set_property design_mode GateLvl [current_fileset]
@@ -142,6 +138,21 @@ OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.runs/synth_1/WRAPPER_TOP.dcp
 OPTRACE "read constraints: implementation" START { }
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/01_clocks.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/02_io_delays.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/03_clock_groups.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/04_uncertainty.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/05_multicycle_falsepaths.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/10_io_standards.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/20_pins.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/21_diff_pairs.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/22_interface_adc.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/23_interface_spi.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/24_interface_axi.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/30_timing_extras.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/40_debug_ila.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/50_power_thermal.xdc
+  read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/99_local_override.xdc
   read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/01_clocks.xdc
   read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/02_io_delays.xdc
   read_xdc /home/work1/Works/CNN-Core-Wrapper/hw/xdc/03_clock_groups.xdc
