@@ -111,10 +111,12 @@ module tb_WRAPPER_TOP;
 
         sim_start_time = $time;
 
-        fork
+        fork : input_threads
             input_driver_thread();
-            output_monitor_thread();
-        join
+        join_none
+
+        output_monitor_thread();
+        disable input_threads;
 
         sim_end_time = $time;
         print_summary();
