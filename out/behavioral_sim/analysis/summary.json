@@ -1,21 +1,22 @@
 {
   "num_samples": 1000,
-  "correct": 878,
-  "incorrect": 122,
-  "accuracy": 0.878,
+  "threshold": -6.0,
+  "correct": 977,
+  "incorrect": 23,
+  "accuracy": 0.977,
   "confusion_matrix": {
-    "tn": 820,
-    "fp": 0,
-    "fn": 122,
-    "tp": 58
+    "tn": 819,
+    "fp": 1,
+    "fn": 22,
+    "tp": 158
   },
   "label_counts": {
     "0": 820,
     "1": 180
   },
   "prediction_counts": {
-    "0": 942,
-    "1": 58
+    "0": 841,
+    "1": 159
   },
   "float_out": {
     "all": {

@@ -174,6 +174,7 @@ def write_vivado_tcl(
     sim_files: list[Path],
     testhex_dir: Path,
     out_csv: Path,
+    threshold: float,
     jobs: int,
 ) -> None:
     rtl_list = " \\\n  ".join(tcl_quote(file_name) for file_name in rtl_files)
@@ -198,7 +199,7 @@ set_property top_lib xil_defaultlib [get_filesets sim_1]
 set_property verilog_define [list TARGET_FPGA TARGET_SIMULATION TARGET_VIVADO TARGET_XILINX] [get_filesets sources_1]
 set_property verilog_define [list TARGET_FPGA TARGET_SIMULATION TARGET_VIVADO TARGET_XILINX] [get_filesets sim_1]
 
-set_property -dict [list xsim.simulate.xsim.more_options {{-testplusarg TESTHEX_DIR={testhex_dir} -testplusarg OUT_CSV={out_csv}}}] [get_filesets sim_1]
+set_property -dict [list xsim.simulate.xsim.more_options {{-testplusarg TESTHEX_DIR={testhex_dir} -testplusarg OUT_CSV={out_csv} -testplusarg SCORE_THRESHOLD={threshold}}}] [get_filesets sim_1]
 set_property xsim.simulate.runtime all [get_filesets sim_1]
 
 update_compile_order -fileset sources_1
@@ -210,13 +211,15 @@ exit
     )
 
 
-def run_analyzer(csv_path: Path, analysis_dir: Path, plots: str) -> int:
+def run_analyzer(csv_path: Path, analysis_dir: Path, plots: str, threshold: float) -> int:
     command = [
         sys.executable,
         str(REPO_ROOT / "scripts" / "analyze_inference_results.py"),
         str(csv_path),
         "--out-dir",
         str(analysis_dir),
+        "--threshold",
+        str(threshold),
     ]
     if plots in ("matplotlib", "both"):
         command.append("--plots")
@@ -237,6 +240,12 @@ def main() -> None:
     parser.add_argument("--vivado", default="vivado", help="Vivado executable")
     parser.add_argument("--part", default=None, help="FPGA part; defaults to the part in cnn_core_wrapper.xpr")
     parser.add_argument("--jobs", type=int, default=8)
+    parser.add_argument(
+        "--threshold",
+        type=float,
+        default=0.5,
+        help="Classify as label 1 when float_out is greater than this score threshold",
+    )
     parser.add_argument(
         "--plots",
         choices=("none", "matplotlib", "root", "both"),
@@ -280,6 +289,7 @@ def main() -> None:
             sim_files=sim_files,
             testhex_dir=testhex_dir,
             out_csv=out_csv,
+            threshold=args.threshold,
             jobs=args.jobs,
         )
 
@@ -295,7 +305,7 @@ def main() -> None:
     if not out_csv.exists() or out_csv.stat().st_size == 0:
         raise SystemExit(f"Simulation CSV is missing or empty: {out_csv}")
 
-    analyzer_status = run_analyzer(out_csv, analysis_dir, args.plots)
+    analyzer_status = run_analyzer(out_csv, analysis_dir, args.plots, args.threshold)
     if analyzer_status != 0:
         raise SystemExit(analyzer_status)
 

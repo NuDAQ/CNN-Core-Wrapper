@@ -50,6 +50,7 @@ module tb_WRAPPER_TOP;
     integer sent_count = 0, received_count = 0;
     reg [63:0] current_sample_packed [0:NUM_TIMESTEPS-1]; 
     real total_latency_acc = 0;
+    real score_threshold;
     reg [63:0] sim_start_time, sim_end_time;
     integer correct_count = 0;
     integer repack_12bit_input;
@@ -104,6 +105,9 @@ module tb_WRAPPER_TOP;
         if (!$value$plusargs("REPACK_12BIT_INPUT=%d", repack_12bit_input)) begin
             repack_12bit_input = 1;
         end
+        if (!$value$plusargs("SCORE_THRESHOLD=%f", score_threshold)) begin
+            score_threshold = 0.5;
+        end
 
         csv_file = $fopen(output_csv_path, "w");
         if (csv_file == 0) begin
@@ -124,6 +128,7 @@ module tb_WRAPPER_TOP;
         $display("[%0t] Input: %0d-bit, Output: %0d-bit", $time, INPUT_WIDTH, OUTPUT_WIDTH);
         $display("[%0t] Test vectors: %s", $time, testhex_dir);
         $display("[%0t] Repack 4x12-bit testhex to 4x16-bit AXIS lanes: %0d", $time, repack_12bit_input);
+        $display("[%0t] Score threshold: %.6f", $time, score_threshold);
 
         sim_start_time = $time;
 
@@ -206,7 +211,7 @@ module tb_WRAPPER_TOP;
 
                     out_float = $itor($signed(output_data[8:0])) / 16.0;
 
-                    prediction = (out_float > 0.5) ? 1 : 0;
+                    prediction = (out_float > score_threshold) ? 1 : 0;
                     label_val = labels[START_SAMPLE_ID + received_count];
                     is_correct = (prediction == label_val) ? 1 : 0;
                     if (is_correct) correct_count = correct_count + 1;

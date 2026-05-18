@@ -76,7 +76,22 @@ def read_rows(path: Path) -> list[dict[str, str]]:
         return list(reader)
 
 
-def summarize(rows: list[dict[str, str]]) -> tuple[dict[str, object], list[dict[str, str]]]:
+def apply_threshold(rows: list[dict[str, str]], threshold: float | None) -> list[dict[str, str]]:
+    if threshold is None:
+        return rows
+
+    updated_rows: list[dict[str, str]] = []
+    for row in rows:
+        updated = dict(row)
+        label = parse_int(updated["label"])
+        prediction = 1 if float(updated["float_out"]) > threshold else 0
+        updated["prediction"] = str(prediction)
+        updated["correct"] = "1" if prediction == label else "0"
+        updated_rows.append(updated)
+    return updated_rows
+
+
+def summarize(rows: list[dict[str, str]], threshold: float | None = None) -> tuple[dict[str, object], list[dict[str, str]]]:
     labels = [parse_int(row["label"]) for row in rows]
     predictions = [parse_int(row["prediction"]) for row in rows]
     correct = [parse_int(row["correct"]) for row in rows]
@@ -95,6 +110,7 @@ def summarize(rows: list[dict[str, str]]) -> tuple[dict[str, object], list[dict[
 
     summary = {
         "num_samples": total,
+        "threshold": threshold,
         "correct": correct_count,
         "incorrect": len(mismatches),
         "accuracy": (correct_count / total) if total else None,
@@ -140,7 +156,7 @@ def write_mismatches(path: Path, rows: list[dict[str, str]]) -> None:
         writer.writerows(rows)
 
 
-def make_plots(rows: list[dict[str, str]], out_dir: Path) -> None:
+def make_plots(rows: list[dict[str, str]], out_dir: Path, threshold: float | None = None) -> None:
     try:
         import matplotlib.pyplot as plt
     except ImportError:
@@ -161,7 +177,7 @@ def make_plots(rows: list[dict[str, str]], out_dir: Path) -> None:
         plt.hist(label0, bins=bins, alpha=0.65, label="label 0")
     if label1:
         plt.hist(label1, bins=bins, alpha=0.65, label="label 1")
-    plt.axvline(0.5, color="black", linestyle="--", linewidth=1, label="threshold")
+    plt.axvline(0.5 if threshold is None else threshold, color="black", linestyle="--", linewidth=1, label="threshold")
     plt.xlabel("float_out")
     plt.ylabel("count")
     plt.legend()
@@ -209,7 +225,7 @@ def histogram_range(values: list[float], fallback: tuple[float, float]) -> tuple
     return low - pad, high + pad
 
 
-def make_root_plots(rows: list[dict[str, str]], out_dir: Path) -> None:
+def make_root_plots(rows: list[dict[str, str]], out_dir: Path, threshold: float | None = None) -> None:
     try:
         import ROOT
     except ImportError:
@@ -275,6 +291,10 @@ def make_root_plots(rows: list[dict[str, str]], out_dir: Path) -> None:
     h_float_label1.SetFillColorAlpha(ROOT.kRed + 1, 0.35)
     h_float_label0.Draw("HIST")
     h_float_label1.Draw("HIST SAME")
+    threshold_line = ROOT.TLine(0.5 if threshold is None else threshold, 0.0, 0.5 if threshold is None else threshold, max(h_float_label0.GetMaximum(), h_float_label1.GetMaximum()))
+    threshold_line.SetLineColor(ROOT.kBlack)
+    threshold_line.SetLineStyle(2)
+    threshold_line.Draw()
     legend = ROOT.TLegend(0.68, 0.72, 0.88, 0.86)
     legend.AddEntry(h_float_label0, "label 0", "f")
     legend.AddEntry(h_float_label1, "label 1", "f")
@@ -312,16 +332,22 @@ def main() -> None:
         action="store_true",
         help="Generate ROOT file and PNG plots if PyROOT is available",
     )
+    parser.add_argument(
+        "--threshold",
+        type=float,
+        default=None,
+        help="Recompute prediction/correct using float_out > threshold before analysis",
+    )
     args = parser.parse_args()
 
-    rows = read_rows(args.csv_path)
+    rows = apply_threshold(read_rows(args.csv_path), args.threshold)
     out_dir = args.out_dir or args.csv_path.with_suffix("").parent / "analysis"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     if not rows:
         raise SystemExit(f"No rows found in {args.csv_path}")
 
-    summary, mismatches = summarize(rows)
+    summary, mismatches = summarize(rows, threshold=args.threshold)
 
     summary_path = out_dir / "summary.json"
     mismatch_path = out_dir / "mismatches.csv"
@@ -329,9 +355,9 @@ def main() -> None:
     write_mismatches(mismatch_path, mismatches)
 
     if args.plots:
-        make_plots(rows, out_dir)
+        make_plots(rows, out_dir, threshold=args.threshold)
     if args.root_plots:
-        make_root_plots(rows, out_dir)
+        make_root_plots(rows, out_dir, threshold=args.threshold)
 
     accuracy = summary["accuracy"]
     print(f"Samples: {summary['num_samples']}")
