@@ -5,8 +5,8 @@ set_property target_language Verilog [current_project]
 
 add_files -norecurse -fileset sources_1 [list \
   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core.v} \
+  {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_dense_wide_stream_array_array_ap_fixed_16_6_5_3_0_1u_config7_s.v} \
   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_dense_wide_stream_array_array_ap_fixed_1u_config7_Pipeline_DenseWideMain.v} \
-  {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_dense_wide_stream_array_array_ap_fixed_9_5_5_3_0_1u_config7_s.v} \
   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_fifo_w252_d4_S.v} \
   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_fifo_w448_d4_S.v} \
   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_first_conv_4lane_temporal_wide_cl_array_array_ap_fixed_28u_config3_s.v} \
@@ -20,7 +20,7 @@ add_files -norecurse -fileset sources_1 [list \
   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_sparsemux_11_3_12_1_1.v} \
   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_sparsemux_2353_11_6_1_1.v} \
   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_sparsemux_9_2_16_1_1.v} \
-  {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_dense_wide_stream_array_array_ap_fixed_9_5_5_3_0_1u_config7_U0.v} \
+  {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_dense_wide_stream_array_array_ap_fixed_16_6_5_3_0_1u_config7_U0.v} \
   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_maxpool2d_wide_nonoverlap_cl_array_array_ap_fixed_28u_config5_U0.v} \
   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_relu_array_ap_fixed_28u_array_ap_fixed_16_6_5_3_0_28u_relu_config4_U0.v} \
   {/home/work1/Works/CNN-Core-Wrapper/hw/rtl/cnn_core_wrapper_top.v} \
