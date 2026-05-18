@@ -12,6 +12,10 @@ from pathlib import Path
 from statistics import mean, median
 
 
+DEFAULT_KERAS_MODEL = Path("/home/work1/Works/CNN-Core-Generator/models/hgq_config_beta7_gamma6_p1_cl_best_v3.keras")
+DEFAULT_X_TEST = Path("/home/work1/Works/CNN-Core-Generator/data/X_test_data.npy")
+DEFAULT_Y_TEST = Path("/home/work1/Works/CNN-Core-Generator/data/y_test_labels.npy")
+
 REQUIRED_COLUMNS = {
     "sample_id",
     "hex_out",
@@ -65,6 +69,29 @@ def stats(values: list[float]) -> dict[str, float | int | None]:
     }
 
 
+def confusion_summary(labels: list[int], predictions: list[int]) -> dict[str, object]:
+    tn = sum(1 for label, pred in zip(labels, predictions) if label == 0 and pred == 0)
+    fp = sum(1 for label, pred in zip(labels, predictions) if label == 0 and pred == 1)
+    fn = sum(1 for label, pred in zip(labels, predictions) if label == 1 and pred == 0)
+    tp = sum(1 for label, pred in zip(labels, predictions) if label == 1 and pred == 1)
+    total = len(labels)
+    precision = tp / (tp + fp) if (tp + fp) else None
+    recall = tp / (tp + fn) if (tp + fn) else None
+    specificity = tn / (tn + fp) if (tn + fp) else None
+    f1 = (2 * precision * recall / (precision + recall)) if precision is not None and recall is not None and (precision + recall) else None
+    return {
+        "tn": tn,
+        "fp": fp,
+        "fn": fn,
+        "tp": tp,
+        "accuracy": ((tn + tp) / total) if total else None,
+        "precision": precision,
+        "recall": recall,
+        "specificity": specificity,
+        "f1": f1,
+    }
+
+
 def read_rows(path: Path) -> list[dict[str, str]]:
     with path.open(newline="") as csv_file:
         reader = csv.DictReader(csv_file)
@@ -103,10 +130,7 @@ def summarize(rows: list[dict[str, str]], threshold: float | None = None) -> tup
     correct_count = sum(correct)
     mismatches = [row for row in rows if parse_int(row["correct"]) != 1]
 
-    tn = sum(1 for label, pred in zip(labels, predictions) if label == 0 and pred == 0)
-    fp = sum(1 for label, pred in zip(labels, predictions) if label == 0 and pred == 1)
-    fn = sum(1 for label, pred in zip(labels, predictions) if label == 1 and pred == 0)
-    tp = sum(1 for label, pred in zip(labels, predictions) if label == 1 and pred == 1)
+    confusion = confusion_summary(labels, predictions)
 
     summary = {
         "num_samples": total,
@@ -115,10 +139,16 @@ def summarize(rows: list[dict[str, str]], threshold: float | None = None) -> tup
         "incorrect": len(mismatches),
         "accuracy": (correct_count / total) if total else None,
         "confusion_matrix": {
-            "tn": tn,
-            "fp": fp,
-            "fn": fn,
-            "tp": tp,
+            "tn": confusion["tn"],
+            "fp": confusion["fp"],
+            "fn": confusion["fn"],
+            "tp": confusion["tp"],
+        },
+        "metrics": {
+            "precision": confusion["precision"],
+            "recall": confusion["recall"],
+            "specificity": confusion["specificity"],
+            "f1": confusion["f1"],
         },
         "label_counts": {
             "0": labels.count(0),
@@ -156,7 +186,195 @@ def write_mismatches(path: Path, rows: list[dict[str, str]]) -> None:
         writer.writerows(rows)
 
 
-def make_plots(rows: list[dict[str, str]], out_dir: Path, threshold: float | None = None) -> None:
+def write_comparison(path: Path, rows: list[dict[str, object]]) -> None:
+    if not rows:
+        return
+    fieldnames = [
+        "sample_id",
+        "label_csv",
+        "label_npy",
+        "rtl_score",
+        "rtl_prediction",
+        "rtl_correct",
+        "keras_score",
+        "keras_prediction",
+        "keras_correct",
+        "prediction_agree",
+        "both_correct",
+        "score_diff",
+        "abs_score_diff",
+    ]
+    with path.open("w", newline="") as csv_file:
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def finite_correlation(left: list[float], right: list[float]) -> float | None:
+    if len(left) < 2 or len(right) < 2 or len(left) != len(right):
+        return None
+    mean_left = mean(left)
+    mean_right = mean(right)
+    num = sum((a - mean_left) * (b - mean_right) for a, b in zip(left, right))
+    den_left = math.sqrt(sum((a - mean_left) ** 2 for a in left))
+    den_right = math.sqrt(sum((b - mean_right) ** 2 for b in right))
+    if den_left == 0 or den_right == 0:
+        return None
+    return num / (den_left * den_right)
+
+
+def load_keras_model(path: Path):
+    try:
+        from tensorflow import keras
+        return keras.models.load_model(path, compile=False)
+    except ImportError:
+        try:
+            import keras
+            return keras.models.load_model(path, compile=False)
+        except ImportError as exc:
+            raise SystemExit("TensorFlow/Keras is required for default model comparison.") from exc
+
+
+def flatten_binary_outputs(predictions) -> list[float]:
+    import numpy as np
+
+    array_values = np.asarray(predictions)
+    if array_values.ndim == 1:
+        return [float(value) for value in array_values]
+    if array_values.ndim == 2 and array_values.shape[1] == 1:
+        return [float(value) for value in array_values[:, 0]]
+    if array_values.ndim >= 2 and array_values.shape[-1] == 1:
+        return [float(value) for value in array_values.reshape((array_values.shape[0], -1))[:, 0]]
+    if array_values.ndim >= 2 and array_values.shape[-1] > 1:
+        return [float(value) for value in array_values.reshape((array_values.shape[0], -1))[:, -1]]
+    return [float(value) for value in array_values.reshape(-1)]
+
+
+def flatten_labels(labels) -> list[int]:
+    import numpy as np
+
+    array_values = np.asarray(labels)
+    if array_values.ndim == 1:
+        return [int(round(float(value))) for value in array_values]
+    if array_values.ndim >= 2 and array_values.shape[-1] == 1:
+        return [int(round(float(value))) for value in array_values.reshape((array_values.shape[0], -1))[:, 0]]
+    if array_values.ndim >= 2 and array_values.shape[-1] > 1:
+        return [int(value) for value in np.argmax(array_values.reshape((array_values.shape[0], -1)), axis=1)]
+    return [int(round(float(value))) for value in array_values.reshape(-1)]
+
+
+def compare_with_keras(rows: list[dict[str, str]], threshold: float | None) -> tuple[dict[str, object] | None, list[dict[str, object]]]:
+    if not (DEFAULT_KERAS_MODEL.exists() and DEFAULT_X_TEST.exists() and DEFAULT_Y_TEST.exists()):
+        print("Keras comparison inputs were not found; skipped default model comparison.")
+        return None, []
+
+    import numpy as np
+
+    x_test = np.load(DEFAULT_X_TEST)
+    y_test = flatten_labels(np.load(DEFAULT_Y_TEST))
+    model = load_keras_model(DEFAULT_KERAS_MODEL)
+    keras_scores = flatten_binary_outputs(model.predict(x_test, verbose=0))
+
+    if not keras_scores:
+        raise SystemExit("Keras model produced no predictions.")
+
+    score_min = min(keras_scores)
+    score_max = max(keras_scores)
+    keras_threshold = 0.5 if score_min >= 0.0 and score_max <= 1.0 else (0.5 if threshold is None else threshold)
+
+    comparison_rows: list[dict[str, object]] = []
+    rtl_scores: list[float] = []
+    matched_keras_scores: list[float] = []
+    labels: list[int] = []
+    rtl_predictions: list[int] = []
+    keras_predictions: list[int] = []
+    score_diffs: list[float] = []
+    abs_score_diffs: list[float] = []
+    label_mismatches = 0
+
+    for row in rows:
+        sample_id = parse_int(row["sample_id"])
+        if sample_id >= len(keras_scores) or sample_id >= len(y_test):
+            continue
+
+        label_csv = parse_int(row["label"])
+        label_npy = y_test[sample_id]
+        if label_csv != label_npy:
+            label_mismatches += 1
+
+        rtl_score = float(row["float_out"])
+        rtl_prediction = parse_int(row["prediction"])
+        keras_score = keras_scores[sample_id]
+        keras_prediction = 1 if keras_score > keras_threshold else 0
+        keras_correct = 1 if keras_prediction == label_npy else 0
+        rtl_correct = parse_int(row["correct"])
+        score_diff = rtl_score - keras_score
+        abs_score_diff = abs(score_diff)
+
+        rtl_scores.append(rtl_score)
+        matched_keras_scores.append(keras_score)
+        labels.append(label_npy)
+        rtl_predictions.append(rtl_prediction)
+        keras_predictions.append(keras_prediction)
+        score_diffs.append(score_diff)
+        abs_score_diffs.append(abs_score_diff)
+
+        comparison_rows.append(
+            {
+                "sample_id": sample_id,
+                "label_csv": label_csv,
+                "label_npy": label_npy,
+                "rtl_score": rtl_score,
+                "rtl_prediction": rtl_prediction,
+                "rtl_correct": rtl_correct,
+                "keras_score": keras_score,
+                "keras_prediction": keras_prediction,
+                "keras_correct": keras_correct,
+                "prediction_agree": 1 if rtl_prediction == keras_prediction else 0,
+                "both_correct": 1 if rtl_correct and keras_correct else 0,
+                "score_diff": score_diff,
+                "abs_score_diff": abs_score_diff,
+            }
+        )
+
+    if not comparison_rows:
+        raise SystemExit("No overlapping sample IDs between RTL CSV and Keras predictions.")
+
+    keras_confusion = confusion_summary(labels, keras_predictions)
+    rtl_confusion = confusion_summary(labels, rtl_predictions)
+    prediction_agreements = sum(1 for left, right in zip(rtl_predictions, keras_predictions) if left == right)
+    agreement = prediction_agreements / len(comparison_rows)
+    conversion_summary = {
+        "model_path": str(DEFAULT_KERAS_MODEL),
+        "x_test_path": str(DEFAULT_X_TEST),
+        "y_test_path": str(DEFAULT_Y_TEST),
+        "num_compared": len(comparison_rows),
+        "label_mismatches_between_csv_and_npy": label_mismatches,
+        "keras_threshold": keras_threshold,
+        "rtl_threshold": threshold,
+        "keras_score": stats(matched_keras_scores),
+        "rtl_score": stats(rtl_scores),
+        "score_diff_rtl_minus_keras": {
+            **stats(score_diffs),
+            "mae": mean(abs_score_diffs),
+            "rmse": math.sqrt(mean([value * value for value in score_diffs])),
+            "max_abs": max(abs_score_diffs),
+            "correlation": finite_correlation(rtl_scores, matched_keras_scores),
+        },
+        "keras_metrics": keras_confusion,
+        "rtl_metrics_on_npy_labels": rtl_confusion,
+        "prediction_agreement": agreement,
+        "prediction_disagreements": len(comparison_rows) - prediction_agreements,
+    }
+    return conversion_summary, comparison_rows
+
+
+def make_plots(
+    rows: list[dict[str, str]],
+    out_dir: Path,
+    threshold: float | None = None,
+    comparison_rows: list[dict[str, object]] | None = None,
+) -> None:
     try:
         import matplotlib.pyplot as plt
     except ImportError:
@@ -212,6 +430,27 @@ def make_plots(rows: list[dict[str, str]], out_dir: Path, threshold: float | Non
     plt.savefig(out_dir / "confusion_matrix.png", dpi=160)
     plt.close()
 
+    if comparison_rows:
+        rtl_scores = [float(row["rtl_score"]) for row in comparison_rows]
+        keras_scores = [float(row["keras_score"]) for row in comparison_rows]
+        score_diffs = [float(row["score_diff"]) for row in comparison_rows]
+
+        plt.figure(figsize=(6, 6))
+        plt.scatter(keras_scores, rtl_scores, s=10, alpha=0.65)
+        plt.xlabel("Keras score")
+        plt.ylabel("RTL score")
+        plt.tight_layout()
+        plt.savefig(out_dir / "keras_vs_rtl_score.png", dpi=160)
+        plt.close()
+
+        plt.figure(figsize=(8, 5))
+        plt.hist(score_diffs, bins=60)
+        plt.xlabel("RTL score - Keras score")
+        plt.ylabel("count")
+        plt.tight_layout()
+        plt.savefig(out_dir / "conversion_score_diff_histogram.png", dpi=160)
+        plt.close()
+
 
 def histogram_range(values: list[float], fallback: tuple[float, float]) -> tuple[float, float]:
     if not values:
@@ -225,7 +464,12 @@ def histogram_range(values: list[float], fallback: tuple[float, float]) -> tuple
     return low - pad, high + pad
 
 
-def make_root_plots(rows: list[dict[str, str]], out_dir: Path, threshold: float | None = None) -> None:
+def make_root_plots(
+    rows: list[dict[str, str]],
+    out_dir: Path,
+    threshold: float | None = None,
+    comparison_rows: list[dict[str, object]] | None = None,
+) -> None:
     try:
         import ROOT
     except ImportError:
@@ -263,6 +507,17 @@ def make_root_plots(rows: list[dict[str, str]], out_dir: Path, threshold: float 
     h_float_label1 = ROOT.TH1F("float_out_label1", "float_out by label;float_out;count", 60, float_low, float_high)
     h_latency = ROOT.TH1F("latency_us", "latency;latency [us];count", 60, latency_low, latency_high)
     h_confusion = ROOT.TH2F("confusion_matrix", "confusion matrix;prediction;label", 2, -0.5, 1.5, 2, -0.5, 1.5)
+    h_score_diff = None
+    h_score_scatter = None
+    if comparison_rows:
+        score_diffs = [float(row["score_diff"]) for row in comparison_rows]
+        rtl_scores = [float(row["rtl_score"]) for row in comparison_rows]
+        keras_scores = [float(row["keras_score"]) for row in comparison_rows]
+        diff_low, diff_high = histogram_range(score_diffs, (-1.0, 1.0))
+        rtl_low, rtl_high = histogram_range(rtl_scores, (-1.0, 1.0))
+        keras_low, keras_high = histogram_range(keras_scores, (-1.0, 1.0))
+        h_score_diff = ROOT.TH1F("score_diff_rtl_minus_keras", "conversion score difference;RTL score - Keras score;count", 80, diff_low, diff_high)
+        h_score_scatter = ROOT.TH2F("keras_vs_rtl_score", "Keras vs RTL score;Keras score;RTL score", 80, keras_low, keras_high, 80, rtl_low, rtl_high)
 
     for row in rows:
         sample_id[0] = parse_int(row["sample_id"])
@@ -280,7 +535,14 @@ def make_root_plots(rows: list[dict[str, str]], out_dir: Path, threshold: float 
         elif label[0] == 1:
             h_float_label1.Fill(float_out[0])
 
-    for hist in (h_float_label0, h_float_label1, h_latency, h_confusion):
+    if comparison_rows:
+        for row in comparison_rows:
+            h_score_diff.Fill(float(row["score_diff"]))
+            h_score_scatter.Fill(float(row["keras_score"]), float(row["rtl_score"]))
+
+    for hist in (h_float_label0, h_float_label1, h_latency, h_confusion, h_score_diff, h_score_scatter):
+        if hist is None:
+            continue
         hist.Write()
     tree.Write()
 
@@ -308,6 +570,15 @@ def make_root_plots(rows: list[dict[str, str]], out_dir: Path, threshold: float 
 
     h_confusion.Draw("COLZ TEXT")
     canvas.SaveAs(str(out_dir / "root_confusion_matrix.png"))
+
+    if h_score_diff is not None and h_score_scatter is not None:
+        h_score_diff.SetLineColor(ROOT.kMagenta + 2)
+        h_score_diff.SetFillColorAlpha(ROOT.kMagenta + 2, 0.35)
+        h_score_diff.Draw("HIST")
+        canvas.SaveAs(str(out_dir / "root_conversion_score_diff_histogram.png"))
+
+        h_score_scatter.Draw("COLZ")
+        canvas.SaveAs(str(out_dir / "root_keras_vs_rtl_score.png"))
 
     root_file.Close()
     print(f"Wrote {root_path}")
@@ -348,23 +619,34 @@ def main() -> None:
         raise SystemExit(f"No rows found in {args.csv_path}")
 
     summary, mismatches = summarize(rows, threshold=args.threshold)
+    conversion_summary, comparison_rows = compare_with_keras(rows, threshold=args.threshold)
+    if conversion_summary is not None:
+        summary["keras_comparison"] = conversion_summary
 
     summary_path = out_dir / "summary.json"
     mismatch_path = out_dir / "mismatches.csv"
+    comparison_path = out_dir / "keras_comparison.csv"
     summary_path.write_text(json.dumps(summary, indent=2) + "\n")
     write_mismatches(mismatch_path, mismatches)
+    write_comparison(comparison_path, comparison_rows)
 
     if args.plots:
-        make_plots(rows, out_dir, threshold=args.threshold)
+        make_plots(rows, out_dir, threshold=args.threshold, comparison_rows=comparison_rows)
     if args.root_plots:
-        make_root_plots(rows, out_dir, threshold=args.threshold)
+        make_root_plots(rows, out_dir, threshold=args.threshold, comparison_rows=comparison_rows)
 
     accuracy = summary["accuracy"]
     print(f"Samples: {summary['num_samples']}")
     print(f"Accuracy: {accuracy:.4%}" if accuracy is not None else "Accuracy: n/a")
     print(f"Mismatches: {summary['incorrect']}")
+    if conversion_summary is not None:
+        keras_accuracy = conversion_summary["keras_metrics"]["accuracy"]
+        print(f"Keras accuracy: {keras_accuracy:.4%}" if keras_accuracy is not None else "Keras accuracy: n/a")
+        print(f"RTL/Keras prediction agreement: {conversion_summary['prediction_agreement']:.4%}")
     print(f"Wrote {summary_path}")
     print(f"Wrote {mismatch_path}")
+    if comparison_rows:
+        print(f"Wrote {comparison_path}")
 
 
 if __name__ == "__main__":
