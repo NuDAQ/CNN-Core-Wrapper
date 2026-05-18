@@ -46,10 +46,9 @@ scripts/**/*.pyc
 #.xci + .dcp: implementation possible but not re-synthesis
 #*.xci(www.spiritconsortium.org)
 !*.xci
-#*.dcp(checkpoint files)
-!*.dcp
+#*.dcp - NOT included, large binary Vivado checkpoint files (re-generatable)
+#*.pb  - NOT included, Vivado internal protobuf binary files (not human-readable)
 !*.vds
-!*.pb
 #All bd comments and layout coordinates are stored within .ui
 !*.ui
 !*.ooc
@@ -99,7 +98,7 @@ scripts/**/*.pyc
 #########
 #C-files
 #########
-!*.c
+#*.c - NOT included, xsim generates large C files (xsim_20.c etc.)
 !*.h
 !*.elf
 !*.bmm
@@ -107,3 +106,20 @@ scripts/**/*.pyc
 
 .DS_Store
 **/.DS_Store
+
+###########################################################################
+##	ALWAYS EXCLUDE (overrides whitelist above)
+###########################################################################
+# Vivado waveform and report databases (large binary, not useful as logs)
+*.wdb
+*.rpx
+
+# Vivado xsim compiled simulation objects (binary, re-generated each run)
+**/xsim.dir/**/*.mem
+**/xsim.dir/**/xsimk
+**/xsim.dir/**/*.c
+**/TempBreakPointFile.txt
+
+# Simulation result CSV and log files ARE tracked (see !out/** above)
+# Generated Vivado project under out/ (re-creatable by run_behavioral_sim.py)
+out/behavioral_sim/vivado_project/

@@ -39,10 +39,9 @@ cnn_core_wrapper.sim/sim_1/behav/xsim/*
 #.xci + .dcp: implementation possible but not re-synthesis
 #*.xci(www.spiritconsortium.org)
 !*.xci
-#*.dcp(checkpoint files)
-!*.dcp
+#*.dcp - NOT included, large binary Vivado checkpoint files (re-generatable)
+#*.pb  - NOT included, Vivado internal protobuf binary files (not human-readable)
 !*.vds
-!*.pb
 #All bd comments and layout coordinates are stored within .ui
 !*.ui
 !*.ooc
@@ -92,7 +91,7 @@ cnn_core_wrapper.sim/sim_1/behav/xsim/*
 #########
 #C-files
 #########
-!*.c
+#*.c - NOT included, xsim generates large C files (xsim_20.c etc.)
 !*.h
 !*.elf
 !*.bmm
