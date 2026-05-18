@@ -65,5 +65,114 @@
     "mean": 1.36,
     "median": 1.36,
     "p95": 1.36
+  },
+  "keras_comparison": {
+    "model_path": "/home/work1/Works/CNN-Core-Generator/models/hgq_config_beta7_gamma6_p1_cl_best_v3.keras",
+    "x_test_path": "/home/work1/Works/CNN-Core-Generator/data/X_test_data.npy",
+    "y_test_path": "/home/work1/Works/CNN-Core-Generator/data/y_test_labels.npy",
+    "x_test_shape_raw": [
+      1000,
+      4,
+      256,
+      1
+    ],
+    "x_test_shape_model": [
+      1000,
+      256,
+      4
+    ],
+    "x_test_transform": "transpose_from_channels_first_time_series",
+    "num_compared": 1000,
+    "label_mismatches_between_csv_and_npy": 0,
+    "keras_threshold": 0.5,
+    "rtl_threshold": -6.0,
+    "keras_score": {
+      "count": 1000,
+      "min": -5.2421875,
+      "max": 24.0,
+      "mean": -1.23294921875,
+      "median": -2.607421875,
+      "p95": 8.146484374999998
+    },
+    "rtl_score": {
+      "count": 1000,
+      "min": -15.0625,
+      "max": 14.625,
+      "mean": -7.3155,
+      "median": -8.4375,
+      "p95": 1.0031249999999972
+    },
+    "score_diff_rtl_minus_keras": {
+      "count": 1000,
+      "min": -37.76953125,
+      "max": -2.89453125,
+      "mean": -6.08255078125,
+      "median": -5.93359375,
+      "p95": -5.132421875,
+      "mae": 6.08255078125,
+      "rmse": 6.249569202682391,
+      "max_abs": 37.76953125,
+      "correlation": 0.9416462029036559
+    },
+    "keras_metrics": {
+      "tn": 819,
+      "fp": 1,
+      "fn": 21,
+      "tp": 159,
+      "accuracy": 0.978,
+      "precision": 0.99375,
+      "recall": 0.8833333333333333,
+      "specificity": 0.998780487804878,
+      "f1": 0.9352941176470588
+    },
+    "rtl_metrics_on_npy_labels": {
+      "tn": 819,
+      "fp": 1,
+      "fn": 22,
+      "tp": 158,
+      "accuracy": 0.977,
+      "precision": 0.9937106918238994,
+      "recall": 0.8777777777777778,
+      "specificity": 0.998780487804878,
+      "f1": 0.9321533923303834
+    },
+    "keras_default_threshold": {
+      "threshold": 0.5,
+      "tn": 819,
+      "fp": 1,
+      "fn": 21,
+      "tp": 159,
+      "accuracy": 0.978,
+      "precision": 0.99375,
+      "recall": 0.8833333333333333,
+      "specificity": 0.998780487804878,
+      "f1": 0.9352941176470588
+    },
+    "keras_best_threshold": {
+      "threshold": -0.4296875,
+      "tn": 818,
+      "fp": 2,
+      "fn": 8,
+      "tp": 172,
+      "accuracy": 0.99,
+      "precision": 0.9885057471264368,
+      "recall": 0.9555555555555556,
+      "specificity": 0.9975609756097561,
+      "f1": 0.9717514124293786
+    },
+    "rtl_best_threshold": {
+      "threshold": -6.46875,
+      "tn": 817,
+      "fp": 3,
+      "fn": 12,
+      "tp": 168,
+      "accuracy": 0.985,
+      "precision": 0.9824561403508771,
+      "recall": 0.9333333333333333,
+      "specificity": 0.9963414634146341,
+      "f1": 0.9572649572649572
+    },
+    "prediction_agreement": 0.991,
+    "prediction_disagreements": 9
   }
 }
