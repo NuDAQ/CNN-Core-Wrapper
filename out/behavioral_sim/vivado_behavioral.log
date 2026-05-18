@@ -1,0 +1,1213 @@
+
+****** Vivado v2023.2 (64-bit)
+  **** SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
+  **** IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+  **** SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source /home/work1/Works/CNN-Core-Wrapper/out/behavioral_sim/run_behavioral_sim.tcl
+# set_param general.maxThreads 8
+# create_project -force cnn_core_wrapper_behav {/home/work1/Works/CNN-Core-Wrapper/out/behavioral_sim/vivado_project} -part xcku5p-ffva676-3-e
+create_project: Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1367.188 ; gain = 65.836 ; free physical = 7019 ; free virtual = 43584
+# set_property target_language Verilog [current_project]
+# add_files -norecurse -fileset sources_1 [list \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_dense_wide_stream_array_array_ap_fixed_1u_config7_Pipeline_DenseWideMain.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_dense_wide_stream_array_array_ap_fixed_9_5_5_3_0_1u_config7_s.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_fifo_w252_d4_S.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_fifo_w448_d4_S.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_first_conv_4lane_temporal_wide_cl_array_array_ap_fixed_28u_config3_s.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_flow_control_loop_pipe.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_flow_control_loop_pipe_sequential_init.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_maxpool2d_wide_nonoverlap_cl_array_array_ap_fixed_28u_config5_s.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_mul_12s_5ns_15_1_1.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_mul_16s_6s_20_1_1.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_regslice_both.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_relu_array_ap_fixed_28u_array_ap_fixed_16_6_5_3_0_28u_relu_config4_s.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_sparsemux_11_3_12_1_1.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_sparsemux_2353_11_6_1_1.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_sparsemux_9_2_16_1_1.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_dense_wide_stream_array_array_ap_fixed_9_5_5_3_0_1u_config7_U0.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_maxpool2d_wide_nonoverlap_cl_array_array_ap_fixed_28u_config5_U0.v} \
+#   {/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_relu_array_ap_fixed_28u_array_ap_fixed_16_6_5_3_0_28u_relu_config4_U0.v} \
+#   {/home/work1/Works/CNN-Core-Wrapper/hw/rtl/cnn_core_wrapper_top.v} \
+# ]
+# add_files -norecurse -fileset sim_1 [list \
+#   {/home/work1/Works/CNN-Core-Wrapper/hw/sim/tb_stream.sv} \
+# ]
+# set_property top WRAPPER_TOP [get_filesets sources_1]
+# set_property top tb_WRAPPER_TOP [get_filesets sim_1]
+# set_property top_lib xil_defaultlib [get_filesets sim_1]
+# set_property verilog_define [list TARGET_FPGA TARGET_SIMULATION TARGET_VIVADO TARGET_XILINX] [get_filesets sources_1]
+# set_property verilog_define [list TARGET_FPGA TARGET_SIMULATION TARGET_VIVADO TARGET_XILINX] [get_filesets sim_1]
+# set_property -dict [list xsim.simulate.xsim.more_options {-testplusarg TESTHEX_DIR=/home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.sim/sim_1/behav/xsim/testhex_stream -testplusarg OUT_CSV=/home/work1/Works/CNN-Core-Wrapper/out/behavioral_sim/inference_results_stream.csv}] [get_filesets sim_1]
+# set_property xsim.simulate.runtime all [get_filesets sim_1]
+# update_compile_order -fileset sources_1
+# update_compile_order -fileset sim_1
+# launch_simulation -simset sim_1 -mode behavioral
+Command: launch_simulation  -simset sim_1 -mode behavioral
+INFO: [Vivado 12-12493] Simulation top is 'tb_WRAPPER_TOP'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/work1/Works/CNN-Core-Wrapper/out/behavioral_sim/vivado_project/cnn_core_wrapper_behav.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from '/tools/Xilinx/Vivado/2023.2/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_WRAPPER_TOP' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/work1/Works/CNN-Core-Wrapper/out/behavioral_sim/vivado_project/cnn_core_wrapper_behav.sim/sim_1/behav/xsim'
+xvlog --incr --relax -L uvm -prj tb_WRAPPER_TOP_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_dense_wide_stream_array_array_ap_fixed_1u_config7_Pipeline_DenseWideMain.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_dense_wide_stream_array_array_ap_fixed_1u_config7_Pipeline_DenseWideMain
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_dense_wide_stream_array_array_ap_fixed_9_5_5_3_0_1u_config7_s.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_dense_wide_stream_array_array_ap_fixed_9_5_5_3_0_1u_config7_s
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_fifo_w252_d4_S.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_fifo_w252_d4_S
+INFO: [VRFC 10-311] analyzing module cnn_core_fifo_w252_d4_S_ShiftReg
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_fifo_w448_d4_S.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_fifo_w448_d4_S
+INFO: [VRFC 10-311] analyzing module cnn_core_fifo_w448_d4_S_ShiftReg
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_first_conv_4lane_temporal_wide_cl_array_array_ap_fixed_28u_config3_s.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_first_conv_4lane_temporal_wide_cl_array_array_ap_fixed_28u_config3_s
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_flow_control_loop_pipe.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_flow_control_loop_pipe
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_flow_control_loop_pipe_sequential_init.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_flow_control_loop_pipe_sequential_init
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_maxpool2d_wide_nonoverlap_cl_array_array_ap_fixed_28u_config5_s.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_maxpool2d_wide_nonoverlap_cl_array_array_ap_fixed_28u_config5_s
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_mul_12s_5ns_15_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_mul_12s_5ns_15_1_1
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_mul_16s_6s_20_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_mul_16s_6s_20_1_1
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_regslice_both.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_regslice_both
+INFO: [VRFC 10-311] analyzing module cnn_core_regslice_both_w1
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_relu_array_ap_fixed_28u_array_ap_fixed_16_6_5_3_0_28u_relu_config4_s.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_relu_array_ap_fixed_28u_array_ap_fixed_16_6_5_3_0_28u_relu_config4_s
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_sparsemux_11_3_12_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_sparsemux_11_3_12_1_1
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_sparsemux_2353_11_6_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_sparsemux_2353_11_6_1_1
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_sparsemux_9_2_16_1_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_sparsemux_9_2_16_1_1
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_dense_wide_stream_array_array_ap_fixed_9_5_5_3_0_1u_config7_U0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_start_for_dense_wide_stream_array_array_ap_fixed_9_5_5_3_0_1u_config7_U0
+INFO: [VRFC 10-311] analyzing module cnn_core_start_for_dense_wide_stream_array_array_ap_fixed_9_5_5_3_0_1u_config7_U0_ShiftReg
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_maxpool2d_wide_nonoverlap_cl_array_array_ap_fixed_28u_config5_U0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_start_for_maxpool2d_wide_nonoverlap_cl_array_array_ap_fixed_28u_config5_U0
+INFO: [VRFC 10-311] analyzing module cnn_core_start_for_maxpool2d_wide_nonoverlap_cl_array_array_ap_fixed_28u_config5_U0_ShiftReg
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_relu_array_ap_fixed_28u_array_ap_fixed_16_6_5_3_0_28u_relu_config4_U0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cnn_core_start_for_relu_array_ap_fixed_28u_array_ap_fixed_16_6_5_3_0_28u_relu_config4_U0
+INFO: [VRFC 10-311] analyzing module cnn_core_start_for_relu_array_ap_fixed_28u_array_ap_fixed_16_6_5_3_0_28u_relu_config4_U0_ShiftReg
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Wrapper/hw/rtl/cnn_core_wrapper_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module WRAPPER_TOP
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/work1/Works/CNN-Core-Wrapper/hw/sim/tb_stream.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_WRAPPER_TOP
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/work1/Works/CNN-Core-Wrapper/out/behavioral_sim/vivado_project/cnn_core_wrapper_behav.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+Waiting for jobs to finish...
+No pending jobs, compilation finished.
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/work1/Works/CNN-Core-Wrapper/out/behavioral_sim/vivado_project/cnn_core_wrapper_behav.sim/sim_1/behav/xsim'
+xelab --incr --debug typical --relax --mt 8 -d TARGET_FPGA= -d TARGET_SIMULATION= -d TARGET_VIVADO= -d TARGET_XILINX= -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_WRAPPER_TOP_behav xil_defaultlib.tb_WRAPPER_TOP xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator v2023.2
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2023.2/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -d TARGET_FPGA= -d TARGET_SIMULATION= -d TARGET_VIVADO= -d TARGET_XILINX= -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_WRAPPER_TOP_behav xil_defaultlib.tb_WRAPPER_TOP xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-5021] port 'reset' is not connected on this instance [/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_fifo_w252_d4_S.v:49]
+WARNING: [VRFC 10-5021] port 'reset' is not connected on this instance [/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_fifo_w448_d4_S.v:49]
+WARNING: [VRFC 10-5021] port 'reset' is not connected on this instance [/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_relu_array_ap_fixed_28u_array_ap_fixed_16_6_5_3_0_28u_relu_config4_U0.v:46]
+WARNING: [VRFC 10-5021] port 'reset' is not connected on this instance [/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_maxpool2d_wide_nonoverlap_cl_array_array_ap_fixed_28u_config5_U0.v:46]
+WARNING: [VRFC 10-5021] port 'reset' is not connected on this instance [/home/work1/Works/CNN-Core-Generator/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog/cnn_core_start_for_dense_wide_stream_array_array_ap_fixed_9_5_5_3_0_1u_config7_U0.v:46]
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.cnn_core_mul_12s_5ns_15_1_1(NUM_...
+Compiling module xil_defaultlib.cnn_core_sparsemux_11_3_12_1_1(d...
+Compiling module xil_defaultlib.cnn_core_flow_control_loop_pipe
+Compiling module xil_defaultlib.cnn_core_regslice_both(DataWidth...
+Compiling module xil_defaultlib.cnn_core_first_conv_4lane_tempor...
+Compiling module xil_defaultlib.cnn_core_relu_array_ap_fixed_28u...
+Compiling module xil_defaultlib.cnn_core_maxpool2d_wide_nonoverl...
+Compiling module xil_defaultlib.cnn_core_sparsemux_2353_11_6_1_1...
+Compiling module xil_defaultlib.cnn_core_sparsemux_9_2_16_1_1(di...
+Compiling module xil_defaultlib.cnn_core_mul_16s_6s_20_1_1(NUM_S...
+Compiling module xil_defaultlib.cnn_core_flow_control_loop_pipe_...
+Compiling module xil_defaultlib.cnn_core_dense_wide_stream_array...
+Compiling module xil_defaultlib.cnn_core_regslice_both(DataWidth...
+Compiling module xil_defaultlib.cnn_core_dense_wide_stream_array...
+Compiling module xil_defaultlib.cnn_core_fifo_w252_d4_S_ShiftReg
+Compiling module xil_defaultlib.cnn_core_fifo_w252_d4_S
+Compiling module xil_defaultlib.cnn_core_fifo_w448_d4_S_ShiftReg
+Compiling module xil_defaultlib.cnn_core_fifo_w448_d4_S
+Compiling module xil_defaultlib.cnn_core_start_for_relu_array_ap...
+Compiling module xil_defaultlib.cnn_core_start_for_relu_array_ap...
+Compiling module xil_defaultlib.cnn_core_start_for_maxpool2d_wid...
+Compiling module xil_defaultlib.cnn_core_start_for_maxpool2d_wid...
+Compiling module xil_defaultlib.cnn_core_start_for_dense_wide_st...
+Compiling module xil_defaultlib.cnn_core_start_for_dense_wide_st...
+Compiling module xil_defaultlib.cnn_core
+Compiling module xil_defaultlib.WRAPPER_TOP
+Compiling module xil_defaultlib.tb_WRAPPER_TOP
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_WRAPPER_TOP_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '4' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/work1/Works/CNN-Core-Wrapper/out/behavioral_sim/vivado_project/cnn_core_wrapper_behav.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_WRAPPER_TOP_behav -key {Behavioral:sim_1:Functional:tb_WRAPPER_TOP} -tclbatch {tb_WRAPPER_TOP.tcl} -log {simulate.log} -testplusarg TESTHEX_DIR=/home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.sim/sim_1/behav/xsim/testhex_stream -testplusarg OUT_CSV=/home/work1/Works/CNN-Core-Wrapper/out/behavioral_sim/inference_results_stream.csv"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_WRAPPER_TOP.tcl
+## current_wave_config
+WARNING: [Wavedata 42-489] Can't add object "/tb_WRAPPER_TOP/start_time_fifo" to the wave window because it has 131072 bits, which exceeds the display limit of 65536 bits.  To change the display limit, use the command "set_property display_limit <new limit> [current_wave_config]".
+WARNING: Simulation object /tb_WRAPPER_TOP/output_csv_path was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+WARNING: Simulation object /tb_WRAPPER_TOP/testhex_dir was not traceable in the design for the following reason:
+Vivado Simulator does not support tracing of System Verilog Dynamic Type object.
+[0] Asserting Reset...
+[148000] Starting Pipelined Test for vanilla_stream_prj...
+[148000] Input: 64-bit, Output: 16-bit
+[148000] Test vectors: /home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.sim/sim_1/behav/xsim/testhex_stream
+
+--------------------------------------------------------------------------------
+Sample_ID | Output_Hex | Output_Float | Label | Pred | Correct | Latency_us
+--------------------------------------------------------------------------------
+        0 | 0x00000172     |    -8.875000 |   0   |  0   |    1    |       1.36
+        1 | 0x00000015     |     1.312500 |   0   |  1   |    0    |       1.36
+        2 | 0x000000d3     |    13.187500 |   0   |  1   |    0    |       1.36
+        3 | 0x0000001a     |     1.625000 |   0   |  1   |    0    |       1.36
+        4 | 0x00000021     |     2.062500 |   0   |  1   |    0    |       1.36
+        5 | 0x00000087     |     8.437500 |   0   |  1   |    0    |       1.36
+        6 | 0x000000ce     |    12.875000 |   0   |  1   |    0    |       1.36
+        7 | 0x0000001a     |     1.625000 |   0   |  1   |    0    |       1.36
+        8 | 0x000000f9     |    15.562500 |   0   |  1   |    0    |       1.36
+        9 | 0x00000031     |     3.062500 |   1   |  1   |    1    |       1.36
+       10 | 0x000000d9     |    13.562500 |   0   |  1   |    0    |       1.36
+       11 | 0x000000a6     |    10.375000 |   0   |  1   |    0    |       1.36
+       12 | 0x00000139     |   -12.437500 |   0   |  0   |    1    |       1.36
+       13 | 0x000001a3     |    -5.812500 |   0   |  0   |    1    |       1.36
+       14 | 0x000000ed     |    14.812500 |   0   |  1   |    0    |       1.36
+       15 | 0x000000a1     |    10.062500 |   0   |  1   |    0    |       1.36
+       16 | 0x0000019e     |    -6.125000 |   0   |  0   |    1    |       1.36
+       17 | 0x00000101     |   -15.937500 |   1   |  0   |    0    |       1.36
+       18 | 0x0000018f     |    -7.062500 |   0   |  0   |    1    |       1.36
+       19 | 0x000001ca     |    -3.375000 |   0   |  0   |    1    |       1.36
+       20 | 0x00000192     |    -6.875000 |   0   |  0   |    1    |       1.36
+       21 | 0x000001cd     |    -3.187500 |   0   |  0   |    1    |       1.36
+       22 | 0x00000192     |    -6.875000 |   0   |  0   |    1    |       1.36
+       23 | 0x00000022     |     2.125000 |   0   |  1   |    0    |       1.36
+       24 | 0x00000196     |    -6.625000 |   0   |  0   |    1    |       1.36
+       25 | 0x00000009     |     0.562500 |   0   |  1   |    0    |       1.36
+       26 | 0x000001c4     |    -3.750000 |   0   |  0   |    1    |       1.36
+       27 | 0x000001cd     |    -3.187500 |   0   |  0   |    1    |       1.36
+       28 | 0x00000192     |    -6.875000 |   0   |  0   |    1    |       1.36
+       29 | 0x0000010c     |   -15.250000 |   0   |  0   |    1    |       1.36
+       30 | 0x000000d1     |    13.062500 |   0   |  1   |    0    |       1.36
+       31 | 0x000001d1     |    -2.937500 |   0   |  0   |    1    |       1.36
+       32 | 0x000000d4     |    13.250000 |   0   |  1   |    0    |       1.36
+       33 | 0x000001a5     |    -5.687500 |   0   |  0   |    1    |       1.36
+       34 | 0x000000d6     |    13.375000 |   0   |  1   |    0    |       1.36
+       35 | 0x00000097     |     9.437500 |   0   |  1   |    0    |       1.36
+       36 | 0x00000115     |   -14.687500 |   0   |  0   |    1    |       1.36
+       37 | 0x000000e0     |    14.000000 |   0   |  1   |    0    |       1.36
+       38 | 0x000001bf     |    -4.062500 |   1   |  0   |    0    |       1.36
+       39 | 0x000000c9     |    12.562500 |   1   |  1   |    1    |       1.36
+       40 | 0x0000003b     |     3.687500 |   1   |  1   |    1    |       1.36
+       41 | 0x00000177     |    -8.562500 |   1   |  0   |    0    |       1.36
+       42 | 0x0000012a     |   -13.375000 |   1   |  0   |    0    |       1.36
+       43 | 0x000001c3     |    -3.812500 |   0   |  0   |    1    |       1.36
+       44 | 0x0000007b     |     7.687500 |   0   |  1   |    0    |       1.36
+       45 | 0x00000120     |   -14.000000 |   1   |  0   |    0    |       1.36
+       46 | 0x0000000a     |     0.625000 |   0   |  1   |    0    |       1.36
+       47 | 0x000001d8     |    -2.500000 |   0   |  0   |    1    |       1.36
+       48 | 0x00000034     |     3.250000 |   1   |  1   |    1    |       1.36
+       49 | 0x000001f5     |    -0.687500 |   0   |  0   |    1    |       1.36
+       50 | 0x000001bb     |    -4.312500 |   1   |  0   |    0    |       1.36
+       51 | 0x0000011e     |   -14.125000 |   1   |  0   |    0    |       1.36
+       52 | 0x000000b2     |    11.125000 |   0   |  1   |    0    |       1.36
+       53 | 0x000000c5     |    12.312500 |   0   |  1   |    0    |       1.36
+       54 | 0x000001ee     |    -1.125000 |   0   |  0   |    1    |       1.36
+       55 | 0x00000106     |   -15.625000 |   1   |  0   |    0    |       1.36
+       56 | 0x00000124     |   -13.750000 |   0   |  0   |    1    |       1.36
+       57 | 0x000001e6     |    -1.625000 |   1   |  0   |    0    |       1.36
+       58 | 0x00000021     |     2.062500 |   1   |  1   |    1    |       1.36
+       59 | 0x000001a4     |    -5.750000 |   0   |  0   |    1    |       1.36
+       60 | 0x0000014a     |   -11.375000 |   0   |  0   |    1    |       1.36
+       61 | 0x00000129     |   -13.437500 |   0   |  0   |    1    |       1.36
+       62 | 0x00000058     |     5.500000 |   0   |  1   |    0    |       1.36
+       63 | 0x00000028     |     2.500000 |   0   |  1   |    0    |       1.36
+       64 | 0x000000ce     |    12.875000 |   0   |  1   |    0    |       1.36
+       65 | 0x0000010a     |   -15.375000 |   0   |  0   |    1    |       1.36
+       66 | 0x0000000b     |     0.687500 |   0   |  1   |    0    |       1.36
+       67 | 0x0000008c     |     8.750000 |   0   |  1   |    0    |       1.36
+       68 | 0x00000106     |   -15.625000 |   0   |  0   |    1    |       1.36
+       69 | 0x00000005     |     0.312500 |   0   |  0   |    1    |       1.36
+       70 | 0x000000a7     |    10.437500 |   0   |  1   |    0    |       1.36
+       71 | 0x00000066     |     6.375000 |   0   |  1   |    0    |       1.36
+       72 | 0x0000014c     |   -11.250000 |   0   |  0   |    1    |       1.36
+       73 | 0x0000016b     |    -9.312500 |   0   |  0   |    1    |       1.36
+       74 | 0x000001d8     |    -2.500000 |   0   |  0   |    1    |       1.36
+       75 | 0x0000015d     |   -10.187500 |   0   |  0   |    1    |       1.36
+       76 | 0x00000118     |   -14.500000 |   1   |  0   |    0    |       1.36
+       77 | 0x00000020     |     2.000000 |   0   |  1   |    0    |       1.36
+       78 | 0x00000182     |    -7.875000 |   0   |  0   |    1    |       1.36
+       79 | 0x000000f7     |    15.437500 |   0   |  1   |    0    |       1.36
+       80 | 0x00000188     |    -7.500000 |   0   |  0   |    1    |       1.36
+       81 | 0x0000019b     |    -6.312500 |   0   |  0   |    1    |       1.36
+       82 | 0x00000081     |     8.062500 |   0   |  1   |    0    |       1.36
+       83 | 0x00000058     |     5.500000 |   0   |  1   |    0    |       1.36
+       84 | 0x0000012f     |   -13.062500 |   0   |  0   |    1    |       1.36
+       85 | 0x00000029     |     2.562500 |   1   |  1   |    1    |       1.36
+       86 | 0x0000012e     |   -13.125000 |   0   |  0   |    1    |       1.36
+       87 | 0x00000051     |     5.062500 |   0   |  1   |    0    |       1.36
+       88 | 0x0000016c     |    -9.250000 |   0   |  0   |    1    |       1.36
+       89 | 0x00000129     |   -13.437500 |   0   |  0   |    1    |       1.36
+       90 | 0x000001a8     |    -5.500000 |   0   |  0   |    1    |       1.36
+       91 | 0x000001be     |    -4.125000 |   0   |  0   |    1    |       1.36
+       92 | 0x0000010e     |   -15.125000 |   0   |  0   |    1    |       1.36
+       93 | 0x00000090     |     9.000000 |   0   |  1   |    0    |       1.36
+       94 | 0x0000019c     |    -6.250000 |   0   |  0   |    1    |       1.36
+       95 | 0x0000018d     |    -7.187500 |   0   |  0   |    1    |       1.36
+       96 | 0x0000005a     |     5.625000 |   0   |  1   |    0    |       1.36
+       97 | 0x000001d0     |    -3.000000 |   1   |  0   |    0    |       1.36
+       98 | 0x00000063     |     6.187500 |   1   |  1   |    1    |       1.36
+       99 | 0x000001bb     |    -4.312500 |   0   |  0   |    1    |       1.36
+      100 | 0x00000109     |   -15.437500 |   0   |  0   |    1    |       1.36
+      101 | 0x00000166     |    -9.625000 |   0   |  0   |    1    |       1.36
+      102 | 0x00000181     |    -7.937500 |   0   |  0   |    1    |       1.36
+      103 | 0x00000081     |     8.062500 |   0   |  1   |    0    |       1.36
+      104 | 0x0000006d     |     6.812500 |   0   |  1   |    0    |       1.36
+      105 | 0x00000042     |     4.125000 |   1   |  1   |    1    |       1.36
+      106 | 0x000000c2     |    12.125000 |   1   |  1   |    1    |       1.36
+      107 | 0x000001c0     |    -4.000000 |   0   |  0   |    1    |       1.36
+      108 | 0x0000011a     |   -14.375000 |   0   |  0   |    1    |       1.36
+      109 | 0x000001b1     |    -4.937500 |   0   |  0   |    1    |       1.36
+      110 | 0x000001a5     |    -5.687500 |   0   |  0   |    1    |       1.36
+      111 | 0x0000015c     |   -10.250000 |   0   |  0   |    1    |       1.36
+      112 | 0x000001c0     |    -4.000000 |   0   |  0   |    1    |       1.36
+      113 | 0x00000057     |     5.437500 |   0   |  1   |    0    |       1.36
+      114 | 0x0000015a     |   -10.375000 |   0   |  0   |    1    |       1.36
+      115 | 0x00000167     |    -9.562500 |   0   |  0   |    1    |       1.36
+      116 | 0x000000d4     |    13.250000 |   0   |  1   |    0    |       1.36
+      117 | 0x00000113     |   -14.812500 |   0   |  0   |    1    |       1.36
+      118 | 0x00000070     |     7.000000 |   0   |  1   |    0    |       1.36
+      119 | 0x0000001e     |     1.875000 |   0   |  1   |    0    |       1.36
+      120 | 0x0000010b     |   -15.312500 |   0   |  0   |    1    |       1.36
+      121 | 0x000000a2     |    10.125000 |   1   |  1   |    1    |       1.36
+      122 | 0x000001b5     |    -4.687500 |   0   |  0   |    1    |       1.36
+      123 | 0x00000095     |     9.312500 |   0   |  1   |    0    |       1.36
+      124 | 0x0000009c     |     9.750000 |   0   |  1   |    0    |       1.36
+      125 | 0x000001a8     |    -5.500000 |   1   |  0   |    0    |       1.36
+      126 | 0x0000018d     |    -7.187500 |   0   |  0   |    1    |       1.36
+      127 | 0x0000010b     |   -15.312500 |   1   |  0   |    0    |       1.36
+      128 | 0x000001f0     |    -1.000000 |   0   |  0   |    1    |       1.36
+      129 | 0x000000ed     |    14.812500 |   0   |  1   |    0    |       1.36
+      130 | 0x00000132     |   -12.875000 |   0   |  0   |    1    |       1.36
+      131 | 0x000001be     |    -4.125000 |   0   |  0   |    1    |       1.36
+      132 | 0x000001c1     |    -3.937500 |   0   |  0   |    1    |       1.36
+      133 | 0x00000002     |     0.125000 |   0   |  0   |    1    |       1.36
+      134 | 0x000000eb     |    14.687500 |   0   |  1   |    0    |       1.36
+      135 | 0x00000081     |     8.062500 |   1   |  1   |    1    |       1.36
+      136 | 0x00000156     |   -10.625000 |   0   |  0   |    1    |       1.36
+      137 | 0x00000145     |   -11.687500 |   0   |  0   |    1    |       1.36
+      138 | 0x00000079     |     7.562500 |   0   |  1   |    0    |       1.36
+      139 | 0x00000186     |    -7.625000 |   0   |  0   |    1    |       1.36
+      140 | 0x00000030     |     3.000000 |   0   |  1   |    0    |       1.36
+      141 | 0x00000082     |     8.125000 |   0   |  1   |    0    |       1.36
+      142 | 0x000000f3     |    15.187500 |   0   |  1   |    0    |       1.36
+      143 | 0x00000099     |     9.562500 |   0   |  1   |    0    |       1.36
+      144 | 0x00000011     |     1.062500 |   0   |  1   |    0    |       1.36
+      145 | 0x0000017c     |    -8.250000 |   1   |  0   |    0    |       1.36
+      146 | 0x00000133     |   -12.812500 |   0   |  0   |    1    |       1.36
+      147 | 0x00000143     |   -11.812500 |   0   |  0   |    1    |       1.36
+      148 | 0x000000f7     |    15.437500 |   0   |  1   |    0    |       1.36
+      149 | 0x00000162     |    -9.875000 |   0   |  0   |    1    |       1.36
+      150 | 0x00000043     |     4.187500 |   0   |  1   |    0    |       1.36
+      151 | 0x000001d1     |    -2.937500 |   1   |  0   |    0    |       1.36
+      152 | 0x000001c9     |    -3.437500 |   1   |  0   |    0    |       1.36
+      153 | 0x000000be     |    11.875000 |   1   |  1   |    1    |       1.36
+      154 | 0x00000179     |    -8.437500 |   0   |  0   |    1    |       1.36
+      155 | 0x000000a9     |    10.562500 |   0   |  1   |    0    |       1.36
+      156 | 0x0000001f     |     1.937500 |   0   |  1   |    0    |       1.36
+      157 | 0x000000e6     |    14.375000 |   1   |  1   |    1    |       1.36
+      158 | 0x00000150     |   -11.000000 |   0   |  0   |    1    |       1.36
+      159 | 0x000001e1     |    -1.937500 |   1   |  0   |    0    |       1.36
+      160 | 0x000000ee     |    14.875000 |   0   |  1   |    0    |       1.36
+      161 | 0x000001d8     |    -2.500000 |   0   |  0   |    1    |       1.36
+      162 | 0x000001e7     |    -1.562500 |   0   |  0   |    1    |       1.36
+      163 | 0x000000ee     |    14.875000 |   0   |  1   |    0    |       1.36
+      164 | 0x000001c9     |    -3.437500 |   0   |  0   |    1    |       1.36
+      165 | 0x0000013b     |   -12.312500 |   0   |  0   |    1    |       1.36
+      166 | 0x000001da     |    -2.375000 |   0   |  0   |    1    |       1.36
+      167 | 0x00000060     |     6.000000 |   1   |  1   |    1    |       1.36
+      168 | 0x000000d6     |    13.375000 |   0   |  1   |    0    |       1.36
+      169 | 0x000001c2     |    -3.875000 |   0   |  0   |    1    |       1.36
+      170 | 0x000001c7     |    -3.562500 |   0   |  0   |    1    |       1.36
+      171 | 0x000000e9     |    14.562500 |   0   |  1   |    0    |       1.36
+      172 | 0x00000189     |    -7.437500 |   0   |  0   |    1    |       1.36
+      173 | 0x000000ce     |    12.875000 |   0   |  1   |    0    |       1.36
+      174 | 0x000001c7     |    -3.562500 |   0   |  0   |    1    |       1.36
+      175 | 0x0000001a     |     1.625000 |   0   |  1   |    0    |       1.36
+      176 | 0x0000014c     |   -11.250000 |   0   |  0   |    1    |       1.36
+      177 | 0x000000e6     |    14.375000 |   0   |  1   |    0    |       1.36
+      178 | 0x00000130     |   -13.000000 |   0   |  0   |    1    |       1.36
+      179 | 0x000000b1     |    11.062500 |   0   |  1   |    0    |       1.36
+      180 | 0x0000010a     |   -15.375000 |   0   |  0   |    1    |       1.36
+      181 | 0x0000002b     |     2.687500 |   0   |  1   |    0    |       1.36
+      182 | 0x000000de     |    13.875000 |   0   |  1   |    0    |       1.36
+      183 | 0x0000007d     |     7.812500 |   0   |  1   |    0    |       1.36
+      184 | 0x0000016c     |    -9.250000 |   0   |  0   |    1    |       1.36
+      185 | 0x000000f3     |    15.187500 |   0   |  1   |    0    |       1.36
+      186 | 0x0000012b     |   -13.312500 |   0   |  0   |    1    |       1.36
+      187 | 0x00000088     |     8.500000 |   1   |  1   |    1    |       1.36
+      188 | 0x0000005f     |     5.937500 |   1   |  1   |    1    |       1.36
+      189 | 0x00000123     |   -13.812500 |   1   |  0   |    0    |       1.36
+      190 | 0x000000bb     |    11.687500 |   1   |  1   |    1    |       1.36
+      191 | 0x000000e8     |    14.500000 |   0   |  1   |    0    |       1.36
+      192 | 0x000000a7     |    10.437500 |   0   |  1   |    0    |       1.36
+      193 | 0x000000bf     |    11.937500 |   0   |  1   |    0    |       1.36
+      194 | 0x00000180     |    -8.000000 |   0   |  0   |    1    |       1.36
+      195 | 0x000001fc     |    -0.250000 |   0   |  0   |    1    |       1.36
+      196 | 0x000001e1     |    -1.937500 |   0   |  0   |    1    |       1.36
+      197 | 0x0000012b     |   -13.312500 |   0   |  0   |    1    |       1.36
+      198 | 0x000001be     |    -4.125000 |   0   |  0   |    1    |       1.36
+      199 | 0x0000016f     |    -9.062500 |   0   |  0   |    1    |       1.36
+      200 | 0x00000048     |     4.500000 |   0   |  1   |    0    |       1.36
+      201 | 0x000000ea     |    14.625000 |   0   |  1   |    0    |       1.36
+      202 | 0x00000173     |    -8.812500 |   1   |  0   |    0    |       1.36
+      203 | 0x000000bd     |    11.812500 |   0   |  1   |    0    |       1.36
+      204 | 0x00000069     |     6.562500 |   0   |  1   |    0    |       1.36
+      205 | 0x0000014e     |   -11.125000 |   0   |  0   |    1    |       1.36
+      206 | 0x00000175     |    -8.687500 |   0   |  0   |    1    |       1.36
+      207 | 0x00000026     |     2.375000 |   0   |  1   |    0    |       1.36
+      208 | 0x00000076     |     7.375000 |   0   |  1   |    0    |       1.36
+      209 | 0x00000154     |   -10.750000 |   1   |  0   |    0    |       1.36
+      210 | 0x000001b6     |    -4.625000 |   0   |  0   |    1    |       1.36
+      211 | 0x00000145     |   -11.687500 |   0   |  0   |    1    |       1.36
+      212 | 0x0000010f     |   -15.062500 |   0   |  0   |    1    |       1.36
+      213 | 0x000001c8     |    -3.500000 |   0   |  0   |    1    |       1.36
+      214 | 0x00000089     |     8.562500 |   0   |  1   |    0    |       1.36
+      215 | 0x000000e2     |    14.125000 |   0   |  1   |    0    |       1.36
+      216 | 0x0000010b     |   -15.312500 |   0   |  0   |    1    |       1.36
+      217 | 0x000000a3     |    10.187500 |   1   |  1   |    1    |       1.36
+      218 | 0x00000198     |    -6.500000 |   0   |  0   |    1    |       1.36
+      219 | 0x00000036     |     3.375000 |   0   |  1   |    0    |       1.36
+      220 | 0x00000161     |    -9.937500 |   1   |  0   |    0    |       1.36
+      221 | 0x0000015c     |   -10.250000 |   0   |  0   |    1    |       1.36
+      222 | 0x000001e0     |    -2.000000 |   0   |  0   |    1    |       1.36
+      223 | 0x0000006d     |     6.812500 |   1   |  1   |    1    |       1.36
+      224 | 0x000000e3     |    14.187500 |   1   |  1   |    1    |       1.36
+      225 | 0x000001c7     |    -3.562500 |   1   |  0   |    0    |       1.36
+      226 | 0x00000009     |     0.562500 |   0   |  1   |    0    |       1.36
+      227 | 0x0000008c     |     8.750000 |   0   |  1   |    0    |       1.36
+      228 | 0x000000b5     |    11.312500 |   0   |  1   |    0    |       1.36
+      229 | 0x000000ee     |    14.875000 |   0   |  1   |    0    |       1.36
+      230 | 0x000001c5     |    -3.687500 |   0   |  0   |    1    |       1.36
+      231 | 0x00000088     |     8.500000 |   0   |  1   |    0    |       1.36
+      232 | 0x0000002e     |     2.875000 |   1   |  1   |    1    |       1.36
+      233 | 0x00000169     |    -9.437500 |   1   |  0   |    0    |       1.36
+      234 | 0x000001d5     |    -2.687500 |   0   |  0   |    1    |       1.36
+      235 | 0x0000013a     |   -12.375000 |   0   |  0   |    1    |       1.36
+      236 | 0x00000157     |   -10.562500 |   0   |  0   |    1    |       1.36
+      237 | 0x00000058     |     5.500000 |   0   |  1   |    0    |       1.36
+      238 | 0x00000128     |   -13.500000 |   1   |  0   |    0    |       1.36
+      239 | 0x0000002a     |     2.625000 |   0   |  1   |    0    |       1.36
+      240 | 0x0000014e     |   -11.125000 |   1   |  0   |    0    |       1.36
+      241 | 0x00000053     |     5.187500 |   0   |  1   |    0    |       1.36
+      242 | 0x00000072     |     7.125000 |   0   |  1   |    0    |       1.36
+      243 | 0x00000168     |    -9.500000 |   0   |  0   |    1    |       1.36
+      244 | 0x000001ca     |    -3.375000 |   0   |  0   |    1    |       1.36
+      245 | 0x000000ba     |    11.625000 |   0   |  1   |    0    |       1.36
+      246 | 0x000000bf     |    11.937500 |   1   |  1   |    1    |       1.36
+      247 | 0x00000198     |    -6.500000 |   0   |  0   |    1    |       1.36
+      248 | 0x0000007a     |     7.625000 |   1   |  1   |    1    |       1.36
+      249 | 0x00000015     |     1.312500 |   0   |  1   |    0    |       1.36
+      250 | 0x0000012e     |   -13.125000 |   0   |  0   |    1    |       1.36
+      251 | 0x000000fc     |    15.750000 |   0   |  1   |    0    |       1.36
+      252 | 0x00000004     |     0.250000 |   0   |  0   |    1    |       1.36
+      253 | 0x000001ad     |    -5.187500 |   0   |  0   |    1    |       1.36
+      254 | 0x000001d8     |    -2.500000 |   0   |  0   |    1    |       1.36
+      255 | 0x000001c6     |    -3.625000 |   0   |  0   |    1    |       1.36
+      256 | 0x000000b3     |    11.187500 |   1   |  1   |    1    |       1.36
+      257 | 0x000000f9     |    15.562500 |   0   |  1   |    0    |       1.36
+      258 | 0x00000130     |   -13.000000 |   0   |  0   |    1    |       1.36
+      259 | 0x00000022     |     2.125000 |   0   |  1   |    0    |       1.36
+      260 | 0x000000ed     |    14.812500 |   0   |  1   |    0    |       1.36
+      261 | 0x000001fc     |    -0.250000 |   0   |  0   |    1    |       1.36
+      262 | 0x00000058     |     5.500000 |   1   |  1   |    1    |       1.36
+      263 | 0x00000064     |     6.250000 |   0   |  1   |    0    |       1.36
+      264 | 0x000001ba     |    -4.375000 |   0   |  0   |    1    |       1.36
+      265 | 0x0000001f     |     1.937500 |   0   |  1   |    0    |       1.36
+      266 | 0x000000b8     |    11.500000 |   0   |  1   |    0    |       1.36
+      267 | 0x000000f0     |    15.000000 |   0   |  1   |    0    |       1.36
+      268 | 0x000001de     |    -2.125000 |   0   |  0   |    1    |       1.36
+      269 | 0x0000006b     |     6.687500 |   0   |  1   |    0    |       1.36
+      270 | 0x00000193     |    -6.812500 |   0   |  0   |    1    |       1.36
+      271 | 0x000000fc     |    15.750000 |   0   |  1   |    0    |       1.36
+      272 | 0x0000016f     |    -9.062500 |   0   |  0   |    1    |       1.36
+      273 | 0x000000d3     |    13.187500 |   0   |  1   |    0    |       1.36
+      274 | 0x00000132     |   -12.875000 |   1   |  0   |    0    |       1.36
+      275 | 0x000001a5     |    -5.687500 |   1   |  0   |    0    |       1.36
+      276 | 0x00000163     |    -9.812500 |   1   |  0   |    0    |       1.36
+      277 | 0x000001af     |    -5.062500 |   0   |  0   |    1    |       1.36
+      278 | 0x000001f0     |    -1.000000 |   0   |  0   |    1    |       1.36
+      279 | 0x00000174     |    -8.750000 |   0   |  0   |    1    |       1.36
+      280 | 0x0000005b     |     5.687500 |   0   |  1   |    0    |       1.36
+      281 | 0x00000160     |   -10.000000 |   0   |  0   |    1    |       1.36
+      282 | 0x00000107     |   -15.562500 |   0   |  0   |    1    |       1.36
+      283 | 0x0000000a     |     0.625000 |   1   |  1   |    1    |       1.36
+      284 | 0x00000136     |   -12.625000 |   1   |  0   |    0    |       1.36
+      285 | 0x00000138     |   -12.500000 |   0   |  0   |    1    |       1.36
+      286 | 0x000000d3     |    13.187500 |   0   |  1   |    0    |       1.36
+      287 | 0x00000067     |     6.437500 |   0   |  1   |    0    |       1.36
+      288 | 0x0000015a     |   -10.375000 |   0   |  0   |    1    |       1.36
+      289 | 0x000000fc     |    15.750000 |   1   |  1   |    1    |       1.36
+      290 | 0x0000003b     |     3.687500 |   0   |  1   |    0    |       1.36
+      291 | 0x0000001f     |     1.937500 |   0   |  1   |    0    |       1.36
+      292 | 0x0000009b     |     9.687500 |   0   |  1   |    0    |       1.36
+      293 | 0x00000149     |   -11.437500 |   0   |  0   |    1    |       1.36
+      294 | 0x000001dc     |    -2.250000 |   0   |  0   |    1    |       1.36
+      295 | 0x000001d7     |    -2.562500 |   0   |  0   |    1    |       1.36
+      296 | 0x00000130     |   -13.000000 |   0   |  0   |    1    |       1.36
+      297 | 0x000001b6     |    -4.625000 |   0   |  0   |    1    |       1.36
+      298 | 0x000001c3     |    -3.812500 |   0   |  0   |    1    |       1.36
+      299 | 0x000001ac     |    -5.250000 |   0   |  0   |    1    |       1.36
+      300 | 0x000001e7     |    -1.562500 |   0   |  0   |    1    |       1.36
+      301 | 0x00000099     |     9.562500 |   0   |  1   |    0    |       1.36
+      302 | 0x0000011d     |   -14.187500 |   1   |  0   |    0    |       1.36
+      303 | 0x00000071     |     7.062500 |   0   |  1   |    0    |       1.36
+      304 | 0x000001c5     |    -3.687500 |   0   |  0   |    1    |       1.36
+      305 | 0x000001b4     |    -4.750000 |   1   |  0   |    0    |       1.36
+      306 | 0x000000c1     |    12.062500 |   0   |  1   |    0    |       1.36
+      307 | 0x000000f3     |    15.187500 |   0   |  1   |    0    |       1.36
+      308 | 0x00000051     |     5.062500 |   0   |  1   |    0    |       1.36
+      309 | 0x000000cc     |    12.750000 |   0   |  1   |    0    |       1.36
+      310 | 0x00000103     |   -15.812500 |   1   |  0   |    0    |       1.36
+      311 | 0x0000004a     |     4.625000 |   0   |  1   |    0    |       1.36
+      312 | 0x0000018f     |    -7.062500 |   0   |  0   |    1    |       1.36
+      313 | 0x00000081     |     8.062500 |   0   |  1   |    0    |       1.36
+      314 | 0x000001df     |    -2.062500 |   0   |  0   |    1    |       1.36
+      315 | 0x00000063     |     6.187500 |   0   |  1   |    0    |       1.36
+      316 | 0x00000055     |     5.312500 |   0   |  1   |    0    |       1.36
+      317 | 0x0000014e     |   -11.125000 |   0   |  0   |    1    |       1.36
+      318 | 0x000000c7     |    12.437500 |   0   |  1   |    0    |       1.36
+      319 | 0x0000018a     |    -7.375000 |   1   |  0   |    0    |       1.36
+      320 | 0x000001f7     |    -0.562500 |   0   |  0   |    1    |       1.36
+      321 | 0x00000060     |     6.000000 |   1   |  1   |    1    |       1.36
+      322 | 0x00000185     |    -7.687500 |   0   |  0   |    1    |       1.36
+      323 | 0x00000018     |     1.500000 |   1   |  1   |    1    |       1.36
+      324 | 0x00000085     |     8.312500 |   1   |  1   |    1    |       1.36
+      325 | 0x000001aa     |    -5.375000 |   1   |  0   |    0    |       1.36
+      326 | 0x000000c5     |    12.312500 |   0   |  1   |    0    |       1.36
+      327 | 0x00000049     |     4.562500 |   0   |  1   |    0    |       1.36
+      328 | 0x000000ad     |    10.812500 |   0   |  1   |    0    |       1.36
+      329 | 0x000000fd     |    15.812500 |   0   |  1   |    0    |       1.36
+      330 | 0x00000186     |    -7.625000 |   0   |  0   |    1    |       1.36
+      331 | 0x000001b0     |    -5.000000 |   1   |  0   |    0    |       1.36
+      332 | 0x000000e4     |    14.250000 |   0   |  1   |    0    |       1.36
+      333 | 0x000001a4     |    -5.750000 |   0   |  0   |    1    |       1.36
+      334 | 0x00000182     |    -7.875000 |   1   |  0   |    0    |       1.36
+      335 | 0x0000016c     |    -9.250000 |   0   |  0   |    1    |       1.36
+      336 | 0x00000130     |   -13.000000 |   0   |  0   |    1    |       1.36
+      337 | 0x0000016e     |    -9.125000 |   0   |  0   |    1    |       1.36
+      338 | 0x000001a3     |    -5.812500 |   0   |  0   |    1    |       1.36
+      339 | 0x0000015a     |   -10.375000 |   0   |  0   |    1    |       1.36
+      340 | 0x00000095     |     9.312500 |   1   |  1   |    1    |       1.36
+      341 | 0x00000187     |    -7.562500 |   0   |  0   |    1    |       1.36
+      342 | 0x000000b9     |    11.562500 |   0   |  1   |    0    |       1.36
+      343 | 0x000000b9     |    11.562500 |   0   |  1   |    0    |       1.36
+      344 | 0x00000041     |     4.062500 |   0   |  1   |    0    |       1.36
+      345 | 0x00000188     |    -7.500000 |   0   |  0   |    1    |       1.36
+      346 | 0x0000002e     |     2.875000 |   0   |  1   |    0    |       1.36
+      347 | 0x0000006c     |     6.750000 |   0   |  1   |    0    |       1.36
+      348 | 0x0000008a     |     8.625000 |   0   |  1   |    0    |       1.36
+      349 | 0x000000ee     |    14.875000 |   0   |  1   |    0    |       1.36
+      350 | 0x000001a5     |    -5.687500 |   1   |  0   |    0    |       1.36
+      351 | 0x0000007b     |     7.687500 |   0   |  1   |    0    |       1.36
+      352 | 0x000000a2     |    10.125000 |   0   |  1   |    0    |       1.36
+      353 | 0x00000067     |     6.437500 |   0   |  1   |    0    |       1.36
+      354 | 0x00000007     |     0.437500 |   0   |  0   |    1    |       1.36
+      355 | 0x00000178     |    -8.500000 |   0   |  0   |    1    |       1.36
+      356 | 0x000000ae     |    10.875000 |   0   |  1   |    0    |       1.36
+      357 | 0x00000131     |   -12.937500 |   0   |  0   |    1    |       1.36
+      358 | 0x00000156     |   -10.625000 |   0   |  0   |    1    |       1.36
+      359 | 0x000000d2     |    13.125000 |   1   |  1   |    1    |       1.36
+      360 | 0x0000004f     |     4.937500 |   0   |  1   |    0    |       1.36
+      361 | 0x0000019b     |    -6.312500 |   0   |  0   |    1    |       1.36
+      362 | 0x00000074     |     7.250000 |   0   |  1   |    0    |       1.36
+      363 | 0x000000e9     |    14.562500 |   0   |  1   |    0    |       1.36
+      364 | 0x0000006c     |     6.750000 |   0   |  1   |    0    |       1.36
+      365 | 0x000001c5     |    -3.687500 |   0   |  0   |    1    |       1.36
+      366 | 0x0000018d     |    -7.187500 |   0   |  0   |    1    |       1.36
+      367 | 0x00000021     |     2.062500 |   0   |  1   |    0    |       1.36
+      368 | 0x0000000c     |     0.750000 |   0   |  1   |    0    |       1.36
+      369 | 0x00000079     |     7.562500 |   0   |  1   |    0    |       1.36
+      370 | 0x0000008f     |     8.937500 |   0   |  1   |    0    |       1.36
+      371 | 0x00000164     |    -9.750000 |   0   |  0   |    1    |       1.36
+      372 | 0x000000c6     |    12.375000 |   1   |  1   |    1    |       1.36
+      373 | 0x0000002b     |     2.687500 |   0   |  1   |    0    |       1.36
+      374 | 0x00000074     |     7.250000 |   0   |  1   |    0    |       1.36
+      375 | 0x00000081     |     8.062500 |   1   |  1   |    1    |       1.36
+      376 | 0x0000017b     |    -8.312500 |   0   |  0   |    1    |       1.36
+      377 | 0x000000cd     |    12.812500 |   0   |  1   |    0    |       1.36
+      378 | 0x000001f9     |    -0.437500 |   0   |  0   |    1    |       1.36
+      379 | 0x000001ed     |    -1.187500 |   0   |  0   |    1    |       1.36
+      380 | 0x000001b8     |    -4.500000 |   1   |  0   |    0    |       1.36
+      381 | 0x00000004     |     0.250000 |   0   |  0   |    1    |       1.36
+      382 | 0x00000129     |   -13.437500 |   0   |  0   |    1    |       1.36
+      383 | 0x0000007f     |     7.937500 |   0   |  1   |    0    |       1.36
+      384 | 0x00000115     |   -14.687500 |   0   |  0   |    1    |       1.36
+      385 | 0x0000001f     |     1.937500 |   1   |  1   |    1    |       1.36
+      386 | 0x00000197     |    -6.562500 |   0   |  0   |    1    |       1.36
+      387 | 0x00000075     |     7.312500 |   1   |  1   |    1    |       1.36
+      388 | 0x00000140     |   -12.000000 |   0   |  0   |    1    |       1.36
+      389 | 0x000001c6     |    -3.625000 |   0   |  0   |    1    |       1.36
+      390 | 0x000001be     |    -4.125000 |   0   |  0   |    1    |       1.36
+      391 | 0x000000ec     |    14.750000 |   1   |  1   |    1    |       1.36
+      392 | 0x0000016c     |    -9.250000 |   0   |  0   |    1    |       1.36
+      393 | 0x0000012e     |   -13.125000 |   0   |  0   |    1    |       1.36
+      394 | 0x000000ca     |    12.625000 |   0   |  1   |    0    |       1.36
+      395 | 0x0000012c     |   -13.250000 |   0   |  0   |    1    |       1.36
+      396 | 0x000001be     |    -4.125000 |   0   |  0   |    1    |       1.36
+      397 | 0x0000012e     |   -13.125000 |   0   |  0   |    1    |       1.36
+      398 | 0x000001b0     |    -5.000000 |   0   |  0   |    1    |       1.36
+      399 | 0x00000132     |   -12.875000 |   1   |  0   |    0    |       1.36
+      400 | 0x00000084     |     8.250000 |   0   |  1   |    0    |       1.36
+      401 | 0x000000a2     |    10.125000 |   0   |  1   |    0    |       1.36
+      402 | 0x0000019e     |    -6.125000 |   0   |  0   |    1    |       1.36
+      403 | 0x0000014a     |   -11.375000 |   0   |  0   |    1    |       1.36
+      404 | 0x00000027     |     2.437500 |   0   |  1   |    0    |       1.36
+      405 | 0x00000014     |     1.250000 |   1   |  1   |    1    |       1.36
+      406 | 0x0000001a     |     1.625000 |   0   |  1   |    0    |       1.36
+      407 | 0x00000075     |     7.312500 |   0   |  1   |    0    |       1.36
+      408 | 0x000000bf     |    11.937500 |   0   |  1   |    0    |       1.36
+      409 | 0x0000012c     |   -13.250000 |   0   |  0   |    1    |       1.36
+      410 | 0x000001a7     |    -5.562500 |   0   |  0   |    1    |       1.36
+      411 | 0x00000166     |    -9.625000 |   0   |  0   |    1    |       1.36
+      412 | 0x000000b3     |    11.187500 |   0   |  1   |    0    |       1.36
+      413 | 0x00000147     |   -11.562500 |   0   |  0   |    1    |       1.36
+      414 | 0x00000024     |     2.250000 |   0   |  1   |    0    |       1.36
+      415 | 0x00000143     |   -11.812500 |   0   |  0   |    1    |       1.36
+      416 | 0x0000001f     |     1.937500 |   0   |  1   |    0    |       1.36
+      417 | 0x000001b5     |    -4.687500 |   0   |  0   |    1    |       1.36
+      418 | 0x0000015a     |   -10.375000 |   0   |  0   |    1    |       1.36
+      419 | 0x0000019f     |    -6.062500 |   0   |  0   |    1    |       1.36
+      420 | 0x000001fa     |    -0.375000 |   0   |  0   |    1    |       1.36
+      421 | 0x000000af     |    10.937500 |   1   |  1   |    1    |       1.36
+      422 | 0x000001ba     |    -4.375000 |   1   |  0   |    0    |       1.36
+      423 | 0x000000af     |    10.937500 |   0   |  1   |    0    |       1.36
+      424 | 0x00000070     |     7.000000 |   0   |  1   |    0    |       1.36
+      425 | 0x0000004f     |     4.937500 |   1   |  1   |    1    |       1.36
+      426 | 0x00000073     |     7.187500 |   0   |  1   |    0    |       1.36
+      427 | 0x000000a8     |    10.500000 |   0   |  1   |    0    |       1.36
+      428 | 0x0000014d     |   -11.187500 |   0   |  0   |    1    |       1.36
+      429 | 0x0000016d     |    -9.187500 |   1   |  0   |    0    |       1.36
+      430 | 0x0000017b     |    -8.312500 |   0   |  0   |    1    |       1.36
+      431 | 0x00000010     |     1.000000 |   0   |  1   |    0    |       1.36
+      432 | 0x00000169     |    -9.437500 |   0   |  0   |    1    |       1.36
+      433 | 0x00000135     |   -12.687500 |   0   |  0   |    1    |       1.36
+      434 | 0x00000138     |   -12.500000 |   0   |  0   |    1    |       1.36
+      435 | 0x000001c2     |    -3.875000 |   0   |  0   |    1    |       1.36
+      436 | 0x000000a5     |    10.312500 |   0   |  1   |    0    |       1.36
+      437 | 0x000000be     |    11.875000 |   1   |  1   |    1    |       1.36
+      438 | 0x000000c1     |    12.062500 |   0   |  1   |    0    |       1.36
+      439 | 0x00000095     |     9.312500 |   0   |  1   |    0    |       1.36
+      440 | 0x000001e8     |    -1.500000 |   1   |  0   |    0    |       1.36
+      441 | 0x0000004d     |     4.812500 |   0   |  1   |    0    |       1.36
+      442 | 0x0000013f     |   -12.062500 |   0   |  0   |    1    |       1.36
+      443 | 0x00000016     |     1.375000 |   1   |  1   |    1    |       1.36
+      444 | 0x000000ce     |    12.875000 |   1   |  1   |    1    |       1.36
+      445 | 0x000001b3     |    -4.812500 |   0   |  0   |    1    |       1.36
+      446 | 0x000001f6     |    -0.625000 |   0   |  0   |    1    |       1.36
+      447 | 0x0000007f     |     7.937500 |   0   |  1   |    0    |       1.36
+      448 | 0x00000034     |     3.250000 |   1   |  1   |    1    |       1.36
+      449 | 0x000000e8     |    14.500000 |   0   |  1   |    0    |       1.36
+      450 | 0x00000124     |   -13.750000 |   0   |  0   |    1    |       1.36
+      451 | 0x000000c8     |    12.500000 |   0   |  1   |    0    |       1.36
+      452 | 0x000001a1     |    -5.937500 |   0   |  0   |    1    |       1.36
+      453 | 0x000000a5     |    10.312500 |   0   |  1   |    0    |       1.36
+      454 | 0x00000178     |    -8.500000 |   1   |  0   |    0    |       1.36
+      455 | 0x000000e2     |    14.125000 |   1   |  1   |    1    |       1.36
+      456 | 0x00000149     |   -11.437500 |   0   |  0   |    1    |       1.36
+      457 | 0x00000101     |   -15.937500 |   0   |  0   |    1    |       1.36
+      458 | 0x0000000d     |     0.812500 |   0   |  1   |    0    |       1.36
+      459 | 0x000001f9     |    -0.437500 |   0   |  0   |    1    |       1.36
+      460 | 0x000001c7     |    -3.562500 |   0   |  0   |    1    |       1.36
+      461 | 0x00000039     |     3.562500 |   0   |  1   |    0    |       1.36
+      462 | 0x0000004e     |     4.875000 |   0   |  1   |    0    |       1.36
+      463 | 0x00000166     |    -9.625000 |   0   |  0   |    1    |       1.36
+      464 | 0x0000005a     |     5.625000 |   0   |  1   |    0    |       1.36
+      465 | 0x000001bb     |    -4.312500 |   0   |  0   |    1    |       1.36
+      466 | 0x00000138     |   -12.500000 |   0   |  0   |    1    |       1.36
+      467 | 0x00000124     |   -13.750000 |   0   |  0   |    1    |       1.36
+      468 | 0x000001da     |    -2.375000 |   0   |  0   |    1    |       1.36
+      469 | 0x00000006     |     0.375000 |   1   |  0   |    0    |       1.36
+      470 | 0x00000006     |     0.375000 |   0   |  0   |    1    |       1.36
+      471 | 0x000000df     |    13.937500 |   0   |  1   |    0    |       1.36
+      472 | 0x00000045     |     4.312500 |   0   |  1   |    0    |       1.36
+      473 | 0x000001a8     |    -5.500000 |   1   |  0   |    0    |       1.36
+      474 | 0x00000049     |     4.562500 |   1   |  1   |    1    |       1.36
+      475 | 0x0000009f     |     9.937500 |   0   |  1   |    0    |       1.36
+      476 | 0x000000aa     |    10.625000 |   0   |  1   |    0    |       1.36
+      477 | 0x0000018e     |    -7.125000 |   0   |  0   |    1    |       1.36
+      478 | 0x0000002c     |     2.750000 |   0   |  1   |    0    |       1.36
+      479 | 0x000000b4     |    11.250000 |   0   |  1   |    0    |       1.36
+      480 | 0x0000006e     |     6.875000 |   0   |  1   |    0    |       1.36
+      481 | 0x000001d7     |    -2.562500 |   0   |  0   |    1    |       1.36
+      482 | 0x00000153     |   -10.812500 |   0   |  0   |    1    |       1.36
+      483 | 0x00000127     |   -13.562500 |   0   |  0   |    1    |       1.36
+      484 | 0x000000c8     |    12.500000 |   0   |  1   |    0    |       1.36
+      485 | 0x0000006d     |     6.812500 |   0   |  1   |    0    |       1.36
+      486 | 0x000001ce     |    -3.125000 |   0   |  0   |    1    |       1.36
+      487 | 0x0000016a     |    -9.375000 |   0   |  0   |    1    |       1.36
+      488 | 0x000001d2     |    -2.875000 |   0   |  0   |    1    |       1.36
+      489 | 0x0000013c     |   -12.250000 |   0   |  0   |    1    |       1.36
+      490 | 0x00000131     |   -12.937500 |   1   |  0   |    0    |       1.36
+      491 | 0x0000003d     |     3.812500 |   0   |  1   |    0    |       1.36
+      492 | 0x00000123     |   -13.812500 |   0   |  0   |    1    |       1.36
+      493 | 0x000001c6     |    -3.625000 |   0   |  0   |    1    |       1.36
+      494 | 0x0000008f     |     8.937500 |   0   |  1   |    0    |       1.36
+      495 | 0x000001a2     |    -5.875000 |   1   |  0   |    0    |       1.36
+      496 | 0x00000078     |     7.500000 |   1   |  1   |    1    |       1.36
+      497 | 0x000001d8     |    -2.500000 |   0   |  0   |    1    |       1.36
+      498 | 0x00000018     |     1.500000 |   0   |  1   |    0    |       1.36
+      499 | 0x000001f5     |    -0.687500 |   1   |  0   |    0    |       1.36
+      500 | 0x000000a2     |    10.125000 |   0   |  1   |    0    |       1.36
+      501 | 0x00000012     |     1.125000 |   0   |  1   |    0    |       1.36
+      502 | 0x0000010d     |   -15.187500 |   1   |  0   |    0    |       1.36
+      503 | 0x000000ad     |    10.812500 |   0   |  1   |    0    |       1.36
+      504 | 0x000001e6     |    -1.625000 |   0   |  0   |    1    |       1.36
+      505 | 0x00000149     |   -11.437500 |   0   |  0   |    1    |       1.36
+      506 | 0x000000e3     |    14.187500 |   1   |  1   |    1    |       1.36
+      507 | 0x000000b0     |    11.000000 |   0   |  1   |    0    |       1.36
+      508 | 0x0000007f     |     7.937500 |   0   |  1   |    0    |       1.36
+      509 | 0x000001b4     |    -4.750000 |   0   |  0   |    1    |       1.36
+      510 | 0x000000e8     |    14.500000 |   1   |  1   |    1    |       1.36
+      511 | 0x0000009e     |     9.875000 |   1   |  1   |    1    |       1.36
+      512 | 0x00000174     |    -8.750000 |   0   |  0   |    1    |       1.36
+      513 | 0x0000000e     |     0.875000 |   0   |  1   |    0    |       1.36
+      514 | 0x00000044     |     4.250000 |   0   |  1   |    0    |       1.36
+      515 | 0x00000131     |   -12.937500 |   0   |  0   |    1    |       1.36
+      516 | 0x000001e4     |    -1.750000 |   1   |  0   |    0    |       1.36
+      517 | 0x0000013a     |   -12.375000 |   0   |  0   |    1    |       1.36
+      518 | 0x00000012     |     1.125000 |   0   |  1   |    0    |       1.36
+      519 | 0x00000036     |     3.375000 |   0   |  1   |    0    |       1.36
+      520 | 0x000000ad     |    10.812500 |   0   |  1   |    0    |       1.36
+      521 | 0x00000048     |     4.500000 |   0   |  1   |    0    |       1.36
+      522 | 0x00000125     |   -13.687500 |   0   |  0   |    1    |       1.36
+      523 | 0x00000017     |     1.437500 |   0   |  1   |    0    |       1.36
+      524 | 0x000000e3     |    14.187500 |   1   |  1   |    1    |       1.36
+      525 | 0x000000a0     |    10.000000 |   0   |  1   |    0    |       1.36
+      526 | 0x00000071     |     7.062500 |   0   |  1   |    0    |       1.36
+      527 | 0x0000001c     |     1.750000 |   1   |  1   |    1    |       1.36
+      528 | 0x000001f1     |    -0.937500 |   0   |  0   |    1    |       1.36
+      529 | 0x00000090     |     9.000000 |   0   |  1   |    0    |       1.36
+      530 | 0x000001cf     |    -3.062500 |   0   |  0   |    1    |       1.36
+      531 | 0x0000008a     |     8.625000 |   0   |  1   |    0    |       1.36
+      532 | 0x000000c9     |    12.562500 |   0   |  1   |    0    |       1.36
+      533 | 0x000000db     |    13.687500 |   0   |  1   |    0    |       1.36
+      534 | 0x000000dd     |    13.812500 |   0   |  1   |    0    |       1.36
+      535 | 0x00000189     |    -7.437500 |   0   |  0   |    1    |       1.36
+      536 | 0x000000fe     |    15.875000 |   0   |  1   |    0    |       1.36
+      537 | 0x000000b9     |    11.562500 |   0   |  1   |    0    |       1.36
+      538 | 0x00000008     |     0.500000 |   0   |  0   |    1    |       1.36
+      539 | 0x000000ad     |    10.812500 |   1   |  1   |    1    |       1.36
+      540 | 0x0000001d     |     1.812500 |   0   |  1   |    0    |       1.36
+      541 | 0x00000023     |     2.187500 |   0   |  1   |    0    |       1.36
+      542 | 0x000001a9     |    -5.437500 |   0   |  0   |    1    |       1.36
+      543 | 0x00000145     |   -11.687500 |   1   |  0   |    0    |       1.36
+      544 | 0x000000b6     |    11.375000 |   0   |  1   |    0    |       1.36
+      545 | 0x00000199     |    -6.437500 |   0   |  0   |    1    |       1.36
+      546 | 0x00000143     |   -11.812500 |   1   |  0   |    0    |       1.36
+      547 | 0x000001d9     |    -2.437500 |   0   |  0   |    1    |       1.36
+      548 | 0x00000131     |   -12.937500 |   0   |  0   |    1    |       1.36
+      549 | 0x00000181     |    -7.937500 |   0   |  0   |    1    |       1.36
+      550 | 0x000000c5     |    12.312500 |   0   |  1   |    0    |       1.36
+      551 | 0x00000049     |     4.562500 |   0   |  1   |    0    |       1.36
+      552 | 0x00000146     |   -11.625000 |   0   |  0   |    1    |       1.36
+      553 | 0x00000039     |     3.562500 |   0   |  1   |    0    |       1.36
+      554 | 0x00000171     |    -8.937500 |   0   |  0   |    1    |       1.36
+      555 | 0x00000119     |   -14.437500 |   1   |  0   |    0    |       1.36
+      556 | 0x00000152     |   -10.875000 |   0   |  0   |    1    |       1.36
+      557 | 0x000000fc     |    15.750000 |   0   |  1   |    0    |       1.36
+      558 | 0x00000064     |     6.250000 |   1   |  1   |    1    |       1.36
+      559 | 0x000001fb     |    -0.312500 |   0   |  0   |    1    |       1.36
+      560 | 0x000001da     |    -2.375000 |   0   |  0   |    1    |       1.36
+      561 | 0x000000c4     |    12.250000 |   0   |  1   |    0    |       1.36
+      562 | 0x000000e8     |    14.500000 |   0   |  1   |    0    |       1.36
+      563 | 0x00000175     |    -8.687500 |   0   |  0   |    1    |       1.36
+      564 | 0x00000040     |     4.000000 |   0   |  1   |    0    |       1.36
+      565 | 0x00000111     |   -14.937500 |   1   |  0   |    0    |       1.36
+      566 | 0x000001d5     |    -2.687500 |   0   |  0   |    1    |       1.36
+      567 | 0x000001d7     |    -2.562500 |   1   |  0   |    0    |       1.36
+      568 | 0x000001cb     |    -3.312500 |   0   |  0   |    1    |       1.36
+      569 | 0x000001cd     |    -3.187500 |   0   |  0   |    1    |       1.36
+      570 | 0x00000146     |   -11.625000 |   0   |  0   |    1    |       1.36
+      571 | 0x00000171     |    -8.937500 |   0   |  0   |    1    |       1.36
+      572 | 0x00000060     |     6.000000 |   0   |  1   |    0    |       1.36
+      573 | 0x00000081     |     8.062500 |   1   |  1   |    1    |       1.36
+      574 | 0x000000c4     |    12.250000 |   0   |  1   |    0    |       1.36
+      575 | 0x00000015     |     1.312500 |   0   |  1   |    0    |       1.36
+      576 | 0x000001aa     |    -5.375000 |   1   |  0   |    0    |       1.36
+      577 | 0x00000079     |     7.562500 |   0   |  1   |    0    |       1.36
+      578 | 0x0000009c     |     9.750000 |   0   |  1   |    0    |       1.36
+      579 | 0x000000b0     |    11.000000 |   0   |  1   |    0    |       1.36
+      580 | 0x00000116     |   -14.625000 |   0   |  0   |    1    |       1.36
+      581 | 0x00000053     |     5.187500 |   0   |  1   |    0    |       1.36
+      582 | 0x000001df     |    -2.062500 |   0   |  0   |    1    |       1.36
+      583 | 0x000000e6     |    14.375000 |   0   |  1   |    0    |       1.36
+      584 | 0x00000174     |    -8.750000 |   1   |  0   |    0    |       1.36
+      585 | 0x00000181     |    -7.937500 |   0   |  0   |    1    |       1.36
+      586 | 0x0000019d     |    -6.187500 |   0   |  0   |    1    |       1.36
+      587 | 0x00000186     |    -7.625000 |   0   |  0   |    1    |       1.36
+      588 | 0x0000008d     |     8.812500 |   0   |  1   |    0    |       1.36
+      589 | 0x000001f6     |    -0.625000 |   0   |  0   |    1    |       1.36
+      590 | 0x0000007d     |     7.812500 |   1   |  1   |    1    |       1.36
+      591 | 0x00000195     |    -6.687500 |   0   |  0   |    1    |       1.36
+      592 | 0x0000013b     |   -12.312500 |   0   |  0   |    1    |       1.36
+      593 | 0x000000a8     |    10.500000 |   1   |  1   |    1    |       1.36
+      594 | 0x000001c6     |    -3.625000 |   0   |  0   |    1    |       1.36
+      595 | 0x0000011b     |   -14.312500 |   1   |  0   |    0    |       1.36
+      596 | 0x000001f8     |    -0.500000 |   1   |  0   |    0    |       1.36
+      597 | 0x00000181     |    -7.937500 |   0   |  0   |    1    |       1.36
+      598 | 0x00000029     |     2.562500 |   0   |  1   |    0    |       1.36
+      599 | 0x0000018f     |    -7.062500 |   0   |  0   |    1    |       1.36
+      600 | 0x00000085     |     8.312500 |   0   |  1   |    0    |       1.36
+      601 | 0x000000f5     |    15.312500 |   0   |  1   |    0    |       1.36
+      602 | 0x0000017b     |    -8.312500 |   0   |  0   |    1    |       1.36
+      603 | 0x000000cd     |    12.812500 |   0   |  1   |    0    |       1.36
+      604 | 0x000000cb     |    12.687500 |   0   |  1   |    0    |       1.36
+      605 | 0x00000142     |   -11.875000 |   0   |  0   |    1    |       1.36
+      606 | 0x000001ec     |    -1.250000 |   0   |  0   |    1    |       1.36
+      607 | 0x00000159     |   -10.437500 |   0   |  0   |    1    |       1.36
+      608 | 0x00000160     |   -10.000000 |   0   |  0   |    1    |       1.36
+      609 | 0x0000013e     |   -12.125000 |   0   |  0   |    1    |       1.36
+      610 | 0x00000072     |     7.125000 |   0   |  1   |    0    |       1.36
+      611 | 0x00000091     |     9.062500 |   0   |  1   |    0    |       1.36
+      612 | 0x00000126     |   -13.625000 |   0   |  0   |    1    |       1.36
+      613 | 0x000001d4     |    -2.750000 |   1   |  0   |    0    |       1.36
+      614 | 0x000000c4     |    12.250000 |   0   |  1   |    0    |       1.36
+      615 | 0x000001ba     |    -4.375000 |   0   |  0   |    1    |       1.36
+      616 | 0x000000ce     |    12.875000 |   0   |  1   |    0    |       1.36
+      617 | 0x000000b8     |    11.500000 |   0   |  1   |    0    |       1.36
+      618 | 0x00000022     |     2.125000 |   0   |  1   |    0    |       1.36
+      619 | 0x00000126     |   -13.625000 |   0   |  0   |    1    |       1.36
+      620 | 0x00000104     |   -15.750000 |   0   |  0   |    1    |       1.36
+      621 | 0x00000148     |   -11.500000 |   0   |  0   |    1    |       1.36
+      622 | 0x00000081     |     8.062500 |   0   |  1   |    0    |       1.36
+      623 | 0x000000dd     |    13.812500 |   0   |  1   |    0    |       1.36
+      624 | 0x0000009c     |     9.750000 |   1   |  1   |    1    |       1.36
+      625 | 0x0000002e     |     2.875000 |   0   |  1   |    0    |       1.36
+      626 | 0x00000020     |     2.000000 |   1   |  1   |    1    |       1.36
+      627 | 0x0000013e     |   -12.125000 |   1   |  0   |    0    |       1.36
+      628 | 0x00000001     |     0.062500 |   0   |  0   |    1    |       1.36
+      629 | 0x0000013c     |   -12.250000 |   1   |  0   |    0    |       1.36
+      630 | 0x00000163     |    -9.812500 |   0   |  0   |    1    |       1.36
+      631 | 0x000001e5     |    -1.687500 |   0   |  0   |    1    |       1.36
+      632 | 0x000001c6     |    -3.625000 |   0   |  0   |    1    |       1.36
+      633 | 0x0000019f     |    -6.062500 |   0   |  0   |    1    |       1.36
+      634 | 0x00000035     |     3.312500 |   1   |  1   |    1    |       1.36
+      635 | 0x0000002a     |     2.625000 |   0   |  1   |    0    |       1.36
+      636 | 0x00000045     |     4.312500 |   0   |  1   |    0    |       1.36
+      637 | 0x00000093     |     9.187500 |   0   |  1   |    0    |       1.36
+      638 | 0x0000018a     |    -7.375000 |   0   |  0   |    1    |       1.36
+      639 | 0x00000182     |    -7.875000 |   0   |  0   |    1    |       1.36
+      640 | 0x000000ad     |    10.812500 |   0   |  1   |    0    |       1.36
+      641 | 0x000001cb     |    -3.312500 |   0   |  0   |    1    |       1.36
+      642 | 0x000000db     |    13.687500 |   0   |  1   |    0    |       1.36
+      643 | 0x000001ef     |    -1.062500 |   0   |  0   |    1    |       1.36
+      644 | 0x00000058     |     5.500000 |   0   |  1   |    0    |       1.36
+      645 | 0x00000109     |   -15.437500 |   0   |  0   |    1    |       1.36
+      646 | 0x00000145     |   -11.687500 |   0   |  0   |    1    |       1.36
+      647 | 0x00000029     |     2.562500 |   0   |  1   |    0    |       1.36
+      648 | 0x000000c9     |    12.562500 |   0   |  1   |    0    |       1.36
+      649 | 0x000000da     |    13.625000 |   0   |  1   |    0    |       1.36
+      650 | 0x000000ef     |    14.937500 |   0   |  1   |    0    |       1.36
+      651 | 0x00000109     |   -15.437500 |   0   |  0   |    1    |       1.36
+      652 | 0x0000004f     |     4.937500 |   0   |  1   |    0    |       1.36
+      653 | 0x0000014f     |   -11.062500 |   0   |  0   |    1    |       1.36
+      654 | 0x0000006a     |     6.625000 |   0   |  1   |    0    |       1.36
+      655 | 0x000001af     |    -5.062500 |   0   |  0   |    1    |       1.36
+      656 | 0x0000019a     |    -6.375000 |   0   |  0   |    1    |       1.36
+      657 | 0x000000c3     |    12.187500 |   1   |  1   |    1    |       1.36
+      658 | 0x000000f4     |    15.250000 |   0   |  1   |    0    |       1.36
+      659 | 0x000000a7     |    10.437500 |   1   |  1   |    1    |       1.36
+      660 | 0x00000005     |     0.312500 |   0   |  0   |    1    |       1.36
+      661 | 0x00000198     |    -6.500000 |   0   |  0   |    1    |       1.36
+      662 | 0x0000004f     |     4.937500 |   0   |  1   |    0    |       1.36
+      663 | 0x00000050     |     5.000000 |   0   |  1   |    0    |       1.36
+      664 | 0x00000042     |     4.125000 |   1   |  1   |    1    |       1.36
+      665 | 0x00000071     |     7.062500 |   1   |  1   |    1    |       1.36
+      666 | 0x00000117     |   -14.562500 |   0   |  0   |    1    |       1.36
+      667 | 0x0000007a     |     7.625000 |   0   |  1   |    0    |       1.36
+      668 | 0x00000067     |     6.437500 |   1   |  1   |    1    |       1.36
+      669 | 0x0000008f     |     8.937500 |   0   |  1   |    0    |       1.36
+      670 | 0x00000044     |     4.250000 |   0   |  1   |    0    |       1.36
+      671 | 0x00000147     |   -11.562500 |   0   |  0   |    1    |       1.36
+      672 | 0x000001f1     |    -0.937500 |   1   |  0   |    0    |       1.36
+      673 | 0x000000e9     |    14.562500 |   0   |  1   |    0    |       1.36
+      674 | 0x000001dd     |    -2.187500 |   0   |  0   |    1    |       1.36
+      675 | 0x000000d8     |    13.500000 |   1   |  1   |    1    |       1.36
+      676 | 0x000000c6     |    12.375000 |   0   |  1   |    0    |       1.36
+      677 | 0x000000b8     |    11.500000 |   0   |  1   |    0    |       1.36
+      678 | 0x000000d9     |    13.562500 |   0   |  1   |    0    |       1.36
+      679 | 0x000001cb     |    -3.312500 |   0   |  0   |    1    |       1.36
+      680 | 0x00000019     |     1.562500 |   0   |  1   |    0    |       1.36
+      681 | 0x00000136     |   -12.625000 |   0   |  0   |    1    |       1.36
+      682 | 0x00000153     |   -10.812500 |   0   |  0   |    1    |       1.36
+      683 | 0x0000007f     |     7.937500 |   0   |  1   |    0    |       1.36
+      684 | 0x00000022     |     2.125000 |   0   |  1   |    0    |       1.36
+      685 | 0x000001d3     |    -2.812500 |   0   |  0   |    1    |       1.36
+      686 | 0x0000008d     |     8.812500 |   1   |  1   |    1    |       1.36
+      687 | 0x000000ad     |    10.812500 |   0   |  1   |    0    |       1.36
+      688 | 0x00000076     |     7.375000 |   1   |  1   |    1    |       1.36
+      689 | 0x000001b8     |    -4.500000 |   1   |  0   |    0    |       1.36
+      690 | 0x00000183     |    -7.812500 |   0   |  0   |    1    |       1.36
+      691 | 0x000000e3     |    14.187500 |   0   |  1   |    0    |       1.36
+      692 | 0x000001e3     |    -1.812500 |   0   |  0   |    1    |       1.36
+      693 | 0x00000015     |     1.312500 |   1   |  1   |    1    |       1.36
+      694 | 0x0000011b     |   -14.312500 |   0   |  0   |    1    |       1.36
+      695 | 0x0000003e     |     3.875000 |   0   |  1   |    0    |       1.36
+      696 | 0x000000a9     |    10.562500 |   0   |  1   |    0    |       1.36
+      697 | 0x000000fe     |    15.875000 |   0   |  1   |    0    |       1.36
+      698 | 0x00000190     |    -7.000000 |   0   |  0   |    1    |       1.36
+      699 | 0x00000036     |     3.375000 |   0   |  1   |    0    |       1.36
+      700 | 0x000001f3     |    -0.812500 |   0   |  0   |    1    |       1.36
+      701 | 0x00000121     |   -13.937500 |   0   |  0   |    1    |       1.36
+      702 | 0x00000165     |    -9.687500 |   0   |  0   |    1    |       1.36
+      703 | 0x00000138     |   -12.500000 |   0   |  0   |    1    |       1.36
+      704 | 0x00000097     |     9.437500 |   0   |  1   |    0    |       1.36
+      705 | 0x00000087     |     8.437500 |   0   |  1   |    0    |       1.36
+      706 | 0x00000091     |     9.062500 |   0   |  1   |    0    |       1.36
+      707 | 0x000000fd     |    15.812500 |   0   |  1   |    0    |       1.36
+      708 | 0x00000165     |    -9.687500 |   0   |  0   |    1    |       1.36
+      709 | 0x0000014c     |   -11.250000 |   0   |  0   |    1    |       1.36
+      710 | 0x0000011d     |   -14.187500 |   0   |  0   |    1    |       1.36
+      711 | 0x00000116     |   -14.625000 |   0   |  0   |    1    |       1.36
+      712 | 0x000001d1     |    -2.937500 |   0   |  0   |    1    |       1.36
+      713 | 0x0000003d     |     3.812500 |   1   |  1   |    1    |       1.36
+      714 | 0x000001bf     |    -4.062500 |   0   |  0   |    1    |       1.36
+      715 | 0x0000000a     |     0.625000 |   0   |  1   |    0    |       1.36
+      716 | 0x0000007d     |     7.812500 |   0   |  1   |    0    |       1.36
+      717 | 0x000001e1     |    -1.937500 |   1   |  0   |    0    |       1.36
+      718 | 0x00000039     |     3.562500 |   0   |  1   |    0    |       1.36
+      719 | 0x000000ff     |    15.937500 |   1   |  1   |    1    |       1.36
+      720 | 0x000000ba     |    11.625000 |   0   |  1   |    0    |       1.36
+      721 | 0x0000007a     |     7.625000 |   0   |  1   |    0    |       1.36
+      722 | 0x00000169     |    -9.437500 |   0   |  0   |    1    |       1.36
+      723 | 0x000001b0     |    -5.000000 |   0   |  0   |    1    |       1.36
+      724 | 0x000001a4     |    -5.750000 |   0   |  0   |    1    |       1.36
+      725 | 0x000000aa     |    10.625000 |   0   |  1   |    0    |       1.36
+      726 | 0x00000088     |     8.500000 |   0   |  1   |    0    |       1.36
+      727 | 0x0000010a     |   -15.375000 |   1   |  0   |    0    |       1.36
+      728 | 0x000001b7     |    -4.562500 |   0   |  0   |    1    |       1.36
+      729 | 0x00000123     |   -13.812500 |   0   |  0   |    1    |       1.36
+      730 | 0x000001ab     |    -5.312500 |   0   |  0   |    1    |       1.36
+      731 | 0x0000009b     |     9.687500 |   0   |  1   |    0    |       1.36
+      732 | 0x00000042     |     4.125000 |   0   |  1   |    0    |       1.36
+      733 | 0x00000109     |   -15.437500 |   0   |  0   |    1    |       1.36
+      734 | 0x00000178     |    -8.500000 |   0   |  0   |    1    |       1.36
+      735 | 0x0000014b     |   -11.312500 |   0   |  0   |    1    |       1.36
+      736 | 0x0000016a     |    -9.375000 |   0   |  0   |    1    |       1.36
+      737 | 0x000000f7     |    15.437500 |   0   |  1   |    0    |       1.36
+      738 | 0x000000cb     |    12.687500 |   1   |  1   |    1    |       1.36
+      739 | 0x000000e3     |    14.187500 |   0   |  1   |    0    |       1.36
+      740 | 0x000000ae     |    10.875000 |   0   |  1   |    0    |       1.36
+      741 | 0x000000ef     |    14.937500 |   0   |  1   |    0    |       1.36
+      742 | 0x000001b0     |    -5.000000 |   0   |  0   |    1    |       1.36
+      743 | 0x000000d2     |    13.125000 |   1   |  1   |    1    |       1.36
+      744 | 0x00000154     |   -10.750000 |   0   |  0   |    1    |       1.36
+      745 | 0x00000080     |     8.000000 |   1   |  1   |    1    |       1.36
+      746 | 0x000001ab     |    -5.312500 |   0   |  0   |    1    |       1.36
+      747 | 0x00000111     |   -14.937500 |   0   |  0   |    1    |       1.36
+      748 | 0x0000008d     |     8.812500 |   0   |  1   |    0    |       1.36
+      749 | 0x000001f2     |    -0.875000 |   0   |  0   |    1    |       1.36
+      750 | 0x000001ec     |    -1.250000 |   0   |  0   |    1    |       1.36
+      751 | 0x00000019     |     1.562500 |   0   |  1   |    0    |       1.36
+      752 | 0x000000e1     |    14.062500 |   0   |  1   |    0    |       1.36
+      753 | 0x0000016c     |    -9.250000 |   0   |  0   |    1    |       1.36
+      754 | 0x0000002d     |     2.812500 |   0   |  1   |    0    |       1.36
+      755 | 0x0000017b     |    -8.312500 |   0   |  0   |    1    |       1.36
+      756 | 0x0000017e     |    -8.125000 |   0   |  0   |    1    |       1.36
+      757 | 0x0000009d     |     9.812500 |   0   |  1   |    0    |       1.36
+      758 | 0x0000013d     |   -12.187500 |   0   |  0   |    1    |       1.36
+      759 | 0x00000155     |   -10.687500 |   0   |  0   |    1    |       1.36
+      760 | 0x000001a2     |    -5.875000 |   0   |  0   |    1    |       1.36
+      761 | 0x000001d6     |    -2.625000 |   0   |  0   |    1    |       1.36
+      762 | 0x000001ef     |    -1.062500 |   0   |  0   |    1    |       1.36
+      763 | 0x000000cb     |    12.687500 |   0   |  1   |    0    |       1.36
+      764 | 0x00000085     |     8.312500 |   0   |  1   |    0    |       1.36
+      765 | 0x0000010a     |   -15.375000 |   0   |  0   |    1    |       1.36
+      766 | 0x00000162     |    -9.875000 |   0   |  0   |    1    |       1.36
+      767 | 0x000001a0     |    -6.000000 |   0   |  0   |    1    |       1.36
+      768 | 0x0000019e     |    -6.125000 |   0   |  0   |    1    |       1.36
+      769 | 0x00000160     |   -10.000000 |   0   |  0   |    1    |       1.36
+      770 | 0x000001fd     |    -0.187500 |   0   |  0   |    1    |       1.36
+      771 | 0x000001c9     |    -3.437500 |   0   |  0   |    1    |       1.36
+      772 | 0x0000003d     |     3.812500 |   0   |  1   |    0    |       1.36
+      773 | 0x000001e7     |    -1.562500 |   0   |  0   |    1    |       1.36
+      774 | 0x000001d0     |    -3.000000 |   1   |  0   |    0    |       1.36
+      775 | 0x00000043     |     4.187500 |   0   |  1   |    0    |       1.36
+      776 | 0x0000017b     |    -8.312500 |   0   |  0   |    1    |       1.36
+      777 | 0x000000b6     |    11.375000 |   0   |  1   |    0    |       1.36
+      778 | 0x00000029     |     2.562500 |   1   |  1   |    1    |       1.36
+      779 | 0x00000153     |   -10.812500 |   0   |  0   |    1    |       1.36
+      780 | 0x0000008c     |     8.750000 |   0   |  1   |    0    |       1.36
+      781 | 0x00000155     |   -10.687500 |   1   |  0   |    0    |       1.36
+      782 | 0x0000015c     |   -10.250000 |   0   |  0   |    1    |       1.36
+      783 | 0x000001e9     |    -1.437500 |   1   |  0   |    0    |       1.36
+      784 | 0x000001fa     |    -0.375000 |   0   |  0   |    1    |       1.36
+      785 | 0x00000189     |    -7.437500 |   0   |  0   |    1    |       1.36
+      786 | 0x000001f0     |    -1.000000 |   0   |  0   |    1    |       1.36
+      787 | 0x000001d9     |    -2.437500 |   0   |  0   |    1    |       1.36
+      788 | 0x000001bc     |    -4.250000 |   0   |  0   |    1    |       1.36
+      789 | 0x0000012e     |   -13.125000 |   0   |  0   |    1    |       1.36
+      790 | 0x000001a3     |    -5.812500 |   0   |  0   |    1    |       1.36
+      791 | 0x00000000     |     0.000000 |   1   |  0   |    0    |       1.36
+      792 | 0x0000001c     |     1.750000 |   1   |  1   |    1    |       1.36
+      793 | 0x00000152     |   -10.875000 |   0   |  0   |    1    |       1.36
+      794 | 0x000001ba     |    -4.375000 |   0   |  0   |    1    |       1.36
+      795 | 0x000001cc     |    -3.250000 |   1   |  0   |    0    |       1.36
+      796 | 0x0000009d     |     9.812500 |   0   |  1   |    0    |       1.36
+      797 | 0x000000f7     |    15.437500 |   0   |  1   |    0    |       1.36
+      798 | 0x000001db     |    -2.312500 |   0   |  0   |    1    |       1.36
+      799 | 0x000000a7     |    10.437500 |   0   |  1   |    0    |       1.36
+      800 | 0x000000a9     |    10.562500 |   0   |  1   |    0    |       1.36
+      801 | 0x00000156     |   -10.625000 |   0   |  0   |    1    |       1.36
+      802 | 0x00000027     |     2.437500 |   1   |  1   |    1    |       1.36
+      803 | 0x000001cf     |    -3.062500 |   0   |  0   |    1    |       1.36
+      804 | 0x00000104     |   -15.750000 |   0   |  0   |    1    |       1.36
+      805 | 0x0000018c     |    -7.250000 |   0   |  0   |    1    |       1.36
+      806 | 0x00000169     |    -9.437500 |   0   |  0   |    1    |       1.36
+      807 | 0x0000011a     |   -14.375000 |   0   |  0   |    1    |       1.36
+      808 | 0x00000055     |     5.312500 |   1   |  1   |    1    |       1.36
+      809 | 0x000001b6     |    -4.625000 |   1   |  0   |    0    |       1.36
+      810 | 0x000000bb     |    11.687500 |   1   |  1   |    1    |       1.36
+      811 | 0x0000014a     |   -11.375000 |   0   |  0   |    1    |       1.36
+      812 | 0x000001bf     |    -4.062500 |   0   |  0   |    1    |       1.36
+      813 | 0x000000b2     |    11.125000 |   0   |  1   |    0    |       1.36
+      814 | 0x000001fd     |    -0.187500 |   0   |  0   |    1    |       1.36
+      815 | 0x000001c2     |    -3.875000 |   0   |  0   |    1    |       1.36
+      816 | 0x00000115     |   -14.687500 |   0   |  0   |    1    |       1.36
+      817 | 0x000001b6     |    -4.625000 |   0   |  0   |    1    |       1.36
+      818 | 0x000000f6     |    15.375000 |   0   |  1   |    0    |       1.36
+      819 | 0x00000054     |     5.250000 |   1   |  1   |    1    |       1.36
+      820 | 0x00000155     |   -10.687500 |   0   |  0   |    1    |       1.36
+      821 | 0x00000156     |   -10.625000 |   0   |  0   |    1    |       1.36
+      822 | 0x00000076     |     7.375000 |   0   |  1   |    0    |       1.36
+      823 | 0x00000195     |    -6.687500 |   0   |  0   |    1    |       1.36
+      824 | 0x000000ba     |    11.625000 |   0   |  1   |    0    |       1.36
+      825 | 0x00000067     |     6.437500 |   0   |  1   |    0    |       1.36
+      826 | 0x00000021     |     2.062500 |   0   |  1   |    0    |       1.36
+      827 | 0x0000000a     |     0.625000 |   0   |  1   |    0    |       1.36
+      828 | 0x000001fa     |    -0.375000 |   0   |  0   |    1    |       1.36
+      829 | 0x000001f5     |    -0.687500 |   0   |  0   |    1    |       1.36
+      830 | 0x00000032     |     3.125000 |   0   |  1   |    0    |       1.36
+      831 | 0x000000e7     |    14.437500 |   0   |  1   |    0    |       1.36
+      832 | 0x0000006c     |     6.750000 |   0   |  1   |    0    |       1.36
+      833 | 0x00000122     |   -13.875000 |   0   |  0   |    1    |       1.36
+      834 | 0x0000002d     |     2.812500 |   0   |  1   |    0    |       1.36
+      835 | 0x000001b0     |    -5.000000 |   0   |  0   |    1    |       1.36
+      836 | 0x0000002a     |     2.625000 |   0   |  1   |    0    |       1.36
+      837 | 0x000000a1     |    10.062500 |   1   |  1   |    1    |       1.36
+      838 | 0x000000e7     |    14.437500 |   0   |  1   |    0    |       1.36
+      839 | 0x000000ff     |    15.937500 |   0   |  1   |    0    |       1.36
+      840 | 0x00000169     |    -9.437500 |   0   |  0   |    1    |       1.36
+      841 | 0x000001a6     |    -5.625000 |   0   |  0   |    1    |       1.36
+      842 | 0x00000083     |     8.187500 |   0   |  1   |    0    |       1.36
+      843 | 0x00000065     |     6.312500 |   0   |  1   |    0    |       1.36
+      844 | 0x000000fe     |    15.875000 |   0   |  1   |    0    |       1.36
+      845 | 0x00000112     |   -14.875000 |   1   |  0   |    0    |       1.36
+      846 | 0x0000014b     |   -11.312500 |   0   |  0   |    1    |       1.36
+      847 | 0x000001b1     |    -4.937500 |   0   |  0   |    1    |       1.36
+      848 | 0x00000020     |     2.000000 |   0   |  1   |    0    |       1.36
+      849 | 0x00000125     |   -13.687500 |   0   |  0   |    1    |       1.36
+      850 | 0x00000180     |    -8.000000 |   0   |  0   |    1    |       1.36
+      851 | 0x00000193     |    -6.812500 |   0   |  0   |    1    |       1.36
+      852 | 0x000000ef     |    14.937500 |   1   |  1   |    1    |       1.36
+      853 | 0x00000034     |     3.250000 |   0   |  1   |    0    |       1.36
+      854 | 0x00000063     |     6.187500 |   1   |  1   |    1    |       1.36
+      855 | 0x0000008a     |     8.625000 |   0   |  1   |    0    |       1.36
+      856 | 0x00000091     |     9.062500 |   1   |  1   |    1    |       1.36
+      857 | 0x000001b2     |    -4.875000 |   0   |  0   |    1    |       1.36
+      858 | 0x000001d8     |    -2.500000 |   0   |  0   |    1    |       1.36
+      859 | 0x0000013c     |   -12.250000 |   0   |  0   |    1    |       1.36
+      860 | 0x0000010b     |   -15.312500 |   0   |  0   |    1    |       1.36
+      861 | 0x00000157     |   -10.562500 |   0   |  0   |    1    |       1.36
+      862 | 0x000001ed     |    -1.187500 |   0   |  0   |    1    |       1.36
+      863 | 0x00000137     |   -12.562500 |   0   |  0   |    1    |       1.36
+      864 | 0x0000013a     |   -12.375000 |   0   |  0   |    1    |       1.36
+      865 | 0x0000012b     |   -13.312500 |   0   |  0   |    1    |       1.36
+      866 | 0x000001bf     |    -4.062500 |   0   |  0   |    1    |       1.36
+      867 | 0x00000167     |    -9.562500 |   0   |  0   |    1    |       1.36
+      868 | 0x0000009a     |     9.625000 |   0   |  1   |    0    |       1.36
+      869 | 0x00000100     |   -16.000000 |   1   |  0   |    0    |       1.36
+      870 | 0x000001de     |    -2.125000 |   0   |  0   |    1    |       1.36
+      871 | 0x00000007     |     0.437500 |   0   |  0   |    1    |       1.36
+      872 | 0x000000fa     |    15.625000 |   0   |  1   |    0    |       1.36
+      873 | 0x00000195     |    -6.687500 |   0   |  0   |    1    |       1.36
+      874 | 0x00000118     |   -14.500000 |   0   |  0   |    1    |       1.36
+      875 | 0x00000045     |     4.312500 |   0   |  1   |    0    |       1.36
+      876 | 0x00000169     |    -9.437500 |   0   |  0   |    1    |       1.36
+      877 | 0x00000051     |     5.062500 |   0   |  1   |    0    |       1.36
+      878 | 0x0000011c     |   -14.250000 |   0   |  0   |    1    |       1.36
+      879 | 0x0000011c     |   -14.250000 |   0   |  0   |    1    |       1.36
+      880 | 0x00000197     |    -6.562500 |   0   |  0   |    1    |       1.36
+      881 | 0x0000018d     |    -7.187500 |   1   |  0   |    0    |       1.36
+      882 | 0x00000038     |     3.500000 |   0   |  1   |    0    |       1.36
+      883 | 0x000000b2     |    11.125000 |   0   |  1   |    0    |       1.36
+      884 | 0x0000006f     |     6.937500 |   0   |  1   |    0    |       1.36
+      885 | 0x000001e3     |    -1.812500 |   0   |  0   |    1    |       1.36
+      886 | 0x000000d4     |    13.250000 |   0   |  1   |    0    |       1.36
+      887 | 0x000001ec     |    -1.250000 |   0   |  0   |    1    |       1.36
+      888 | 0x000000b9     |    11.562500 |   1   |  1   |    1    |       1.36
+      889 | 0x00000134     |   -12.750000 |   0   |  0   |    1    |       1.36
+      890 | 0x0000007a     |     7.625000 |   0   |  1   |    0    |       1.36
+      891 | 0x000001a1     |    -5.937500 |   0   |  0   |    1    |       1.36
+      892 | 0x00000009     |     0.562500 |   0   |  1   |    0    |       1.36
+      893 | 0x00000168     |    -9.500000 |   0   |  0   |    1    |       1.36
+      894 | 0x0000003f     |     3.937500 |   1   |  1   |    1    |       1.36
+      895 | 0x0000003a     |     3.625000 |   0   |  1   |    0    |       1.36
+      896 | 0x000001cf     |    -3.062500 |   1   |  0   |    0    |       1.36
+      897 | 0x00000068     |     6.500000 |   0   |  1   |    0    |       1.36
+      898 | 0x00000061     |     6.062500 |   0   |  1   |    0    |       1.36
+      899 | 0x000001ca     |    -3.375000 |   0   |  0   |    1    |       1.36
+      900 | 0x00000166     |    -9.625000 |   0   |  0   |    1    |       1.36
+      901 | 0x00000134     |   -12.750000 |   0   |  0   |    1    |       1.36
+      902 | 0x000000a9     |    10.562500 |   0   |  1   |    0    |       1.36
+      903 | 0x00000147     |   -11.562500 |   0   |  0   |    1    |       1.36
+      904 | 0x00000112     |   -14.875000 |   1   |  0   |    0    |       1.36
+      905 | 0x0000007a     |     7.625000 |   0   |  1   |    0    |       1.36
+      906 | 0x000001e2     |    -1.875000 |   0   |  0   |    1    |       1.36
+      907 | 0x0000015c     |   -10.250000 |   0   |  0   |    1    |       1.36
+      908 | 0x000001fd     |    -0.187500 |   0   |  0   |    1    |       1.36
+      909 | 0x000000f2     |    15.125000 |   0   |  1   |    0    |       1.36
+      910 | 0x00000182     |    -7.875000 |   0   |  0   |    1    |       1.36
+      911 | 0x0000009c     |     9.750000 |   0   |  1   |    0    |       1.36
+      912 | 0x000000a2     |    10.125000 |   1   |  1   |    1    |       1.36
+      913 | 0x000000e2     |    14.125000 |   0   |  1   |    0    |       1.36
+      914 | 0x00000005     |     0.312500 |   1   |  0   |    0    |       1.36
+      915 | 0x00000177     |    -8.562500 |   0   |  0   |    1    |       1.36
+      916 | 0x00000180     |    -8.000000 |   1   |  0   |    0    |       1.36
+      917 | 0x00000131     |   -12.937500 |   0   |  0   |    1    |       1.36
+      918 | 0x00000071     |     7.062500 |   0   |  1   |    0    |       1.36
+      919 | 0x00000053     |     5.187500 |   0   |  1   |    0    |       1.36
+      920 | 0x0000001e     |     1.875000 |   0   |  1   |    0    |       1.36
+      921 | 0x00000093     |     9.187500 |   1   |  1   |    1    |       1.36
+      922 | 0x000001fa     |    -0.375000 |   0   |  0   |    1    |       1.36
+      923 | 0x000000ad     |    10.812500 |   1   |  1   |    1    |       1.36
+      924 | 0x0000019b     |    -6.312500 |   1   |  0   |    0    |       1.36
+      925 | 0x000000ab     |    10.687500 |   1   |  1   |    1    |       1.36
+      926 | 0x0000007e     |     7.875000 |   0   |  1   |    0    |       1.36
+      927 | 0x00000052     |     5.125000 |   0   |  1   |    0    |       1.36
+      928 | 0x000000f0     |    15.000000 |   0   |  1   |    0    |       1.36
+      929 | 0x00000167     |    -9.562500 |   0   |  0   |    1    |       1.36
+      930 | 0x000000e8     |    14.500000 |   0   |  1   |    0    |       1.36
+      931 | 0x000001e3     |    -1.812500 |   0   |  0   |    1    |       1.36
+      932 | 0x000001c2     |    -3.875000 |   0   |  0   |    1    |       1.36
+      933 | 0x0000018b     |    -7.312500 |   1   |  0   |    0    |       1.36
+      934 | 0x000001cf     |    -3.062500 |   0   |  0   |    1    |       1.36
+      935 | 0x00000090     |     9.000000 |   0   |  1   |    0    |       1.36
+      936 | 0x0000012e     |   -13.125000 |   0   |  0   |    1    |       1.36
+      937 | 0x000000fa     |    15.625000 |   1   |  1   |    1    |       1.36
+      938 | 0x000000e8     |    14.500000 |   0   |  1   |    0    |       1.36
+      939 | 0x000000e8     |    14.500000 |   0   |  1   |    0    |       1.36
+      940 | 0x000001ff     |    -0.062500 |   0   |  0   |    1    |       1.36
+      941 | 0x000000fa     |    15.625000 |   0   |  1   |    0    |       1.36
+      942 | 0x000001dc     |    -2.250000 |   0   |  0   |    1    |       1.36
+      943 | 0x0000017a     |    -8.375000 |   0   |  0   |    1    |       1.36
+      944 | 0x000000bc     |    11.750000 |   0   |  1   |    0    |       1.36
+      945 | 0x0000017f     |    -8.062500 |   0   |  0   |    1    |       1.36
+      946 | 0x00000079     |     7.562500 |   0   |  1   |    0    |       1.36
+      947 | 0x000001bc     |    -4.250000 |   0   |  0   |    1    |       1.36
+      948 | 0x000000fd     |    15.812500 |   0   |  1   |    0    |       1.36
+      949 | 0x0000004a     |     4.625000 |   0   |  1   |    0    |       1.36
+      950 | 0x00000132     |   -12.875000 |   1   |  0   |    0    |       1.36
+      951 | 0x0000011e     |   -14.125000 |   0   |  0   |    1    |       1.36
+      952 | 0x00000088     |     8.500000 |   0   |  1   |    0    |       1.36
+      953 | 0x0000001d     |     1.812500 |   0   |  1   |    0    |       1.36
+      954 | 0x000000e4     |    14.250000 |   0   |  1   |    0    |       1.36
+      955 | 0x0000013c     |   -12.250000 |   0   |  0   |    1    |       1.36
+      956 | 0x00000144     |   -11.750000 |   0   |  0   |    1    |       1.36
+      957 | 0x00000133     |   -12.812500 |   0   |  0   |    1    |       1.36
+      958 | 0x000000b0     |    11.000000 |   0   |  1   |    0    |       1.36
+      959 | 0x00000098     |     9.500000 |   0   |  1   |    0    |       1.36
+      960 | 0x00000013     |     1.187500 |   0   |  1   |    0    |       1.36
+      961 | 0x00000059     |     5.562500 |   1   |  1   |    1    |       1.36
+      962 | 0x0000017b     |    -8.312500 |   0   |  0   |    1    |       1.36
+      963 | 0x000001a7     |    -5.562500 |   0   |  0   |    1    |       1.36
+      964 | 0x000001d9     |    -2.437500 |   0   |  0   |    1    |       1.36
+      965 | 0x00000125     |   -13.687500 |   0   |  0   |    1    |       1.36
+      966 | 0x000000a7     |    10.437500 |   1   |  1   |    1    |       1.36
+      967 | 0x00000171     |    -8.937500 |   0   |  0   |    1    |       1.36
+      968 | 0x0000004c     |     4.750000 |   0   |  1   |    0    |       1.36
+      969 | 0x00000076     |     7.375000 |   0   |  1   |    0    |       1.36
+      970 | 0x000001a4     |    -5.750000 |   1   |  0   |    0    |       1.36
+      971 | 0x000000b5     |    11.312500 |   1   |  1   |    1    |       1.36
+      972 | 0x00000089     |     8.562500 |   0   |  1   |    0    |       1.36
+      973 | 0x0000001b     |     1.687500 |   0   |  1   |    0    |       1.36
+      974 | 0x000000f9     |    15.562500 |   0   |  1   |    0    |       1.36
+      975 | 0x00000155     |   -10.687500 |   0   |  0   |    1    |       1.36
+      976 | 0x000000b7     |    11.437500 |   0   |  1   |    0    |       1.36
+      977 | 0x0000016f     |    -9.062500 |   0   |  0   |    1    |       1.36
+      978 | 0x00000048     |     4.500000 |   0   |  1   |    0    |       1.36
+      979 | 0x0000005b     |     5.687500 |   0   |  1   |    0    |       1.36
+      980 | 0x000000b5     |    11.312500 |   0   |  1   |    0    |       1.36
+      981 | 0x00000091     |     9.062500 |   0   |  1   |    0    |       1.36
+      982 | 0x000001c9     |    -3.437500 |   0   |  0   |    1    |       1.36
+      983 | 0x00000118     |   -14.500000 |   0   |  0   |    1    |       1.36
+      984 | 0x00000181     |    -7.937500 |   1   |  0   |    0    |       1.36
+      985 | 0x0000011f     |   -14.062500 |   0   |  0   |    1    |       1.36
+      986 | 0x00000192     |    -6.875000 |   0   |  0   |    1    |       1.36
+      987 | 0x000000b9     |    11.562500 |   0   |  1   |    0    |       1.36
+      988 | 0x0000017a     |    -8.375000 |   0   |  0   |    1    |       1.36
+      989 | 0x0000014b     |   -11.312500 |   0   |  0   |    1    |       1.36
+      990 | 0x000000ed     |    14.812500 |   0   |  1   |    0    |       1.36
+      991 | 0x000000d0     |    13.000000 |   0   |  1   |    0    |       1.36
+      992 | 0x0000015e     |   -10.125000 |   1   |  0   |    0    |       1.36
+      993 | 0x00000174     |    -8.750000 |   0   |  0   |    1    |       1.36
+      994 | 0x000001b1     |    -4.937500 |   0   |  0   |    1    |       1.36
+      995 | 0x0000006a     |     6.625000 |   0   |  1   |    0    |       1.36
+      996 | 0x000000d6     |    13.375000 |   1   |  1   |    1    |       1.36
+      997 | 0x000001b9     |    -4.437500 |   0   |  0   |    1    |       1.36
+      998 | 0x00000097     |     9.437500 |   0   |  1   |    0    |       1.36
+      999 | 0x000001f8     |    -0.500000 |   0   |  0   |    1    |       1.36
+
+================================================================================
+                         SIMULATION SUMMARY
+================================================================================
+IP Core:             cnn_core_0
+Input Interface:     64-bit AXI-Stream (4 x ap_fixed<12,6>)
+Output Interface:    16-bit AXI-Stream (1 x ap_fixed<9,5>, byte-aligned to 16-bit TDATA)
+Clock Period:        5.00 ns (200 MHz)
+--------------------------------------------------------------------------------
+Samples Sent:        1000
+Samples Received:    1000
+Correct Predictions: 537 / 1000
+Accuracy:            53.70%
+--------------------------------------------------------------------------------
+Average Latency:     272.00 cycles (1.360 us)
+Total Time:          1290.075 us
+Throughput:          775148.73 samples/sec
+================================================================================
+Results saved to: /home/work1/Works/CNN-Core-Wrapper/out/behavioral_sim/inference_results_stream.csv
+Simulation Complete.
+$finish called at time : 1290222500 ps : File "/home/work1/Works/CNN-Core-Wrapper/hw/sim/tb_stream.sv" Line 124
+run: Time (s): cpu = 00:00:00.45 ; elapsed = 00:00:17 . Memory (MB): peak = 1461.078 ; gain = 0.000 ; free physical = 6976 ; free virtual = 43572
+xsim: Time (s): cpu = 00:00:00.47 ; elapsed = 00:00:18 . Memory (MB): peak = 1461.078 ; gain = 82.496 ; free physical = 6976 ; free virtual = 43572
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_WRAPPER_TOP_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for all
+launch_simulation: Time (s): cpu = 00:00:08 ; elapsed = 00:00:23 . Memory (MB): peak = 1461.078 ; gain = 93.266 ; free physical = 6976 ; free virtual = 43572
+# close_sim
+INFO: xsimkernel Simulation Memory Usage: 122180 KB (Peak: 167580 KB), Simulation CPU Usage: 16550 ms
+INFO: [Simtcl 6-16] Simulation closed
+# exit
+INFO: [Common 17-206] Exiting Vivado at Sun May 17 17:17:28 2026...
