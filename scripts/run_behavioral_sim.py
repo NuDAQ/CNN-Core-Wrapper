@@ -204,7 +204,6 @@ set_property xsim.simulate.runtime all [get_filesets sim_1]
 update_compile_order -fileset sources_1
 update_compile_order -fileset sim_1
 launch_simulation -simset sim_1 -mode behavioral
-run all
 close_sim
 exit
 """
