@@ -92,6 +92,21 @@ def confusion_summary(labels: list[int], predictions: list[int]) -> dict[str, ob
     }
 
 
+def threshold_metrics(labels: list[int], scores: list[float], threshold: float) -> dict[str, object]:
+    predictions = [1 if score > threshold else 0 for score in scores]
+    return {"threshold": threshold, **confusion_summary(labels, predictions)}
+
+
+def best_threshold_summary(labels: list[int], scores: list[float]) -> dict[str, object] | None:
+    if not labels or not scores or len(labels) != len(scores):
+        return None
+    values = sorted(set(scores))
+    if not values:
+        return None
+    thresholds = [values[0] - 1.0] + [(left + right) / 2.0 for left, right in zip(values, values[1:])] + [values[-1] + 1.0]
+    return max((threshold_metrics(labels, scores, threshold) for threshold in thresholds), key=lambda item: item["accuracy"] or 0.0)
+
+
 def read_rows(path: Path) -> list[dict[str, str]]:
     with path.open(newline="") as csv_file:
         reader = csv.DictReader(csv_file)
@@ -298,6 +313,30 @@ def flatten_labels(labels) -> list[int]:
     return [int(round(float(value))) for value in array_values.reshape(-1)]
 
 
+def prepare_model_input(model, x_test):
+    import numpy as np
+
+    input_shape = model.input_shape
+    if isinstance(input_shape, list):
+        input_shape = input_shape[0]
+    target_shape = tuple(dim for dim in input_shape[1:] if dim is not None)
+
+    if tuple(x_test.shape[1:]) == target_shape:
+        return x_test, "as_loaded"
+
+    if len(target_shape) == 2 and x_test.ndim == 4 and x_test.shape[-1] == 1:
+        squeezed = x_test[..., 0]
+        if tuple(squeezed.shape[1:]) == target_shape:
+            return squeezed, "squeeze_last_axis"
+        transposed = np.transpose(squeezed, (0, 2, 1))
+        if tuple(transposed.shape[1:]) == target_shape:
+            return transposed, "transpose_from_channels_first_time_series"
+
+    raise SystemExit(
+        f"Could not reshape X_test from {tuple(x_test.shape)} to model input shape {input_shape}."
+    )
+
+
 def compare_with_keras(rows: list[dict[str, str]], threshold: float | None) -> tuple[dict[str, object] | None, list[dict[str, object]]]:
     if not (DEFAULT_KERAS_MODEL.exists() and DEFAULT_X_TEST.exists() and DEFAULT_Y_TEST.exists()):
         print("Keras comparison inputs were not found; skipped default model comparison.")
@@ -305,9 +344,10 @@ def compare_with_keras(rows: list[dict[str, str]], threshold: float | None) -> t
 
     import numpy as np
 
-    x_test = np.load(DEFAULT_X_TEST)
+    x_test_raw = np.load(DEFAULT_X_TEST)
     y_test = flatten_labels(np.load(DEFAULT_Y_TEST))
     model = load_keras_model(DEFAULT_KERAS_MODEL)
+    x_test, input_transform = prepare_model_input(model, x_test_raw)
     keras_scores = flatten_binary_outputs(model.predict(x_test, verbose=0))
 
     if not keras_scores:
@@ -315,7 +355,7 @@ def compare_with_keras(rows: list[dict[str, str]], threshold: float | None) -> t
 
     score_min = min(keras_scores)
     score_max = max(keras_scores)
-    keras_threshold = 0.5 if score_min >= 0.0 and score_max <= 1.0 else (0.5 if threshold is None else threshold)
+    keras_threshold = 0.5
 
     comparison_rows: list[dict[str, object]] = []
     rtl_scores: list[float] = []
@@ -383,6 +423,9 @@ def compare_with_keras(rows: list[dict[str, str]], threshold: float | None) -> t
         "model_path": str(DEFAULT_KERAS_MODEL),
         "x_test_path": str(DEFAULT_X_TEST),
         "y_test_path": str(DEFAULT_Y_TEST),
+        "x_test_shape_raw": list(x_test_raw.shape),
+        "x_test_shape_model": list(x_test.shape),
+        "x_test_transform": input_transform,
         "num_compared": len(comparison_rows),
         "label_mismatches_between_csv_and_npy": label_mismatches,
         "keras_threshold": keras_threshold,
@@ -398,6 +441,9 @@ def compare_with_keras(rows: list[dict[str, str]], threshold: float | None) -> t
         },
         "keras_metrics": keras_confusion,
         "rtl_metrics_on_npy_labels": rtl_confusion,
+        "keras_default_threshold": threshold_metrics(labels, matched_keras_scores, 0.5),
+        "keras_best_threshold": best_threshold_summary(labels, matched_keras_scores),
+        "rtl_best_threshold": best_threshold_summary(labels, rtl_scores),
         "prediction_agreement": agreement,
         "prediction_disagreements": len(comparison_rows) - prediction_agreements,
     }
@@ -431,6 +477,7 @@ def make_plots(
     if label1:
         plt.hist(label1, bins=bins, alpha=0.65, label="label 1")
     plt.axvline(0.5 if threshold is None else threshold, color="black", linestyle="--", linewidth=1, label="threshold")
+    plt.yscale("log")
     plt.xlabel("float_out")
     plt.ylabel("count")
     plt.legend()
@@ -441,6 +488,7 @@ def make_plots(
     if latency_us:
         plt.figure(figsize=(8, 5))
         plt.hist(latency_us, bins=50)
+        plt.yscale("log")
         plt.xlabel("latency_us")
         plt.ylabel("count")
         plt.tight_layout()
@@ -480,6 +528,7 @@ def make_plots(
 
         plt.figure(figsize=(8, 5))
         plt.hist(score_diffs, bins=60)
+        plt.yscale("log")
         plt.xlabel("RTL score - Keras score")
         plt.ylabel("count")
         plt.tight_layout()
@@ -582,6 +631,7 @@ def make_root_plots(
     tree.Write()
 
     canvas = ROOT.TCanvas("canvas", "canvas", 900, 650)
+    canvas.SetLogy(True)
     h_float_label0.SetLineColor(ROOT.kBlue + 1)
     h_float_label0.SetFillColorAlpha(ROOT.kBlue + 1, 0.35)
     h_float_label1.SetLineColor(ROOT.kRed + 1)
@@ -600,18 +650,22 @@ def make_root_plots(
 
     h_latency.SetLineColor(ROOT.kGreen + 2)
     h_latency.SetFillColorAlpha(ROOT.kGreen + 2, 0.35)
+    canvas.SetLogy(True)
     h_latency.Draw("HIST")
     canvas.SaveAs(str(out_dir / "root_latency_histogram.png"))
 
+    canvas.SetLogy(False)
     h_confusion.Draw("COLZ TEXT")
     canvas.SaveAs(str(out_dir / "root_confusion_matrix.png"))
 
     if h_score_diff is not None and h_score_scatter is not None:
         h_score_diff.SetLineColor(ROOT.kMagenta + 2)
         h_score_diff.SetFillColorAlpha(ROOT.kMagenta + 2, 0.35)
+        canvas.SetLogy(True)
         h_score_diff.Draw("HIST")
         canvas.SaveAs(str(out_dir / "root_conversion_score_diff_histogram.png"))
 
+        canvas.SetLogy(False)
         h_score_scatter.Draw("COLZ")
         canvas.SaveAs(str(out_dir / "root_keras_vs_rtl_score.png"))
 
