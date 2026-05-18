@@ -153,8 +153,12 @@ module tb_WRAPPER_TOP;
                 input_valid <= 0;
                 sent_count = sent_count + 1;
                 if (start) begin
-                    while (!ready) @(posedge clk);
-                    start <= 0;
+                    if (s_id == START_SAMPLE_ID + NUM_SAMPLES - 1) begin
+                        start <= 0;
+                    end else begin
+                        while (!ready) @(posedge clk);
+                        start <= 0;
+                    end
                 end
             end
         end

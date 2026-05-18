@@ -1,0 +1,62 @@
+{
+  "num_samples": 1000,
+  "correct": 537,
+  "incorrect": 463,
+  "accuracy": 0.537,
+  "confusion_matrix": {
+    "tn": 442,
+    "fp": 378,
+    "fn": 85,
+    "tp": 95
+  },
+  "label_counts": {
+    "0": 820,
+    "1": 180
+  },
+  "prediction_counts": {
+    "0": 527,
+    "1": 473
+  },
+  "float_out": {
+    "all": {
+      "count": 1000,
+      "min": -16.0,
+      "max": 15.9375,
+      "mean": -0.0303125,
+      "median": -0.5,
+      "p95": 14.5
+    },
+    "label_0": {
+      "count": 820,
+      "min": -15.9375,
+      "max": 15.9375,
+      "mean": -0.15853658536585366,
+      "median": -0.96875,
+      "p95": 14.5625
+    },
+    "label_1": {
+      "count": 180,
+      "min": -16.0,
+      "max": 15.9375,
+      "mean": 0.5538194444444444,
+      "median": 1.625,
+      "p95": 14.1875
+    }
+  },
+  "latency_cycles": {
+    "count": 1000,
+    "min": 272.0,
+    "max": 272.0,
+    "mean": 272.0,
+    "median": 272.0,
+    "p95": 272.0
+  },
+  "latency_us": {
+    "count": 1000,
+    "min": 1.36,
+    "max": 1.36,
+    "mean": 1.36,
+    "median": 1.36,
+    "p95": 1.36
+  }
+}
