@@ -41,20 +41,32 @@ def parse_part_from_xpr(path: Path) -> str | None:
 
 def run_command(command: list[str], cwd: Path, log_path: Path | None = None) -> subprocess.CompletedProcess[str]:
     print("+ " + " ".join(command))
-    completed = subprocess.run(
-        command,
-        cwd=cwd,
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        check=False,
-    )
     if log_path is not None:
         log_path.parent.mkdir(parents=True, exist_ok=True)
-        log_path.write_text(completed.stdout)
-    if completed.stdout:
-        print(completed.stdout)
-    return completed
+
+    captured: list[str] = []
+    log_fh = open(log_path, "w") if log_path is not None else None
+    try:
+        with subprocess.Popen(
+            command,
+            cwd=cwd,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        ) as proc:
+            assert proc.stdout is not None
+            for line in proc.stdout:
+                print(line, end="", flush=True)
+                captured.append(line)
+                if log_fh is not None:
+                    log_fh.write(line)
+                    log_fh.flush()
+        returncode = proc.returncode
+    finally:
+        if log_fh is not None:
+            log_fh.close()
+
+    return subprocess.CompletedProcess(command, returncode, "".join(captured), "")
 
 
 def sources_from_bender(repo_root: Path) -> tuple[list[Path], list[Path]]:
