@@ -209,7 +209,7 @@ module tb_WRAPPER_TOP;
 
                     latency_cycles = (t_end - t_start) / CLK_PERIOD;
 
-                    out_float = $itor($signed(output_data[8:0])) / 16.0;
+                    out_float = $itor($signed(output_data[15:0])) / 1024.0;
 
                     prediction = (out_float > score_threshold) ? 1 : 0;
                     label_val = labels[START_SAMPLE_ID + received_count];
@@ -245,7 +245,7 @@ module tb_WRAPPER_TOP;
             $display("================================================================================");
             $display("IP Core:             cnn_core_0");
             $display("Input Interface:     %0d-bit AXI-Stream (4 x ap_fixed<12,6>)", INPUT_WIDTH);
-            $display("Output Interface:    %0d-bit AXI-Stream (1 x ap_fixed<9,5>, byte-aligned to 16-bit TDATA)", OUTPUT_WIDTH);
+            $display("Output Interface:    %0d-bit AXI-Stream (1 x ap_fixed<16,6>)", OUTPUT_WIDTH);
             $display("Clock Period:        %.2f ns (%.0f MHz)", CLK_PERIOD, 1000.0/CLK_PERIOD);
             $display("--------------------------------------------------------------------------------");
             $display("Samples Sent:        %0d", sent_count);
