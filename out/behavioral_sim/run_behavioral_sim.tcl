@@ -35,7 +35,7 @@ set_property top_lib xil_defaultlib [get_filesets sim_1]
 set_property verilog_define [list TARGET_FPGA TARGET_SIMULATION TARGET_VIVADO TARGET_XILINX] [get_filesets sources_1]
 set_property verilog_define [list TARGET_FPGA TARGET_SIMULATION TARGET_VIVADO TARGET_XILINX] [get_filesets sim_1]
 
-set_property -dict [list xsim.simulate.xsim.more_options {-testplusarg TESTHEX_DIR=/home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.sim/sim_1/behav/xsim/testhex_stream -testplusarg OUT_CSV=/home/work1/Works/CNN-Core-Wrapper/out/behavioral_sim/inference_results_stream.csv}] [get_filesets sim_1]
+set_property -dict [list xsim.simulate.xsim.more_options {-testplusarg TESTHEX_DIR=/home/work1/Works/CNN-Core-Wrapper/cnn_core_wrapper/cnn_core_wrapper.sim/sim_1/behav/xsim/testhex_stream -testplusarg OUT_CSV=/home/work1/Works/CNN-Core-Wrapper/out/behavioral_sim/inference_results_stream.csv -testplusarg SCORE_THRESHOLD=-6.0}] [get_filesets sim_1]
 set_property xsim.simulate.runtime all [get_filesets sim_1]
 
 update_compile_order -fileset sources_1
