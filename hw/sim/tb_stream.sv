@@ -52,9 +52,21 @@ module tb_WRAPPER_TOP;
     real total_latency_acc = 0;
     reg [63:0] sim_start_time, sim_end_time;
     integer correct_count = 0;
+    integer repack_12bit_input;
 
 
     reg [31:0] labels [0:NUM_SAMPLES-1];
+
+    function automatic [63:0] repack_12bit_to_axis16(input [63:0] raw_word);
+        begin
+            repack_12bit_to_axis16 = {
+                {4{raw_word[47]}}, raw_word[47:36],
+                {4{raw_word[35]}}, raw_word[35:24],
+                {4{raw_word[23]}}, raw_word[23:12],
+                {4{raw_word[11]}}, raw_word[11:0]
+            };
+        end
+    endfunction
 
 
     WRAPPER_TOP #(
@@ -89,6 +101,9 @@ module tb_WRAPPER_TOP;
         if (!$value$plusargs("TESTHEX_DIR=%s", testhex_dir)) begin
             testhex_dir = "testhex_stream";
         end
+        if (!$value$plusargs("REPACK_12BIT_INPUT=%d", repack_12bit_input)) begin
+            repack_12bit_input = 1;
+        end
 
         csv_file = $fopen(output_csv_path, "w");
         if (csv_file == 0) begin
@@ -108,6 +123,7 @@ module tb_WRAPPER_TOP;
         $display("[%0t] Starting Pipelined Test for vanilla_stream_prj...", $time);
         $display("[%0t] Input: %0d-bit, Output: %0d-bit", $time, INPUT_WIDTH, OUTPUT_WIDTH);
         $display("[%0t] Test vectors: %s", $time, testhex_dir);
+        $display("[%0t] Repack 4x12-bit testhex to 4x16-bit AXIS lanes: %0d", $time, repack_12bit_input);
 
         sim_start_time = $time;
 
@@ -144,7 +160,7 @@ module tb_WRAPPER_TOP;
                 input_valid <= 1;
 
                 for (t = 0; t < NUM_TIMESTEPS; t = t + 1) begin
-                    input_data <= current_sample_packed[t];
+                    input_data <= repack_12bit_input ? repack_12bit_to_axis16(current_sample_packed[t]) : current_sample_packed[t];
                     @(posedge clk);
                     while (!input_ready) begin
                          @(posedge clk);
