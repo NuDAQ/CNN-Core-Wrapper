@@ -25,7 +25,7 @@ module tb_WRAPPER_TOP;
     parameter NUM_TIMESTEPS = 256;
     parameter NUM_CHANNELS  = 4;
     parameter INPUT_WIDTH   = 64;
-    parameter OUTPUT_WIDTH  = 32;
+    parameter OUTPUT_WIDTH  = 16;
 
     parameter NUM_SAMPLES     = 1000;
     parameter START_SAMPLE_ID = 0;
@@ -42,18 +42,32 @@ module tb_WRAPPER_TOP;
     reg  output_ready;
 
     // Variables
-    reg [1023:0] output_csv_path;
+    string output_csv_path;
+    string testhex_dir;
     integer csv_file;
     reg [63:0] start_time_fifo [0:2047];
     integer fifo_head = 0, fifo_tail = 0;
     integer sent_count = 0, received_count = 0;
     reg [63:0] current_sample_packed [0:NUM_TIMESTEPS-1]; 
     real total_latency_acc = 0;
+    real score_threshold;
     reg [63:0] sim_start_time, sim_end_time;
     integer correct_count = 0;
+    integer repack_12bit_input;
 
 
     reg [31:0] labels [0:NUM_SAMPLES-1];
+
+    function automatic [63:0] repack_12bit_to_axis16(input [63:0] raw_word);
+        begin
+            repack_12bit_to_axis16 = {
+                {4{raw_word[47]}}, raw_word[47:36],
+                {4{raw_word[35]}}, raw_word[35:24],
+                {4{raw_word[23]}}, raw_word[23:12],
+                {4{raw_word[11]}}, raw_word[11:0]
+            };
+        end
+    endfunction
 
 
     WRAPPER_TOP #(
@@ -82,14 +96,26 @@ module tb_WRAPPER_TOP;
 
     // Main
     initial begin
-        output_csv_path = "inference_results_stream.csv";
+        if (!$value$plusargs("OUT_CSV=%s", output_csv_path)) begin
+            output_csv_path = "inference_results_stream.csv";
+        end
+        if (!$value$plusargs("TESTHEX_DIR=%s", testhex_dir)) begin
+            testhex_dir = "testhex_stream";
+        end
+        if (!$value$plusargs("REPACK_12BIT_INPUT=%d", repack_12bit_input)) begin
+            repack_12bit_input = 1;
+        end
+        if (!$value$plusargs("SCORE_THRESHOLD=%f", score_threshold)) begin
+            score_threshold = 0.5;
+        end
+
         csv_file = $fopen(output_csv_path, "w");
         if (csv_file == 0) begin
             $display("[ERROR] Cannot open CSV."); $finish;
         end
         $fwrite(csv_file, "sample_id,hex_out,float_out,label,prediction,correct,latency_cycles,latency_us\n");
 
-        $readmemh("testhex_stream/labels.hex", labels);
+        $readmemh($sformatf("%s/labels.hex", testhex_dir), labels);
 
         rst_n = 0; start = 0; input_valid = 0; output_ready = 1;
         input_data = 64'h0;
@@ -100,13 +126,18 @@ module tb_WRAPPER_TOP;
         repeat(10) @(posedge clk);
         $display("[%0t] Starting Pipelined Test for vanilla_stream_prj...", $time);
         $display("[%0t] Input: %0d-bit, Output: %0d-bit", $time, INPUT_WIDTH, OUTPUT_WIDTH);
+        $display("[%0t] Test vectors: %s", $time, testhex_dir);
+        $display("[%0t] Repack 4x12-bit testhex to 4x16-bit AXIS lanes: %0d", $time, repack_12bit_input);
+        $display("[%0t] Score threshold: %.6f", $time, score_threshold);
 
         sim_start_time = $time;
 
-        fork
+        fork : input_threads
             input_driver_thread();
-            output_monitor_thread();
-        join
+        join_none
+
+        output_monitor_thread();
+        disable input_threads;
 
         sim_end_time = $time;
         print_summary();
@@ -117,10 +148,10 @@ module tb_WRAPPER_TOP;
     // Input Task
     task input_driver_thread;
         integer s_id, t;
-        reg [1023:0] filename;
+        string filename;
         begin
             for (s_id = START_SAMPLE_ID; s_id < START_SAMPLE_ID + NUM_SAMPLES; s_id = s_id + 1) begin
-                $sformat(filename, "testhex_stream/test_input_sample%0d.hex", s_id);
+                filename = $sformatf("%s/test_input_sample%0d.hex", testhex_dir, s_id);
                 $readmemh(filename, current_sample_packed);
 
                 if (current_sample_packed[0] === 64'bx) begin
@@ -134,7 +165,7 @@ module tb_WRAPPER_TOP;
                 input_valid <= 1;
 
                 for (t = 0; t < NUM_TIMESTEPS; t = t + 1) begin
-                    input_data <= current_sample_packed[t];
+                    input_data <= repack_12bit_input ? repack_12bit_to_axis16(current_sample_packed[t]) : current_sample_packed[t];
                     @(posedge clk);
                     while (!input_ready) begin
                          @(posedge clk);
@@ -145,8 +176,12 @@ module tb_WRAPPER_TOP;
                 input_valid <= 0;
                 sent_count = sent_count + 1;
                 if (start) begin
-                    while (!ready) @(posedge clk);
-                    start <= 0;
+                    if (s_id == START_SAMPLE_ID + NUM_SAMPLES - 1) begin
+                        start <= 0;
+                    end else begin
+                        while (!ready) @(posedge clk);
+                        start <= 0;
+                    end
                 end
             end
         end
@@ -174,9 +209,9 @@ module tb_WRAPPER_TOP;
 
                     latency_cycles = (t_end - t_start) / CLK_PERIOD;
 
-                    out_float = $itor($signed(output_data[16:0])) / 256.0;
+                    out_float = $itor($signed(output_data[8:0])) / 16.0;
 
-                    prediction = (out_float > 0.5) ? 1 : 0;
+                    prediction = (out_float > score_threshold) ? 1 : 0;
                     label_val = labels[START_SAMPLE_ID + received_count];
                     is_correct = (prediction == label_val) ? 1 : 0;
                     if (is_correct) correct_count = correct_count + 1;
@@ -210,7 +245,7 @@ module tb_WRAPPER_TOP;
             $display("================================================================================");
             $display("IP Core:             cnn_core_0");
             $display("Input Interface:     %0d-bit AXI-Stream (4 x ap_fixed<12,6>)", INPUT_WIDTH);
-            $display("Output Interface:    %0d-bit AXI-Stream (1 x ap_fixed<17,9>)", OUTPUT_WIDTH);
+            $display("Output Interface:    %0d-bit AXI-Stream (1 x ap_fixed<9,5>, byte-aligned to 16-bit TDATA)", OUTPUT_WIDTH);
             $display("Clock Period:        %.2f ns (%.0f MHz)", CLK_PERIOD, 1000.0/CLK_PERIOD);
             $display("--------------------------------------------------------------------------------");
             $display("Samples Sent:        %0d", sent_count);
