@@ -226,13 +226,48 @@ def finite_correlation(left: list[float], right: list[float]) -> float | None:
 def load_keras_model(path: Path):
     try:
         from tensorflow import keras
-        return keras.models.load_model(path, compile=False)
     except ImportError:
         try:
             import keras
-            return keras.models.load_model(path, compile=False)
         except ImportError as exc:
             raise SystemExit("TensorFlow/Keras is required for default model comparison.") from exc
+
+    try:
+        import hgq  # noqa: F401
+        from hgq.layers import QConv2D, QDense
+    except ImportError as exc:
+        raise SystemExit(
+            "HGQ is required to load the default .keras model. "
+            "Install it in the active venv, for example: python -m pip install hgq"
+        ) from exc
+
+    custom_objects = {
+        "QConv2D": QConv2D,
+        "QDense": QDense,
+        "hgq>QConv2D": QConv2D,
+        "hgq>QDense": QDense,
+    }
+    try:
+        from hgq.constraints import MinMax
+        custom_objects.update({"MinMax": MinMax, "hgq>MinMax": MinMax})
+    except ImportError:
+        pass
+    try:
+        from hgq.regularizers import MonoL1
+        custom_objects.update({"MonoL1": MonoL1, "hgq>MonoL1": MonoL1})
+    except ImportError:
+        pass
+    try:
+        from hgq.quantizer.config import QuantizerConfig
+        custom_objects.update({"QuantizerConfig": QuantizerConfig, "hgq>QuantizerConfig": QuantizerConfig})
+    except ImportError:
+        pass
+
+    load_kwargs = {"custom_objects": custom_objects, "compile": False}
+    try:
+        return keras.models.load_model(path, safe_mode=False, **load_kwargs)
+    except TypeError:
+        return keras.models.load_model(path, **load_kwargs)
 
 
 def flatten_binary_outputs(predictions) -> list[float]:
