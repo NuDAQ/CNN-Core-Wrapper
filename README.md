@@ -58,13 +58,6 @@ python3 scripts/run_behavioral_sim.py
 The script resolves RTL sources through Bender, runs Vivado in batch mode, and
 writes results under `out/behavioral_sim/`.
 
-## Constraints
-
-The wrapper is normally integrated as part of a larger system. In that flow,
-package-pin constraints belong to the final board-level top, not to this OOC
-wrapper. Use the files in `hw/xdc/` only when they match the intended synthesis
-target and integration context.
-
 ## License
 
 MIT License. See `LICENSE`.
