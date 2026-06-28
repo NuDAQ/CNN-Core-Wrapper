@@ -24,8 +24,9 @@ module tb_WRAPPER_TOP;
     parameter CLK_PERIOD    = 5.0; 
     parameter NUM_TIMESTEPS = 256;
     parameter NUM_CHANNELS  = 4;
-    parameter INPUT_WIDTH   = 64;
-    parameter OUTPUT_WIDTH  = 16;
+    parameter INPUT_WIDTH   = 128;
+    parameter OUTPUT_WIDTH  = 32;
+    parameter INPUT_BEATS   = NUM_TIMESTEPS / 2;
 
     parameter NUM_SAMPLES     = 1000;
     parameter START_SAMPLE_ID = 0;
@@ -58,13 +59,41 @@ module tb_WRAPPER_TOP;
 
     reg [31:0] labels [0:NUM_SAMPLES-1];
 
-    function automatic [63:0] repack_12bit_to_axis16(input [63:0] raw_word);
+    function automatic [15:0] repack_12bit_lane_to_axis16(input [11:0] raw_lane);
+        reg signed [11:0] signed_12bit;
+        reg signed [8:0] fixed_9bit;
+        integer scaled;
         begin
-            repack_12bit_to_axis16 = {
-                {4{raw_word[47]}}, raw_word[47:36],
-                {4{raw_word[35]}}, raw_word[35:24],
-                {4{raw_word[23]}}, raw_word[23:12],
-                {4{raw_word[11]}}, raw_word[11:0]
+            signed_12bit = raw_lane;
+            scaled = {{20{signed_12bit[11]}}, signed_12bit};
+            scaled = scaled >>> 1;
+            if (scaled > 255) begin
+                fixed_9bit = 9'sd255;
+            end else if (scaled < -256) begin
+                fixed_9bit = -9'sd256;
+            end else begin
+                fixed_9bit = scaled[8:0];
+            end
+            repack_12bit_lane_to_axis16 = {{7{fixed_9bit[8]}}, fixed_9bit};
+        end
+    endfunction
+
+    function automatic [63:0] repack_12bit_word_to_axis16(input [63:0] raw_word);
+        begin
+            repack_12bit_word_to_axis16 = {
+                repack_12bit_lane_to_axis16(raw_word[47:36]),
+                repack_12bit_lane_to_axis16(raw_word[35:24]),
+                repack_12bit_lane_to_axis16(raw_word[23:12]),
+                repack_12bit_lane_to_axis16(raw_word[11:0])
+            };
+        end
+    endfunction
+
+    function automatic [127:0] pack_two_rows_to_axis128(input [63:0] row0, input [63:0] row1);
+        begin
+            pack_two_rows_to_axis128 = {
+                repack_12bit_word_to_axis16(row1),
+                repack_12bit_word_to_axis16(row0)
             };
         end
     endfunction
@@ -118,7 +147,7 @@ module tb_WRAPPER_TOP;
         $readmemh($sformatf("%s/labels.hex", testhex_dir), labels);
 
         rst_n = 0; start = 0; input_valid = 0; output_ready = 1;
-        input_data = 64'h0;
+        input_data = {INPUT_WIDTH{1'b0}};
 
         $display("[%0t] Asserting Reset...", $time);
         repeat(20) @(posedge clk);
@@ -127,7 +156,7 @@ module tb_WRAPPER_TOP;
         $display("[%0t] Starting Pipelined Test for vanilla_stream_prj...", $time);
         $display("[%0t] Input: %0d-bit, Output: %0d-bit", $time, INPUT_WIDTH, OUTPUT_WIDTH);
         $display("[%0t] Test vectors: %s", $time, testhex_dir);
-        $display("[%0t] Repack 4x12-bit testhex to 4x16-bit AXIS lanes: %0d", $time, repack_12bit_input);
+        $display("[%0t] Repack 2x(4x12-bit) testhex rows to 8x16-bit AXIS lanes: %0d", $time, repack_12bit_input);
         $display("[%0t] Score threshold: %.6f", $time, score_threshold);
 
         sim_start_time = $time;
@@ -164,8 +193,10 @@ module tb_WRAPPER_TOP;
                 fifo_tail = (fifo_tail + 1) % 2048;
                 input_valid <= 1;
 
-                for (t = 0; t < NUM_TIMESTEPS; t = t + 1) begin
-                    input_data <= repack_12bit_input ? repack_12bit_to_axis16(current_sample_packed[t]) : current_sample_packed[t];
+                for (t = 0; t < INPUT_BEATS; t = t + 1) begin
+                    input_data <= (repack_12bit_input != 0) ?
+                                  pack_two_rows_to_axis128(current_sample_packed[2*t], current_sample_packed[2*t + 1]) :
+                                  {current_sample_packed[2*t + 1], current_sample_packed[2*t]};
                     @(posedge clk);
                     while (!input_ready) begin
                          @(posedge clk);
@@ -209,12 +240,12 @@ module tb_WRAPPER_TOP;
 
                     latency_cycles = (t_end - t_start) / CLK_PERIOD;
 
-                    out_float = $itor($signed(output_data[8:0])) / 16.0;
+                    out_float = $itor($signed(output_data[21:0])) / 2048.0;
 
                     prediction = (out_float > score_threshold) ? 1 : 0;
                     label_val = labels[START_SAMPLE_ID + received_count];
                     is_correct = (prediction == label_val) ? 1 : 0;
-                    if (is_correct) correct_count = correct_count + 1;
+                    if (is_correct != 0) correct_count = correct_count + 1;
 
                     total_latency_acc = total_latency_acc + latency_cycles;
 
@@ -244,8 +275,8 @@ module tb_WRAPPER_TOP;
             $display("                         SIMULATION SUMMARY");
             $display("================================================================================");
             $display("IP Core:             cnn_core_0");
-            $display("Input Interface:     %0d-bit AXI-Stream (4 x ap_fixed<12,6>)", INPUT_WIDTH);
-            $display("Output Interface:    %0d-bit AXI-Stream (1 x ap_fixed<9,5>, byte-aligned to 16-bit TDATA)", OUTPUT_WIDTH);
+            $display("Input Interface:     %0d-bit AXI-Stream (2 rows x 4 lanes x ap_fixed<9,4>, byte-aligned)", INPUT_WIDTH);
+            $display("Output Interface:    %0d-bit AXI-Stream (1 x ap_fixed<22,11>, byte-aligned)", OUTPUT_WIDTH);
             $display("Clock Period:        %.2f ns (%.0f MHz)", CLK_PERIOD, 1000.0/CLK_PERIOD);
             $display("--------------------------------------------------------------------------------");
             $display("Samples Sent:        %0d", sent_count);
