@@ -115,15 +115,20 @@ def sources_from_bender(repo_root: Path) -> tuple[list[Path], list[Path]]:
 
 
 def sources_from_checkout(repo_root: Path) -> tuple[list[Path], list[Path]]:
-    core_dirs = sorted(
-        (repo_root / ".bender" / "git" / "checkouts").glob(
-            "cnn-core-*/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog"
-        )
-    )
+    checkout_root = repo_root / ".bender" / "git" / "checkouts"
+    core_dirs: list[Path] = []
+    for pattern in (
+        "cnn-core-*/hls_streaming/cnn_core_streaming_prj/solution1/impl/verilog",
+        "cnn-core-*/hls_streaming/cnn_core_streaming_prj/solution1/syn/verilog",
+    ):
+        core_dirs.extend(sorted(checkout_root.glob(pattern)))
     if not core_dirs:
         return [], []
 
     core_files = sorted(core_dirs[-1].glob("*.v"))
+    if not any(path.name == "cnn_core.v" for path in core_files):
+        return [], []
+
     rtl_files = core_files + [repo_root / "hw" / "rtl" / "cnn_core_wrapper_top.v"]
     sim_files = [repo_root / "hw" / "sim" / "tb_stream.sv"]
     return rtl_files, sim_files
@@ -140,7 +145,9 @@ def resolve_sources(repo_root: Path) -> tuple[list[Path], list[Path]]:
 
     raise SystemExit(
         "Could not resolve simulation sources. Run `bender checkout`, fix Bender.local, "
-        "or make sure .bender/git/checkouts/cnn-core-*/hls_streaming/.../impl/verilog exists."
+        "or generate/export the cnn-core HLS RTL so that "
+        ".bender/git/checkouts/cnn-core-*/hls_streaming/cnn_core_streaming_prj/solution1/"
+        "{impl,syn}/verilog/cnn_core.v exists."
     )
 
 

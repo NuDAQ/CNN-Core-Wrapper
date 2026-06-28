@@ -20,8 +20,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module WRAPPER_TOP #(
-    parameter INPUT_WIDTH = 64,
-    parameter OUTPUT_WIDTH = 16,
+    parameter INPUT_WIDTH = 128,
+    parameter OUTPUT_WIDTH = 32,
     parameter NUM_TIMESTEPS = 256,
     parameter NUM_CHANNELS = 4
 )(
@@ -80,9 +80,9 @@ module WRAPPER_TOP #(
         .input_layer_TDATA   (input_axis_tdata),
         .input_layer_TVALID  (input_axis_tvalid),
         .input_layer_TREADY  (input_axis_tready),
-        .layer7_out_TDATA    (output_axis_tdata),
-        .layer7_out_TVALID   (output_axis_tvalid),
-        .layer7_out_TREADY   (output_axis_tready)
+        .layer9_out_TDATA    (output_axis_tdata),
+        .layer9_out_TVALID   (output_axis_tvalid),
+        .layer9_out_TREADY   (output_axis_tready)
     );
 
 endmodule
