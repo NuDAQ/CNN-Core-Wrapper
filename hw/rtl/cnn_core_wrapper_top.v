@@ -50,6 +50,7 @@ module WRAPPER_TOP #(
     wire [OUTPUT_WIDTH-1:0]      output_axis_tdata;
     wire                         output_axis_tvalid;
     wire                         output_axis_tready;
+    wire [21:0]                  output_compat_tdata;
 
     wire                         ap_start;
     wire                         ap_done;
@@ -83,7 +84,10 @@ module WRAPPER_TOP #(
         end
     end
 
-    assign output_data       = output_axis_tdata;
+    // Convert ap_fixed<23,13> to the existing ap_fixed<22,11> score format.
+    // Both formats use a zero-padded 32-bit AXI container.
+    assign output_compat_tdata = {output_axis_tdata[20:0], 1'b0};
+    assign output_data       = {{(OUTPUT_WIDTH-22){1'b0}}, output_compat_tdata};
     assign output_valid      = output_axis_tvalid;
     assign output_axis_tready = output_ready;
 

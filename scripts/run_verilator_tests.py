@@ -12,7 +12,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 WRAPPER = ROOT / "hw" / "rtl" / "cnn_core_wrapper_top.v"
-TESTS = [ROOT / "tests" / "tb_wrapper_repack.sv"]
+TESTS = [
+    ROOT / "tests" / "tb_wrapper_repack.sv",
+    ROOT / "tests" / "tb_wrapper_score_format.sv",
+]
 
 
 def main() -> int:
