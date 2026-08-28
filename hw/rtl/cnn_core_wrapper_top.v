@@ -42,13 +42,15 @@ module WRAPPER_TOP #(
 );
 
     // Internal Signals
-    wire [INPUT_WIDTH-1:0]       input_axis_tdata;
-    wire                         input_axis_tvalid;
+    reg  [511:0]                 input_axis_tdata;
+    reg                          input_axis_tvalid;
     wire                         input_axis_tready;
+    reg  [1:0]                   input_beat_count;
 
     wire [OUTPUT_WIDTH-1:0]      output_axis_tdata;
     wire                         output_axis_tvalid;
     wire                         output_axis_tready;
+    wire [21:0]                  output_compat_tdata;
 
     wire                         ap_start;
     wire                         ap_done;
@@ -56,11 +58,36 @@ module WRAPPER_TOP #(
     wire                         ap_ready;
 
     // Connections
-    assign input_axis_tdata  = input_data;
-    assign input_axis_tvalid = input_valid;
-    assign input_ready       = input_axis_tready;
+    assign input_ready = !input_axis_tvalid || input_axis_tready;
 
-    assign output_data       = output_axis_tdata;
+    always @(posedge clk) begin
+        if (!rst_n) begin
+            input_axis_tdata  <= 512'b0;
+            input_axis_tvalid <= 1'b0;
+            input_beat_count  <= 2'b0;
+        end else begin
+            if (input_axis_tvalid && input_axis_tready)
+                input_axis_tvalid <= 1'b0;
+
+            if (input_valid && input_ready) begin
+                case (input_beat_count)
+                    2'd0: input_axis_tdata[127:0]   <= input_data;
+                    2'd1: input_axis_tdata[255:128] <= input_data;
+                    2'd2: input_axis_tdata[383:256] <= input_data;
+                    2'd3: begin
+                        input_axis_tdata[511:384] <= input_data;
+                        input_axis_tvalid <= 1'b1;
+                    end
+                endcase
+                input_beat_count <= input_beat_count + 1'b1;
+            end
+        end
+    end
+
+    // Convert ap_fixed<23,13> to the existing ap_fixed<22,11> score format.
+    // Both formats use a zero-padded 32-bit AXI container.
+    assign output_compat_tdata = {output_axis_tdata[20:0], 1'b0};
+    assign output_data       = {{(OUTPUT_WIDTH-22){1'b0}}, output_compat_tdata};
     assign output_valid      = output_axis_tvalid;
     assign output_axis_tready = output_ready;
 
@@ -77,9 +104,9 @@ module WRAPPER_TOP #(
         .ap_done             (ap_done),
         .ap_idle             (ap_idle),
         .ap_ready            (ap_ready),
-        .input_layer_TDATA   (input_axis_tdata),
-        .input_layer_TVALID  (input_axis_tvalid),
-        .input_layer_TREADY  (input_axis_tready),
+        .waveform_TDATA      (input_axis_tdata),
+        .waveform_TVALID     (input_axis_tvalid),
+        .waveform_TREADY     (input_axis_tready),
         .layer9_out_TDATA    (output_axis_tdata),
         .layer9_out_TVALID   (output_axis_tvalid),
         .layer9_out_TREADY   (output_axis_tready)

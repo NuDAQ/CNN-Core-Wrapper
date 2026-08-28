@@ -26,6 +26,8 @@
 !scripts/**
 scripts/__pycache__/
 scripts/**/*.pyc
+!tests/
+!tests/**
 !add_sources.tcl
 ###########################################################################
 ##	VIVADO
