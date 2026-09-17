@@ -20,6 +20,13 @@ module WRAPPER_TOP #(
     output wire                         output_valid,
     input  wire                         output_ready
 );
+    generate
+        if (INPUT_WIDTH != 512 || OUTPUT_WIDTH != 32 ||
+            NUM_TIMESTEPS != 256 || NUM_CHANNELS != 4) begin : invalid_configuration
+            initial $fatal(1, "WRAPPER_TOP requires 512/32-bit ports and a 256x4 window");
+        end
+    endgenerate
+
     // No packing, score conversion, additional latency, or start scheduling.
     cnn_core cnn_core_inst (
         .ap_clk           (clk),
