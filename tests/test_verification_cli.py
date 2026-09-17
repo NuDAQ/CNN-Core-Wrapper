@@ -19,6 +19,14 @@ class VerificationCliTest(unittest.TestCase):
             self.assertEqual(report["status"], "passed")
             for phase in ["reset-input", "reset-compute", "reset-output"]:
                 self.assertIn(phase, report["scenarios"], "all reset phases must be qualified")
+    def test_behavioral_entry_uses_the_native_verifier(self):
+        with tempfile.TemporaryDirectory(prefix="wrapper-behavioral-") as tmp:
+            run = subprocess.run([sys.executable, str(ROOT / "scripts/run_behavioral_sim.py"),
+                                  "--output", tmp, "--scenario", "single"],
+                                 text=True, capture_output=True)
+            self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
+            self.assertIn("PASS native windows=1 inputs=32 outputs=1 starts=1 done=1", run.stdout)
+
     def test_one_shot_stops_after_exactly_one_result(self):
         with tempfile.TemporaryDirectory(prefix="wrapper-single-") as tmp:
             run = subprocess.run([sys.executable, str(ROOT / "scripts/run_verilator_tests.py"),
