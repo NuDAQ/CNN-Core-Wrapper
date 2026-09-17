@@ -125,3 +125,7 @@ scripts/**/*.pyc
 # Simulation result CSV and log files ARE tracked (see !out/** above)
 # Generated Vivado project under out/ (re-creatable by run_behavioral_sim.py)
 out/behavioral_sim/vivado_project/
+
+# Python test caches
+**/__pycache__/
+**/*.pyc

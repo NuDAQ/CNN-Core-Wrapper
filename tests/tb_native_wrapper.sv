@@ -35,6 +35,41 @@ module tb_native_wrapper;
                 else $fatal(1, "wrapper changed raw native score bits");
     endtask
 
+    task automatic abort_window(input integer phase);
+        integer pre_sent = 0, pre_accepted = 0, blocked_cycles = 0;
+        bit reached = 0;
+        for (integer cycle = 0; cycle < 2000; cycle++) begin
+            @(negedge clk);
+            start = pre_accepted == 0;
+            input_valid = pre_sent < 32;
+            if (input_valid) input_data = words[(windows-1)*32 + pre_sent];
+            output_ready = 0;
+            @(posedge clk);
+            check_ports();
+            if (start && ready) pre_accepted++;
+            if (input_valid && input_ready) pre_sent++;
+            if (output_valid) blocked_cycles++;
+            if ((phase == 2 && pre_sent == 7) ||
+                (phase == 3 && pre_sent == 32 && !output_valid) ||
+                (phase == 4 && blocked_cycles == 4)) begin
+                reached = 1;
+                break;
+            end
+        end
+        assert (reached) else $fatal(1, "reset phase was never reached");
+        @(negedge clk);
+        rst_n = 0; start = 0; input_valid = 0;
+        repeat (5) @(posedge clk);
+        @(negedge clk);
+        rst_n = 1; output_ready = 1;
+        repeat (8) begin
+            @(posedge clk);
+            check_ports();
+            assert (!output_valid && !done) else $fatal(1, "aborted task survived reset");
+        end
+        $display("RESET phase=%0d aborted_inputs=%0d blocked_cycles=%0d", phase, pre_sent, blocked_cycles);
+    endtask
+
     initial begin
         if (!$value$plusargs("WINDOWS=%d", windows) || windows < 1 || windows > MAX_WINDOWS)
             $fatal(1, "invalid WINDOWS");
@@ -43,13 +78,14 @@ module tb_native_wrapper;
         $readmemh("expected.hex", scores, 0, windows-1);
         repeat (5) @(negedge clk);
         rst_n = 1;
+        if (scenario >= 2) abort_window(scenario);
         for (integer cycle = 0; cycle < 500000; cycle++) begin
             @(negedge clk);
             start = accepted < windows;
-            input_valid = sent < windows*32 && (scenario == 0 || input_held ||
+            input_valid = sent < windows*32 && (scenario != 1 || input_held ||
                 ((cycle*5 >= (sent/32)*512 + (sent%32)*8) && (cycle%11 >= 3)));
             if (input_valid) input_data = words[sent];
-            output_ready = scenario == 0 ||
+            output_ready = scenario != 1 ||
                 ((cycle%137 < 40 || cycle%137 >= 95) && !(cycle >= 300 && cycle < 700));
             #1;
             check_ports();

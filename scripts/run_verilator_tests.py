@@ -25,7 +25,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--core-root", type=Path)
     parser.add_argument("--output", type=Path)
-    parser.add_argument("--scenario", choices=["all", "baseline", "stalls"], default="all")
+    parser.add_argument("--scenario", choices=["all", "baseline", "stalls", "reset-input", "reset-compute", "reset-output"], default="all")
     args = parser.parse_args()
     output = args.output or Path(tempfile.mkdtemp(prefix="cnn-wrapper-rtl-"))
     manifest = prepare(output, args.core_root)
@@ -45,7 +45,7 @@ def main():
              "-Irtl", "tb_native_wrapper.sv", *[str(p.relative_to(output)) for p in sorted((output / "rtl").glob("*.v"))]]
     print(f"Building actual IP RTL in {output}", flush=True)
     run(build, output, output / "build.log")
-    scenarios = {"baseline": 0, "stalls": 1}
+    scenarios = {"baseline": 0, "stalls": 1, "reset-input": 2, "reset-compute": 3, "reset-output": 4}
     selected = scenarios if args.scenario == "all" else {args.scenario: scenarios[args.scenario]}
     for name, mode in selected.items():
         result = run([str((output / "obj_dir/Vtb_native_wrapper").resolve()),
