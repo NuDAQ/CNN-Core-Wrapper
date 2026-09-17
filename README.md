@@ -44,7 +44,7 @@ For system source generation:
 bender script vivado -t fpga -t synthesis > /tmp/cnn-wrapper-sources.tcl
 ```
 
-Consumer targets receive RTL and IP assets without wrapper-top XDC. The dedicated `cnn_wrapper_ooc` target enables standalone constraints; `cnn_wrapper_test` together with `simulation` enables the native testbench. Stage ROM `.dat` files at the simulation/build working directory when creating a separate consumer flow.
+Consumer targets receive RTL and IP assets without wrapper-top XDC. The dedicated `cnn_wrapper_ooc` target enables the physical fixture and standalone constraints; `cnn_wrapper_test` together with `simulation` enables the native testbench. Stage ROM `.dat` files at the simulation/build working directory when creating a separate consumer flow.
 
 ## RTL verification
 
@@ -108,9 +108,9 @@ cd /path/to/transferred/cnn-wrapper-ooc
 vivado -mode batch -source run_ooc.tcl
 ```
 
-The flow performs fresh OOC synthesis, optimization, placement, physical optimization, and routing. Its declared standalone budget is a 5.000 ns clock, max/min input and output delays of 1.000/0.000 ns, and clock source site `BUFGCE_X0Y0` for OOC clock-delay estimation. Synchronous reset is timed. These are independent qualification assumptions; the integrated system owns its clock placement and timing environment.
+The flow performs fresh OOC synthesis, optimization, placement, physical optimization, and routing. The qualification-only `WRAPPER_OOC` fixture surrounds the unchanged wrapper with launch/capture registers on the same BUFG clock. The period is 5.000 ns; paths crossing the DUT boundary have a 4.000 ns maximum delay, reserving 1 ns. Normal hold analysis and synchronous reset paths remain active. Only external pin-to-launch-register and capture-register-to-pin fixture paths are excluded. The fixture is a physical timing structure, not a functional streaming adapter, and is never included in normal consumer source lists. These are independent qualification assumptions; the integrated system owns its clock placement and timing environment.
 
-Passing requires nonnegative setup, hold, and pulse-width slack, complete required timing coverage, completed routing, and no blocking DRCs. Failures exit nonzero. `result.json` is written only after the gates pass; reports, full Vivado logs, the source manifest, and `routed.dcp` provide the evidence. Historical GUI projects, board pin files, and old `out/` results are not inputs to this batch flow.
+Passing requires nonnegative setup, hold, and pulse-width slack, complete required timing coverage, verified 4 ns launch/capture budgets, completed routing, and no blocking DRCs. Failures exit nonzero. `result.json` is written only after the gates pass; reports, full Vivado logs, the source manifest, and `routed.dcp` provide the evidence. Historical GUI projects, board pin files, and old `out/` results are not inputs to this batch flow.
 
 ## System handoff
 
