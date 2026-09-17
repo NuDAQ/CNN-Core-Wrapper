@@ -25,6 +25,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--core-root", type=Path)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--scenario", choices=["all", "baseline", "stalls"], default="all")
     args = parser.parse_args()
     output = args.output or Path(tempfile.mkdtemp(prefix="cnn-wrapper-rtl-"))
     manifest = prepare(output, args.core_root)
@@ -44,19 +45,23 @@ def main():
              "-Irtl", "tb_native_wrapper.sv", *[str(p.relative_to(output)) for p in sorted((output / "rtl").glob("*.v"))]]
     print(f"Building actual IP RTL in {output}", flush=True)
     run(build, output, output / "build.log")
-    result = run([str((output / "obj_dir/Vtb_native_wrapper").resolve()), f"+WINDOWS={len(scores)}"],
-                 output, output / "simulation.log")
-    expected_summary = "PASS native windows=96 inputs=3072 outputs=96 starts=96 done=96"
-    if expected_summary not in result:
-        raise RuntimeError("Simulator did not report complete verification")
+    scenarios = {"baseline": 0, "stalls": 1}
+    selected = scenarios if args.scenario == "all" else {args.scenario: scenarios[args.scenario]}
+    for name, mode in selected.items():
+        result = run([str((output / "obj_dir/Vtb_native_wrapper").resolve()),
+                      f"+WINDOWS={len(scores)}", f"+SCENARIO={mode}"],
+                     output, output / f"{name}.log")
+        expected_summary = "PASS native windows=96 inputs=3072 outputs=96 starts=96 done=96"
+        if expected_summary not in result:
+            raise RuntimeError("Simulator did not report complete verification")
+        print(result, end="")
     manifest["verification"] = {
         "verilator": subprocess.check_output(["verilator", "--version"], text=True).strip(),
-        "compile_command": build, "windows": len(scores), "status": "passed",
+        "compile_command": build, "windows": len(scores), "scenarios": list(selected), "status": "passed",
         "reference_sha256": hashlib.sha256(expected.read_bytes()).hexdigest(),
         "input_sha256": hashlib.sha256(inputs.read_bytes()).hexdigest(),
     }
     (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-    print(result, end="")
     print(f"Evidence: {output}")
 
 

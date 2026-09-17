@@ -11,6 +11,10 @@ module tb_native_wrapper;
     wire [31:0] ref_data;
     logic [511:0] words [0:MAX_WINDOWS*32-1];
     logic [31:0] scores [0:MAX_WINDOWS-1];
+    integer scenario = 0, gaps = 0, input_stalls = 0, output_stalls = 0;
+    logic input_held = 0, output_held = 0;
+    logic [511:0] held_input;
+    logic [31:0] held_output;
     integer windows, sent = 0, received = 0, accepted = 0, completed = 0;
 
     WRAPPER_TOP dut(.*);
@@ -34,6 +38,7 @@ module tb_native_wrapper;
     initial begin
         if (!$value$plusargs("WINDOWS=%d", windows) || windows < 1 || windows > MAX_WINDOWS)
             $fatal(1, "invalid WINDOWS");
+        if (!$value$plusargs("SCENARIO=%d", scenario)) scenario = 0;
         $readmemh("input.hex", words, 0, windows*32-1);
         $readmemh("expected.hex", scores, 0, windows-1);
         repeat (5) @(negedge clk);
@@ -41,13 +46,27 @@ module tb_native_wrapper;
         for (integer cycle = 0; cycle < 500000; cycle++) begin
             @(negedge clk);
             start = accepted < windows;
-            input_valid = sent < windows*32;
+            input_valid = sent < windows*32 && (scenario == 0 || input_held ||
+                ((cycle*5 >= (sent/32)*512 + (sent%32)*8) && (cycle%11 >= 3)));
             if (input_valid) input_data = words[sent];
-            output_ready = 1;
+            output_ready = scenario == 0 ||
+                ((cycle%137 < 40 || cycle%137 >= 95) && !(cycle >= 300 && cycle < 700));
             #1;
             check_ports();
             @(posedge clk);
             check_ports();
+            if (input_held)
+                assert (input_valid && input_data === held_input)
+                    else $fatal(1, "test source violated stalled-input stability");
+            if (output_held)
+                assert (output_valid && output_data === held_output)
+                    else $fatal(1, "output changed under backpressure");
+            input_held = input_valid && !input_ready;
+            output_held = output_valid && !output_ready;
+            held_input = input_data; held_output = output_data;
+            if (!input_valid && sent < windows*32) gaps++;
+            if (input_held) input_stalls++;
+            if (output_held) output_stalls++;
             if (start && ready) accepted++;
             if (done) completed++;
             if (input_valid && input_ready) sent++;
@@ -69,6 +88,10 @@ module tb_native_wrapper;
             assert (!output_valid && !done) else $fatal(1, "extra transaction after stop");
         end
         assert (idle) else $fatal(1, "IP not idle after all transactions");
+        if (scenario == 1)
+            assert (gaps > 0 && input_stalls > 0 && output_stalls > 0)
+                else $fatal(1, "stall scenario did not exercise all handshakes");
+        $display("COVERAGE scenario=%0d gaps=%0d input_stalls=%0d output_stalls=%0d", scenario, gaps, input_stalls, output_stalls);
         $display("PASS native windows=%0d inputs=%0d outputs=%0d starts=%0d done=%0d", windows, sent, received, accepted, completed);
         $finish;
     end
