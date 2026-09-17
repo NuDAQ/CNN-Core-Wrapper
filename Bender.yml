@@ -23,4 +23,5 @@ sources:
   # System consumers own their clocks and constraints.
   - target: all(fpga, synthesis, cnn_wrapper_ooc)
     files:
+      - hw/verification/wrapper_ooc_top.v
       - hw/xdc/wrapper_ooc.xdc

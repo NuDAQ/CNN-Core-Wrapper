@@ -19,11 +19,13 @@ def main():
     output = args.output.resolve()
     manifest = prepare(output, args.core_root)
     for source, name in [(ROOT / "scripts/run_ooc.tcl", "run_ooc.tcl"),
-                         (ROOT / "hw/xdc/wrapper_ooc.xdc", "ooc.xdc")]:
+                         (ROOT / "hw/xdc/wrapper_ooc.xdc", "ooc.xdc"),
+                         (ROOT / "hw/verification/wrapper_ooc_top.v", "rtl/wrapper_ooc_top.v")]:
         shutil.copyfile(source, output / name)
         manifest["files"].append({"path": name, "source": str(source),
                                   "sha256": hashlib.sha256(source.read_bytes()).hexdigest()})
-    manifest["ooc"] = {"clock_source_site": "BUFGCE_X0Y0", "input_delay_ns": {"min": 0.0, "max": 1.0},
+    manifest["ooc"] = {"top": "WRAPPER_OOC", "boundary_max_ns": 4.0,
+                       "clock_buffer": "BUFG", "input_delay_ns": {"min": 0.0, "max": 1.0},
                        "output_delay_ns": {"min": 0.0, "max": 1.0},
                        "command": ["vivado", "-mode", "batch", "-source", "run_ooc.tcl"],
                        "status": "prepared"}

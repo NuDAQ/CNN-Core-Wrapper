@@ -6,12 +6,19 @@ proc write_text {path text} {
 }
 
 if {[catch {
+    file delete -force result.json
     set_param general.maxThreads 4
     file mkdir reports
     create_project -in_memory -part xcku5p-ffvb676-2-e
     read_verilog [lsort [glob rtl/*.v]]
     read_xdc ooc.xdc
-    synth_design -top WRAPPER_TOP -part xcku5p-ffvb676-2-e -mode out_of_context
+    synth_design -top WRAPPER_OOC -part xcku5p-ffvb676-2-e -mode out_of_context
+    set launch_cells [get_cells -hierarchical -filter {NAME =~ launch_* && IS_SEQUENTIAL}]
+    set capture_cells [get_cells -hierarchical -filter {NAME =~ capture_* && IS_SEQUENTIAL}]
+    if {[llength $launch_cells] != 516 || [llength $capture_cells] != 37} {
+        error "Missing fixture registers: launch=[llength $launch_cells], capture=[llength $capture_cells]"
+    }
+    if {[llength [get_cells u_wrapper]] != 1} {error "Missing wrapper hierarchy"}
     report_utilization -file reports/post_synth_utilization.rpt
     opt_design
     place_design
@@ -25,6 +32,19 @@ if {[catch {
     report_methodology -file reports/methodology.rpt
     report_exceptions -file reports/exceptions.rpt
     report_timing_summary -delay_type min_max -check_timing_verbose -report_unconstrained -file reports/timing_summary.rpt
+    # Prove both boundary budgets exist and produce actual timed paths.
+    foreach direction {launch capture} {
+        if {$direction eq "launch"} {
+            set paths [get_timing_paths -from $launch_cells -max_paths 1]
+            report_timing -from $launch_cells -delay_type min_max -max_paths 10 -file reports/launch_boundary.rpt
+        } else {
+            set paths [get_timing_paths -to $capture_cells -max_paths 1]
+            report_timing -to $capture_cells -delay_type min_max -max_paths 10 -file reports/capture_boundary.rpt
+        }
+        if {[llength $paths] != 1 || abs([get_property REQUIREMENT $paths] - 4.0) > 0.001} {
+            error "Missing or incorrect 4 ns $direction boundary budget"
+        }
+    }
     set fp [open reports/timing_summary.rpt r]
     set timing [read $fp]
     close $fp
@@ -60,7 +80,7 @@ if {[catch {
     set blocking [get_drc_violations -filter {SEVERITY == Error || SEVERITY == {Critical Warning}}]
     if {[llength $blocking] != 0} {error "Blocking DRC violations: $blocking"}
     lassign $metrics wns whs wpws
-    write_text result.json [format {"status":"passed","part":"xcku5p-ffvb676-2-e","period_ns":5.0,"wns_ns":%s,"whs_ns":%s,"wpws_ns":%s,"vivado":"%s"} $wns $whs $wpws [version -short]]
+    write_text result.json [format {"status":"passed","part":"xcku5p-ffvb676-2-e","top":"WRAPPER_OOC","period_ns":5.0,"boundary_max_ns":4.0,"wns_ns":%s,"whs_ns":%s,"wpws_ns":%s,"vivado":"%s"} $wns $whs $wpws [version -short]]
     # Add the outer JSON object without Tcl interpreting JSON brackets.
     set fp [open result.json r]; set result [read $fp]; close $fp
     write_text result.json "\{$result\}"
