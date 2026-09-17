@@ -1,0 +1,2 @@
+# Additional dependency for build_reference.py only.
+numpy>=1.24,<3

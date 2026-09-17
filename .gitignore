@@ -129,3 +129,5 @@ out/behavioral_sim/vivado_project/
 # Python test caches
 **/__pycache__/
 **/*.pyc
+
+!QUALIFICATION.md
