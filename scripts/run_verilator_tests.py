@@ -63,6 +63,11 @@ def main():
     (output / "input.hex").write_text("\n".join(words) + "\n")
     (output / "expected.hex").write_text("\n".join(scores) + "\n")
     shutil.copyfile(ROOT / "tests/tb_native_wrapper.sv", output / "tb_native_wrapper.sv")
+    for name in ["tb_native_wrapper.sv", "input.hex", "expected.hex"]:
+        manifest["files"].append({"path": name,
+                                  "sha256": hashlib.sha256((output / name).read_bytes()).hexdigest()})
+    manifest["verifier_sha256"] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     build = ["verilator", "--binary", "--timing", "--assert", "--converge-limit", "10000",
              "-j", "4", "-Wno-fatal", "--top-module", "tb_native_wrapper", "--Mdir", "obj_dir",
              "-Irtl", "tb_native_wrapper.sv", *[str(p.relative_to(output)) for p in sorted((output / "rtl").glob("*.v"))]]

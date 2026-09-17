@@ -15,7 +15,11 @@ class VerificationCliTest(unittest.TestCase):
             run = subprocess.run([sys.executable, str(ROOT / "scripts/run_verilator_tests.py"),
                                   "--output", tmp], text=True, capture_output=True)
             self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
-            report = json.loads((Path(tmp) / "manifest.json").read_text())["verification"]
+            manifest = json.loads((Path(tmp) / "manifest.json").read_text())
+            paths = {entry["path"] for entry in manifest["files"]}
+            self.assertTrue({"tb_native_wrapper.sv", "input.hex", "expected.hex"} <= paths,
+                            "the replay manifest must cover the testbench and complete stimulus")
+            report = manifest["verification"]
             self.assertEqual(report["status"], "passed")
             for phase in ["reset-input", "reset-compute", "reset-output"]:
                 self.assertIn(phase, report["scenarios"], "all reset phases must be qualified")
@@ -58,6 +62,28 @@ class VerificationCliTest(unittest.TestCase):
             self.assertEqual(report["builtin_windows"], 96)
             self.assertEqual(report["additional_windows"], 1)
             self.assertEqual(report["windows"], 97)
+
+    def test_wrong_score_is_a_failed_run_not_a_partial_success(self):
+        with tempfile.TemporaryDirectory(prefix="wrapper-negative-") as tmp:
+            root = Path(tmp)
+            extra = root / "extra"
+            extra.mkdir()
+            (extra / "input.hex").write_text(("0"*128 + "\n")*32)
+            # Deliberately wrong by one bit; the independent zero-window result is 001ff9c3.
+            (extra / "expected.hex").write_text("001ff9c2\n")
+            (extra / "reference.json").write_text(json.dumps({
+                "windows": 1, "vitis_crosscheck_windows": 96,
+                "ip_revision": "eca9b12f9f49f4b7324ed9ed241a44086ca9c842",
+                "files": {name: hashlib.sha256((extra / name).read_bytes()).hexdigest()
+                          for name in ["input.hex", "expected.hex"]},
+            }))
+            output = root / "run"
+            run = subprocess.run([sys.executable, str(ROOT / "scripts/run_verilator_tests.py"),
+                                  "--output", str(output), "--reference", str(extra),
+                                  "--scenario", "baseline"], text=True, capture_output=True)
+            self.assertNotEqual(run.returncode, 0)
+            self.assertIn("score window=96", run.stdout + run.stderr)
+            self.assertNotIn("verification", json.loads((output / "manifest.json").read_text()))
 
 
 
