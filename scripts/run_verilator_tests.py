@@ -26,7 +26,7 @@ def main():
     parser.add_argument("--core-root", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--reference", type=Path, help="Add a build_reference.py bundle to the built-in corpus")
-    parser.add_argument("--scenario", choices=["all", "baseline", "stalls", "reset-input", "reset-compute", "reset-output"], default="all")
+    parser.add_argument("--scenario", choices=["all", "single", "baseline", "stalls", "reset-input", "reset-compute", "reset-output"], default="all")
     args = parser.parse_args()
     output = args.output or Path(tempfile.mkdtemp(prefix="cnn-wrapper-rtl-"))
     manifest = prepare(output, args.core_root)
@@ -68,14 +68,15 @@ def main():
              "-Irtl", "tb_native_wrapper.sv", *[str(p.relative_to(output)) for p in sorted((output / "rtl").glob("*.v"))]]
     print(f"Building actual IP RTL in {output}", flush=True)
     run(build, output, output / "build.log")
-    scenarios = {"baseline": 0, "stalls": 1, "reset-input": 2, "reset-compute": 3, "reset-output": 4}
+    scenarios = {"single": 0, "baseline": 0, "stalls": 1, "reset-input": 2, "reset-compute": 3, "reset-output": 4}
     selected = scenarios if args.scenario == "all" else {args.scenario: scenarios[args.scenario]}
     for name, mode in selected.items():
+        window_count = 1 if name == "single" else len(scores)
         result = run([str((output / "obj_dir/Vtb_native_wrapper").resolve()),
-                      f"+WINDOWS={len(scores)}", f"+SCENARIO={mode}"],
+                      f"+WINDOWS={window_count}", f"+SCENARIO={mode}"],
                      output, output / f"{name}.log")
-        expected_summary = (f"PASS native windows={len(scores)} inputs={len(words)} "
-                            f"outputs={len(scores)} starts={len(scores)} done={len(scores)}")
+        expected_summary = (f"PASS native windows={window_count} inputs={window_count*32} "
+                            f"outputs={window_count} starts={window_count} done={window_count}")
         if expected_summary not in result:
             raise RuntimeError("Simulator did not report complete verification")
         print(result, end="")
