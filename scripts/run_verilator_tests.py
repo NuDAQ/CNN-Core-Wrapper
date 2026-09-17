@@ -25,6 +25,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--core-root", type=Path)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--reference", type=Path, help="Add a build_reference.py bundle to the built-in corpus")
     parser.add_argument("--scenario", choices=["all", "baseline", "stalls", "reset-input", "reset-compute", "reset-output"], default="all")
     args = parser.parse_args()
     output = args.output or Path(tempfile.mkdtemp(prefix="cnn-wrapper-rtl-"))
@@ -37,6 +38,28 @@ def main():
     scores = re.findall(r"^0x([0-9a-fA-F]+)$", expected.read_text(), re.M)
     if len(scores) != 96 or len(words) != 32*len(scores):
         raise RuntimeError("Incomplete Vitis reference corpus; expected 96 windows")
+    additional_windows = 0
+    if args.reference:
+        extra = args.reference.resolve()
+        metadata = json.loads((extra / "reference.json").read_text())
+        if metadata["ip_revision"] != manifest["ip_revision"] or metadata["vitis_crosscheck_windows"] != 96:
+            raise RuntimeError("Additional reference does not match the verified native IP revision")
+        for name in ["input.hex", "expected.hex"]:
+            if hashlib.sha256((extra / name).read_bytes()).hexdigest() != metadata["files"][name]:
+                raise RuntimeError(f"Additional reference hash mismatch: {name}")
+        extra_words = (extra / "input.hex").read_text().splitlines()
+        extra_scores = (extra / "expected.hex").read_text().splitlines()
+        additional_windows = metadata["windows"]
+        if additional_windows < 1 or len(extra_words) != 32*additional_windows or len(extra_scores) != additional_windows:
+            raise RuntimeError("Incomplete additional reference corpus")
+        for values, bits in [(extra_words, 512), (extra_scores, 32)]:
+            if any(not re.fullmatch(r"[0-9a-fA-F]+", v) or int(v, 16) >= 2**bits for v in values):
+                raise RuntimeError("Invalid raw reference word")
+        words += extra_words
+        scores += extra_scores
+        manifest["additional_reference"] = metadata
+    if len(scores) > 2048:
+        raise RuntimeError("At most 2048 total windows are supported by the testbench")
     (output / "input.hex").write_text("\n".join(words) + "\n")
     (output / "expected.hex").write_text("\n".join(scores) + "\n")
     shutil.copyfile(ROOT / "tests/tb_native_wrapper.sv", output / "tb_native_wrapper.sv")
@@ -51,13 +74,15 @@ def main():
         result = run([str((output / "obj_dir/Vtb_native_wrapper").resolve()),
                       f"+WINDOWS={len(scores)}", f"+SCENARIO={mode}"],
                      output, output / f"{name}.log")
-        expected_summary = "PASS native windows=96 inputs=3072 outputs=96 starts=96 done=96"
+        expected_summary = (f"PASS native windows={len(scores)} inputs={len(words)} "
+                            f"outputs={len(scores)} starts={len(scores)} done={len(scores)}")
         if expected_summary not in result:
             raise RuntimeError("Simulator did not report complete verification")
         print(result, end="")
     manifest["verification"] = {
         "verilator": subprocess.check_output(["verilator", "--version"], text=True).strip(),
         "compile_command": build, "windows": len(scores), "scenarios": list(selected), "status": "passed",
+        "builtin_windows": 96, "additional_windows": additional_windows,
         "reference_sha256": hashlib.sha256(expected.read_bytes()).hexdigest(),
         "input_sha256": hashlib.sha256(inputs.read_bytes()).hexdigest(),
     }
