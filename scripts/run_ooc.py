@@ -23,7 +23,7 @@ def main():
         shutil.copyfile(source, output / name)
         manifest["files"].append({"path": name, "source": str(source),
                                   "sha256": hashlib.sha256(source.read_bytes()).hexdigest()})
-    manifest["ooc"] = {"input_delay_ns": {"min": 0.0, "max": 1.0},
+    manifest["ooc"] = {"clock_source_site": "BUFGCE_X0Y0", "input_delay_ns": {"min": 0.0, "max": 1.0},
                        "output_delay_ns": {"min": 0.0, "max": 1.0},
                        "command": ["vivado", "-mode", "batch", "-source", "run_ooc.tcl"],
                        "status": "prepared"}
